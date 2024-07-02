@@ -1,0 +1,13 @@
+# Compiled source #
+###################
+*.cpg
+*.dbf
+*.prj
+*.qmd
+*.shp
+*.shx
+*.met
+
+# Logs and databases #
+######################
+*.csv
