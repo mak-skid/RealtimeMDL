@@ -11,3 +11,10 @@
 # Logs and databases #
 ######################
 *.csv
+.DS_Store
+
+geotorchai
+
+*.pdf
+*.png
+*.pkl
