@@ -1,17 +1,17 @@
 from matplotlib.colors import Normalize
 import numpy as np
 import matplotlib.pyplot as plt
-from datapreprocessing import create_np_matrices
+from utils.datapreprocessing_utils import create_np_matrices
 from pyspark.sql import DataFrame, functions as F
 from matplotlib.collections import LineCollection
 import geopandas as gpd
 
 
-def us101_section_vis(df: DataFrame, num_section: int, timestamp: str) -> None:
-    vel_matrix, dens_matrix, acc_matrix = create_np_matrices(df, num_section)
+def us101_section_vis(df: DataFrame, num_section_split: int, timestamp: str, with_ramp: bool) -> None:
+    vel_matrix, dens_matrix, acc_matrix = create_np_matrices(df, num_section_split)
     
-    lanes = ["1", "2", "3", "4", "5", "6 (Ramp)"]
-    sections = [i for i in range(num_section+1)]
+    lanes = ["1", "2", "3", "4", "5", "6 (Ramp)"] if with_ramp else ["1", "2", "3", "4", "5"]
+    sections = [i for i in range(num_section_split+1)]
 
     fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(35, 10))
     im1 = ax1.imshow(vel_matrix, cmap='turbo_r', norm=Normalize(vmin=0, vmax=60))

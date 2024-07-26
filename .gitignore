@@ -14,6 +14,9 @@
 .DS_Store
 
 geotorchai
+models
+preprocessed_data
+us101_7am_section_agg
 
 *.pdf
 *.png
