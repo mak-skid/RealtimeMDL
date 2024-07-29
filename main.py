@@ -3,7 +3,6 @@ import pickle
 from sedona.spark import *
 from pyspark.sql.types import StructType, StructField, IntegerType, LongType, DoubleType, StringType
 from pyspark.ml.torch.distributor import TorchDistributor
-from predict import predict
 from utils.datapreprocessing_utils import *
 from pyspark.sql import functions as F
 from pyspark.sql import DataFrame
@@ -33,12 +32,8 @@ preprocessing_param = {
     "num_section_splits": [20], #[40, 60], 
     "history_len": [20], #[90, 120, 150],
     "with_ramp": [False],
-    "num_skip": 20
+    "num_skip": 0
     }
-
-predict()
-
-exit()
 
 for timewindow in preprocessing_param["timewindow"]:
     for num_section_splits in preprocessing_param["num_section_splits"]:
@@ -147,6 +142,6 @@ for timewindow in preprocessing_param["timewindow"]:
                         with_ramp=with_ramp
                         )
 
-                createModelAndTrain(full_dataset=full_dataset, num_features=3, num_skip=preprocessing_param['num_skip'])
+                createModelAndTrain(full_dataset=full_dataset, num_skip=preprocessing_param['num_skip'])
 
                 #TorchDistributor(num_processes=2, local_mode=False, use_gpu=False).run(createDistributedModelAndTrain)

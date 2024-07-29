@@ -40,10 +40,27 @@ class US101Dataset(Dataset):
         self.num_samples = num_timewindows - history_len - num_skip - predict_len
         if not self.num_samples >= 1:
             raise ValueError("num_samples must be greater than 1")
+
+        # For scaling
+        scale = df.agg(
+            F.min("avg(v_Vel)"), F.max("avg(v_Vel)"), 
+            F.min("avg(v_Acc)"), F.max("avg(v_Acc)"),
+            F.max("count")
+            ).collect()[0]
+        self.scale = {
+            "min(avg(v_Vel))": scale["min(avg(v_Vel))"],
+            "max(avg(v_Vel))": scale["max(avg(v_Vel))"],
+            "min(avg(v_Acc))": scale["min(avg(v_Acc))"],
+            "max(avg(v_Acc))": scale["max(avg(v_Acc))"],
+            "min(count)": 0, # for some reason, the min(count) is not 0
+            "max(count)": scale["max(count)"]
+        }
+        
+        print("scale: ", self.scale)
   
         mat3d = df.rdd.map(lambda row: (row["TimeWindow"], row)) \
             .groupByKey() \
-            .map(lambda x: rdd_to_np_matrices(x[0], x[1], self.num_lanes, self.num_sections, self.with_ramp)) \
+            .map(lambda x: rdd_to_np_matrices(x[0], x[1], self.num_lanes, self.num_sections, self.scale, self.with_ramp)) \
             .sortBy(lambda x: x[0]) \
             .values() \
             .collect()
@@ -96,6 +113,7 @@ class US101Dataset(Dataset):
 
         self.X_data = torch.tensor(history_data)
         self.Y_data = torch.tensor(predict_data)
+
 
     def __len__(self) -> int:
         return self.num_samples

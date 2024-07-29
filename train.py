@@ -9,6 +9,7 @@ from torch.utils.data.sampler import SubsetRandomSampler
 import torch.nn as nn
 from torchinfo import summary
 from conv_lstm import ConvLSTM
+from lstm5d import LSTM5D
 from trainlog import Logger
 from us101dataset import US101Dataset
 from utils.train_utils import *
@@ -18,13 +19,14 @@ LOAD_INITIAL = False
 
 def createModelAndTrain(
     full_dataset: US101Dataset,
-    num_features: int,
+    num_features: int = 1,
     test_ratio: float = 0.2,
     validation_ratio: float = 0.1,
     learning_rate: float = 0.0002,
     num_epochs: int = 50,
     batch_size: int = 16,
-    num_skip: int = 0
+    num_skip: int = 0,
+    model: str = 'lstm5d'
     ) -> None:
 
     params = { # parameters for the DataLoader
@@ -36,8 +38,8 @@ def createModelAndTrain(
     hyperparams = { 
         'learning_rate': learning_rate,
         'batch_size': batch_size,
-        'num_layers': 3,
-        'hidden_dim': [64, 64, 3],
+        'num_layers': 1, # should be 1 because 5 lanes shrink to 3 lanes after one conv and we don't want it to shrink further
+        'hidden_dim': 64,
         'num_skip': num_skip
     }
 
@@ -45,7 +47,7 @@ def createModelAndTrain(
     os.makedirs(model_dir, exist_ok=True)
 
     with_ramp_sign = "w" if full_dataset.with_ramp else "wo"
-    model_name = f"model_{with_ramp_sign}_{full_dataset.timewindow}_{full_dataset.num_sections}_{full_dataset.history_len}_{num_features}.best.pth"
+    model_name = f"{model}/model_{with_ramp_sign}_{full_dataset.timewindow}_{full_dataset.num_sections}_{full_dataset.history_len}_{num_features}.best.pth"
     logger = Logger(model_name, hyperparams)
 
     initial_checkpoint = model_dir + "/" + model_name
@@ -68,12 +70,10 @@ def createModelAndTrain(
     val_generator = DataLoader(full_dataset, **params, sampler=valid_sampler)
     test_generator = DataLoader(full_dataset, **params, sampler=test_sampler)
 
-    """
-    ********** Uncomment to save the test dataset for inference **********
+
+    # Uncomment to save the test dataset for inference 
     with open(f"test_data/testdata_{with_ramp_sign}_{full_dataset.timewindow}_{full_dataset.num_sections}_{full_dataset.history_len}_{num_features}.pkl", "wb") as f:
         pickle.dump(test_generator, f)
-    exit()
-    """
 
     if torch.cuda.is_available():
         device = torch.device("cuda")
@@ -82,7 +82,10 @@ def createModelAndTrain(
     else:
         device = torch.device("cpu")
 
-    model = ConvLSTM(input_dim=num_features, hidden_dim=hyperparams['hidden_dim'], num_layers=hyperparams['num_layers'])
+    if model == "conv_lstm":
+        model = ConvLSTM(input_dim=num_features, hidden_dim=hyperparams['hidden_dim'], num_layers=hyperparams['num_layers'])
+    else:
+        model = LSTM5D(input_dim=num_features, hidden_dim=hyperparams['hidden_dim'], num_layers=hyperparams['num_layers'])
 
     if LOAD_INITIAL:
         model.load_state_dict(torch.load(initial_checkpoint, map_location=lambda storage, loc: storage))
@@ -160,6 +163,6 @@ def createModelAndTrain(
     print("\n************************")
     print(f"Training time: {int(training_time)} sec")
     print(f"Test ConvLSTM model with US101 Dataset {with_ramp_sign} ramp:")
-    final_res = 'Test mse: %.6f mae: %.6f rmse (norm): %.6f' % (mse, mae, rmse)
+    final_res = 'Test (Scaled) mse: %.6f mae: %.6f rmse: %.6f' % (mse, mae, rmse)
     print(final_res)
     logger.write(final_res)

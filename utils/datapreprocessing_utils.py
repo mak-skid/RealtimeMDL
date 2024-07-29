@@ -1,5 +1,6 @@
 # Convert the coordinate system
 from pyspark import RDD
+import pyspark
 from sedona.sql.st_functions import ST_Transform, ST_Y, ST_X
 from sedona.sql.st_constructors import ST_Point
 from pyspark.sql import functions as F
@@ -139,7 +140,7 @@ def create_np_matrices(df: DataFrame, num_lanes: int, num_sections: int, with_ra
 
     ### IDEA### provide the results which contains the result with and without ramp
 
-def tensor_to_np_matrices(tensor: torch.Tensor) -> np.ndarray:
+def tensor_to_np_matrices(tensor: torch.Tensor) -> tuple[np.ndarray]:
     """
     tensor: torch tensor containing the data of avg(v_Vel), count, and avg(v_Acc) values
 
@@ -147,9 +148,10 @@ def tensor_to_np_matrices(tensor: torch.Tensor) -> np.ndarray:
     --------
     matrices: 3D numpy array (3, num_lanes, num_section+1) containing the avg(v_Vel), count, and avg(v_Acc) values
     """
-    return tensor.cpu().numpy()
+    np = tensor.detach().numpy()
+    return np[0], np[1], np[2]
 
-def rdd_to_np_matrices(key: int, iter, num_lanes: int, num_sections: int, with_ramp: bool = True) -> tuple[int, np.ndarray]:
+def rdd_to_np_matrices(key: int, iter, num_lanes: int, num_sections: int, scale: pyspark.sql.types.Row, with_ramp: bool = True) -> tuple[int, np.ndarray]:
     """
     iter: RDD iterator containing the US101 dataset
     num_lanes: int, number of lanes in the dataset
@@ -160,9 +162,16 @@ def rdd_to_np_matrices(key: int, iter, num_lanes: int, num_sections: int, with_r
     --------
     matrices: 3D numpy array (3, num_lanes, num_section+1) containing the avg(v_Vel), count, and avg(v_Acc) values
     """
+    def min_max_scaler(x: int, col: str) -> float:
+        """
+        x: float, value to scale
+        col: str, column name to scale
+        """
+        return x
+        # return (x - scale[f"min({col})"]) / (scale[f"max({col})"] - scale[f"min({col})"])
 
     # Create an empty matrix with the dimensions of Section_ID and Lane_ID
-    vel_matrix = np.full((num_lanes, num_sections), 60) # fill with 60 mph 
+    vel_matrix = np.full((num_lanes, num_sections), min_max_scaler(60, "avg(v_Vel)")) # fill with 60 mph 
     dens_matrix = np.zeros((num_lanes, num_sections))
     acc_matrix = np.zeros((num_lanes, num_sections))
 
@@ -182,12 +191,15 @@ def rdd_to_np_matrices(key: int, iter, num_lanes: int, num_sections: int, with_r
         if section_index == num_sections:
             section_index = num_sections - 1
 
-        vel_matrix[lane_index-1][section_index] = avg_vel
-        dens_matrix[lane_index-1][section_index] = count
-        acc_matrix[lane_index-1][section_index] = avg_acc
+        vel_matrix[lane_index-1][section_index] = min_max_scaler(avg_vel, "avg(v_Vel)")
+        dens_matrix[lane_index-1][section_index] = min_max_scaler(count, "count") 
+        acc_matrix[lane_index-1][section_index] = min_max_scaler(avg_acc, "avg(v_Acc)")
 
-    matrices = np.stack([vel_matrix, dens_matrix, acc_matrix])
+    """
+    matrices = np.stack([vel_matrix, dens_matrix, acc_matrix], axis=0)
     return key, matrices
+    """
+    return key, np.expand_dims(vel_matrix, axis=0)
 
 
 def section_agg(df: DataFrame, max_dist: int, num_section_splits: int) -> DataFrame:
