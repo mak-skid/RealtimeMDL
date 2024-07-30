@@ -60,7 +60,7 @@ def predict() -> None:
         break
         
 
-def visualise_output(outputT: torch.Tensor, timestamp: int, num_section_split: int, mat_type: str) -> None:
+def visualise_output(outputT, timestamp: int, num_section_split: int, mat_type: str) -> None:
     vel_matrix, dens_matrix, acc_matrix = tensor_to_np_matrices(outputT)
     
     lanes = ["1", "2", "3", "4", "5", "6 (Ramp)"] if len(vel_matrix) else ["1", "2", "3", "4", "5"]

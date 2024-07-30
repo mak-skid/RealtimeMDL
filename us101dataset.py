@@ -19,7 +19,7 @@ class US101Dataset(Dataset):
         history_len: int,
         predict_len: int,
         num_skip: int = 0,
-        with_ramp: bool = True,
+        with_ramp: bool = True
     ):
         if (end - start) < timewindow:
             raise ValueError("Time window must be less than the difference between start and end time")
@@ -105,14 +105,14 @@ class US101Dataset(Dataset):
             if num_timewindows - end_idx == 1:
                 print(f"{end_idx-predict_len-num_skip-history_len+1} History and Predict sample data created") 
 
-        history_data = np.stack(history_data)
-        predict_data = np.stack(predict_data)
+        self.history_data = np.stack(history_data)
+        self.predict_data = np.stack(predict_data)
 
-        print("History Data Shape: ", history_data.shape)
-        print("Predict Data Shape: ", predict_data.shape)
+        print("History Data Shape: ", self.history_data.shape)
+        print("Predict Data Shape: ", self.predict_data.shape)
 
-        self.X_data = torch.tensor(history_data)
-        self.Y_data = torch.tensor(predict_data)
+        self.X_data = torch.tensor(self.history_data)
+        self.Y_data = torch.tensor(self.predict_data)
 
 
     def __len__(self) -> int:
@@ -123,3 +123,6 @@ class US101Dataset(Dataset):
         y_data = self.Y_data[index]
         sample = {"x_data": x_data, "y_data": y_data}
         return sample
+    
+    def getShape(self):
+        return self.history_data.shape, self.predict_data.shape
