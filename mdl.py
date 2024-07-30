@@ -67,7 +67,7 @@ def createMDLModelAndTrain(
     plt.legend()
     plt.show()
 
-    y_pred = model.predict(y_test)
+    y_pred = model.predict(x_test)
     print(y_pred.shape, y_test.shape)
     model = model.save('models/mdl/mdl_model.keras')
     print('Model saved')
