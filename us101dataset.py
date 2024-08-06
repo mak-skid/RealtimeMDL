@@ -1,9 +1,8 @@
 import numpy as np
 import torch
-from torch.utils.data import Dataset, random_split, Subset
+from torch.utils.data import Dataset, random_split
 from pyspark.sql import functions as F
 from pyspark.sql import DataFrame
-import time
 
 from utils.datapreprocessing_utils import *
 
@@ -32,6 +31,8 @@ class US101Dataset(Dataset):
         self.with_ramp = with_ramp
         self.timewindow = timewindow
         self.num_skip = num_skip
+        self.start = start
+        self.end = end
 
         timewindow_id = (end - start) // self.timewindow
         num_timewindows = round(timewindow_id)

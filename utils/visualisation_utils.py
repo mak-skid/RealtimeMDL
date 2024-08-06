@@ -1,7 +1,7 @@
 from matplotlib.colors import Normalize
 import numpy as np
 import matplotlib.pyplot as plt
-from utils.datapreprocessing_utils import create_np_matrices
+from datapreprocessing_utils import create_np_matrices
 from pyspark.sql import DataFrame, functions as F
 from matplotlib.collections import LineCollection
 import geopandas as gpd

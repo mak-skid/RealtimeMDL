@@ -5,7 +5,7 @@ from matplotlib.colors import Normalize
 import numpy as np
 import torch
 
-from conv_lstm import ConvLSTM
+from train.training_models.conv_lstm import ConvLSTM
 from utils.datapreprocessing_utils import tensor_to_np_matrices
 from utils.train_utils import compute_errors
 

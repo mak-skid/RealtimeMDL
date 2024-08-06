@@ -7,6 +7,69 @@ from pyspark.sql import functions as F
 from pyspark.sql import SparkSession, DataFrame
 import numpy as np
 import torch
+from pyspark.sql.types import StructType, StructField, IntegerType, LongType, DoubleType, StringType, ArrayType
+
+def get_original_schema() -> pyspark.sql.types.StructType:
+    return StructType([
+        StructField("Vehicle_ID", IntegerType(), True),
+        StructField("Frame_ID", IntegerType(), True),
+        StructField("Total_Frames", IntegerType(), True),
+        StructField("Global_Time", LongType(), True),
+        StructField("Local_X", DoubleType(), True),
+        StructField("Local_Y", DoubleType(), True),
+        StructField("Global_X", DoubleType(), True),
+        StructField("Global_Y", DoubleType(), True),
+        StructField("v_length", DoubleType(), True),
+        StructField("v_Width", DoubleType(), True),
+        StructField("v_Class", IntegerType(), True),
+        StructField("v_Vel", DoubleType(), True),
+        StructField("v_Acc", DoubleType(), True),
+        StructField("Lane_ID", IntegerType(), True),
+        StructField("O_Zone", IntegerType(), True),
+        StructField("D_Zone", IntegerType(), True),
+        StructField("Int_ID", IntegerType(), True),
+        StructField("Section_ID", IntegerType(), True),
+        StructField("Direction", IntegerType(), True),
+        StructField("Movement", IntegerType(), True),
+        StructField("Preceding", IntegerType(), True),
+        StructField("Following", IntegerType(), True),
+        StructField("Space_Headway", DoubleType(), True),
+        StructField("Time_Headway", DoubleType(), True),
+        StructField("Location", StringType(), True)
+    ])
+
+def get_test_schema() -> pyspark.sql.types.StructType:
+    """
+    return StructType([
+        StructField("Global_Time", ArrayType(LongType()), False),
+        StructField("ElapsedTime", ArrayType(LongType()), False),
+        StructField("Vehicle_ID", ArrayType(IntegerType()), False),
+        StructField("Global_X", ArrayType(DoubleType()), False),
+        StructField("Global_Y", ArrayType(DoubleType()), False),
+        StructField("Local_X", ArrayType(DoubleType()), False),
+        StructField("Local_Y", ArrayType(DoubleType()), False),
+        StructField("v_Vel", ArrayType(DoubleType()), False),
+        StructField("v_Acc", ArrayType(DoubleType()), False),
+        StructField("Lane_ID", ArrayType(IntegerType()), False),
+        StructField("Location", ArrayType(StringType()), False)
+    ])
+    """
+    return ArrayType(
+                StructType([
+                    StructField("Global_Time", LongType(), False),
+                    StructField("ElapsedTime", LongType(), False),
+                    StructField("Vehicle_ID", IntegerType(), False),
+                    StructField("Global_X", DoubleType(), False),
+                    StructField("Global_Y", DoubleType(), False),
+                    StructField("Local_X", DoubleType(), False),
+                    StructField("Local_Y", DoubleType(), False),
+                    StructField("v_Vel", DoubleType(), False),
+                    StructField("v_Acc", DoubleType(), False),
+                    StructField("Lane_ID", IntegerType(), False),
+                    StructField("Location", StringType(), False)
+                ])
+            )
+            
 
 def convert_coordinate_system(df: DataFrame) -> DataFrame:
     """
@@ -195,11 +258,10 @@ def rdd_to_np_matrices(key: int, iter, num_lanes: int, num_sections: int, scale:
         dens_matrix[lane_index-1][section_index] = min_max_scaler(count, "count") 
         acc_matrix[lane_index-1][section_index] = min_max_scaler(avg_acc, "avg(v_Acc)")
 
-    """
-    matrices = np.stack([vel_matrix, dens_matrix, acc_matrix], axis=0)
+    matrices = np.stack([vel_matrix, dens_matrix, acc_matrix], axis=-1)
     return key, matrices
-    """
-    return key, np.expand_dims(vel_matrix, axis=0)
+    
+    #return key, np.expand_dims(vel_matrix, axis=-1)
 
 
 def section_agg(df: DataFrame, max_dist: int, num_section_splits: int) -> DataFrame:
@@ -226,8 +288,6 @@ def section_agg(df: DataFrame, max_dist: int, num_section_splits: int) -> DataFr
             F.round(F.avg("v_Acc"), 2).alias("avg(v_Acc)"), 
             F.count("*").alias("count")
         )
-    print("Section Aggregation Sample Result: ")
-    df.show(1)
     return df
 
 def timewindow_agg(df: DataFrame, start: int, end: int, timewindow: int) -> DataFrame:
