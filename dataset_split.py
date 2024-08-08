@@ -3,12 +3,12 @@ import pickle
 from sedona.spark import *
 from pyspark.sql.types import StructType, StructField, IntegerType, LongType, DoubleType, StringType
 from pyspark.ml.torch.distributor import TorchDistributor
-from train.mdl_train import createMDLModelAndTrain
+from mdl.mdl_train import createMDLModelAndTrain
 from utils.datapreprocessing_utils import *
 from pyspark.sql import functions as F
 from pyspark.sql import DataFrame
 
-from train.train import createModelAndTrain
+from lstms.lstm_train import createModelAndTrain
 from train.train_distributed import createDistributedModelAndTrain
 from us101dataset import US101Dataset
 

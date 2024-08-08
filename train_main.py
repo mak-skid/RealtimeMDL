@@ -3,7 +3,7 @@ import pickle
 from sedona.spark import *
 from pyspark.sql.types import StructType, StructField, IntegerType, LongType, DoubleType, StringType
 from pyspark.ml.torch.distributor import TorchDistributor
-from train.mdl_train import createMDLModelAndTrain
+from mdl.mdl_train import createMDLModelAndTrain
 from utils.datapreprocessing_utils import *
 from pyspark.sql import functions as F
 from pyspark.sql import DataFrame
@@ -110,7 +110,6 @@ for timewindow in preprocessing_param["timewindow"]:
                         num_skip=preprocessing_param['num_skip'],
                         with_ramp=with_ramp
                         )
-
-                #createModelAndTrain(full_dataset=full_dataset, num_skip=preprocessing_param['num_skip'])
+                    
                 createMDLModelAndTrain(train_dataset=train_dataset, num_features=1, num_skip=preprocessing_param['num_skip'])
-                #TorchDistributor(num_processes=2, local_mode=False, use_gpu=False).run(createDistributedModelAndTrain)
+

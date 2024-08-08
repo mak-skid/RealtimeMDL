@@ -1,5 +1,6 @@
 import os
 import pickle
+import keras
 from sedona.spark import *
 from pyspark.sql.types import StructType, StructField, IntegerType, LongType, DoubleType, StringType, TimestampType, DecimalType, ArrayType, FloatType
 from pyspark.ml.torch.distributor import TorchDistributor
@@ -22,9 +23,13 @@ class SecondWatermarkAggregator:
         self.num_section_splits = 20
         self.num_lanes = 5
         self.history_len = 20
-        self.with_ramp = False
         self.num_skip = 10
         self.max_dist = 2224.6633212502065
+        self.num_sections = self.num_section_splits + 1
+
+        with_ramp = False
+        self.with_ramp_sign = "w" if with_ramp else "wo"
+        self.num_features = 1
     
     def parse_df(self, df: DataFrame) -> DataFrame:
         key_schema = StructType([
@@ -42,6 +47,7 @@ class SecondWatermarkAggregator:
                 F.from_json(F.col("key").cast("string"), schema=key_schema).alias("parsed_key"),
                 F.from_json(F.col("value").cast("string"), schema=value_schema).alias("3D_mat")
             ) \
+            .withColumn("timewindow", F.col("parsed_key.timewindow")) \
             .withColumn("Global_Time", F.col("parsed_key.start_timestamp")) \
             .drop("parsed_key")
 
@@ -56,11 +62,29 @@ class SecondWatermarkAggregator:
                 ).alias("timewindow")
             ) \
             .agg(
-                F.sort_array(F.collect_list(F.struct("start_timestamp", "3D_mat"))).alias("4D_mat")
+                F.sort_array(F.collect_list(F.struct("Global_Time", "3D_mat"))).alias("4D_mat")
             ) \
             .withColumn("sorted_4D_mat", F.col("4D_mat.3D_mat")) \
-            .select("Global_Time", "sorted_4D_mat") # (history_len, num_lanes, num_sections, num_features)
+            .select("timewindow", "4D_mat.Global_Time", "sorted_4D_mat") # (history_len, num_lanes, num_sections, num_features)
+    
+    def real_time_prediction(self, df: DataFrame) -> DataFrame:
+        def prediction(rows):
+            model_name = f'mdl_model_{self.with_ramp_sign}_{self.timewindow}_{self.num_sections}_{self.history_len}_{self.num_features}_{self.num_skip}'
+            model = keras.saving.load_model(f"models/mdl/{model_name}.keras")
 
+            if len(rows) < 20:
+                return np.zeros((self.num_lanes, self.num_sections)).tolist()
+            input = rows[:20]
+            input_mat = np.array(input).reshape(1, self.history_len, self.num_lanes, self.num_sections, self.num_features)
+            pred = model.predict(input_mat)
+            return pred.reshape(self.num_lanes, self.num_sections).tolist()
+
+        pred_udf = F.udf(prediction, ArrayType(ArrayType(IntegerType())))
+
+        return df \
+            .withColumn("prediction", pred_udf(F.col("sorted_4D_mat"))) \
+            .select(F.col("timewindow").alias("based_timewindow"), F.col("prediction"))
+        
     def init_job(self):
         config = SedonaContext.builder() \
             .master("local[*]") \
@@ -87,8 +111,9 @@ class SecondWatermarkAggregator:
         df.printSchema()
         parsed_df = self.parse_df(df)
         test_df = self.to_4d_np(parsed_df)
+        pred_df = self.real_time_prediction(test_df)
 
-        query = parsed_df \
+        query = pred_df \
             .writeStream \
             .outputMode("update") \
             .format("console") \
