@@ -1,7 +1,7 @@
 import os
 import pickle
 from sedona.spark import *
-from pyspark.sql.types import StructType, StructField, IntegerType, LongType, DoubleType, StringType
+from pyspark.sql.types import StructType, StructField, IntegerType, LongType, DoubleType, StringType, DecimalType, ArrayType, FloatType
 from pyspark.ml.torch.distributor import TorchDistributor
 from utils.datapreprocessing_utils import *
 from pyspark.sql import functions as F
@@ -92,7 +92,7 @@ class FirstWatermarkAggregator:
                 vel_matrix[lane_index][section_index] = row["avg(v_Vel)"]
             return np.expand_dims(vel_matrix, axis=-1).tolist()
 
-        to_3d_np_udf = F.udf(to_3d_np)
+        to_3d_np_udf = F.udf(to_3d_np, ArrayType(ArrayType(ArrayType(IntegerType()))))
 
         return df \
             .groupBy("timewindow", "start_timestamp") \
@@ -101,7 +101,7 @@ class FirstWatermarkAggregator:
                     F.struct("Lane_ID", "Section_ID", "avg(v_Vel)")
                 ).alias("rows")
             ) \
-            .withColumn("3D_mat", to_3d_np_udf(F.col('rows')).cast("string")) \
+            .withColumn("3D_mat", to_3d_np_udf(F.col('rows'))) \
             .select("timewindow", "start_timestamp", "3D_mat")
     
     def init_job(self):
@@ -134,7 +134,7 @@ class FirstWatermarkAggregator:
         np_df = self.rows_to_np_df(timewindow_agg_df)
 
         query = np_df \
-            .select(F.to_json(F.struct("*")).alias("value")) \
+            .select(F.to_json(F.struct("timewindow", "start_timestamp")).alias("key"), F.to_json(F.col("3D_mat")).alias("value")) \
             .writeStream \
             .queryName("FirstWatermarkAggregator") \
             .outputMode("update") \

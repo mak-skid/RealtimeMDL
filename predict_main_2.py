@@ -1,7 +1,7 @@
 import os
 import pickle
 from sedona.spark import *
-from pyspark.sql.types import StructType, StructField, IntegerType, LongType, DoubleType, StringType, TimestampType
+from pyspark.sql.types import StructType, StructField, IntegerType, LongType, DoubleType, StringType, TimestampType, DecimalType, ArrayType, FloatType
 from pyspark.ml.torch.distributor import TorchDistributor
 from utils.datapreprocessing_utils import *
 from pyspark.sql import functions as F
@@ -27,20 +27,23 @@ class SecondWatermarkAggregator:
         self.max_dist = 2224.6633212502065
     
     def parse_df(self, df: DataFrame) -> DataFrame:
-        schema = StructType([
+        key_schema = StructType([
             StructField("timewindow", 
                 StructType([
                     StructField("start", TimestampType()),
                     StructField("end", TimestampType())
                 ])),
-            StructField("start_timestamp", LongType()),
-            StructField("str_3D_mat", StringType())
+            StructField("start_timestamp", LongType())
         ])
+        value_schema = ArrayType(ArrayType(ArrayType(IntegerType(), False), False), False)
+
         return df \
             .select(
-                F.from_json(F.col("value").cast("string"), schema=schema).alias("parsed_value")
+                F.from_json(F.col("key").cast("string"), schema=key_schema).alias("parsed_key"),
+                F.from_json(F.col("value").cast("string"), schema=value_schema).alias("3D_mat")
             ) \
-            #.select(F.inline("parsed_value")).drop("parsed_value") 
+            .withColumn("Global_Time", F.col("parsed_key.start_timestamp")) \
+            .drop("parsed_key")
 
     def to_4d_np(self, df: DataFrame) -> DataFrame:  
         return convert_timestamp(df) \
@@ -80,9 +83,10 @@ class SecondWatermarkAggregator:
             .option('subscribe', 'us101_agg1') \
             .option('startingOffsets', 'earliest') \
             .load()
-
+        
+        df.printSchema()
         parsed_df = self.parse_df(df)
-        #test_df = self.to_4d_np(parsed_df)
+        test_df = self.to_4d_np(parsed_df)
 
         query = parsed_df \
             .writeStream \
