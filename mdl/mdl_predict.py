@@ -4,8 +4,10 @@ from matplotlib.colors import Normalize
 import numpy as np
 from sklearn.metrics import mean_squared_error
 
+from us101dataset import US101Dataset
 
-def mdl_predict(model_name: str, model, full_dataset, history_len, num_skip):
+
+def mdl_predict(model_name: str, model, x_vel_test, y_test, history_len, num_skip):
     y_pred = model.predict(x_vel_test)
     print(y_pred.shape, y_test.shape)
     num_test_samples = y_test.shape[0]
@@ -19,7 +21,11 @@ def mdl_predict(model_name: str, model, full_dataset, history_len, num_skip):
     print(f"RMSE: {rmse}")
     y_pred = np.reshape(y_pred, (num_test_samples, 5, 21))
     y_test = np.reshape(y_test, (num_test_samples, 5, 21))
-    visualise_mdl_output(y_pred[0], y_test[0], full_dataset.start+history_len+num_skip, 20, model_name, "velocity")
+
+    start = 45
+    timewindow = 0.5
+    timestamp = start + (history_len + num_skip) * timewindow
+    visualise_mdl_output(y_pred[0], y_test[0], timestamp, 20, model_name, "velocity")
 
 def visualise_mdl_output(pred, real, timestamp: int, num_section_split: int, model_name: str, feature_name: str):
     lanes = ["1", "2", "3", "4", "5"]

@@ -114,7 +114,7 @@ def add_distance_and_time_cols(df: DataFrame) -> DataFrame:
     """
     return df.withColumns({
             "Distance": F.sqrt(F.pow(F.col("Local_X"), 2) + F.pow(F.col("Local_Y"), 2)),
-            "ElapsedTime": F.col("Global_Time") - 1113433135300
+            "ElapsedTime": F.col("Global_Time") - 1113433135300 # subtract the first timestamp of the whole dataset (including other locations) to get the elapsed time
         })
 
 def us101_filter(df: DataFrame) -> DataFrame:
@@ -128,7 +128,7 @@ def us101_filter(df: DataFrame) -> DataFrame:
 
 def hour_filter(df: DataFrame, location: str, hour: list) -> DataFrame:
     if location == "us-101":
-        deduction = 5413844400
+        deduction = 5413844400 # subtract the first timestamp of the us-101 dataset
 
     filtered_df= df.filter((F.col("hour").isin(hour))).sort("datetime") \
             .select(

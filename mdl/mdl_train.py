@@ -6,6 +6,7 @@ from matplotlib import pyplot as plt
 from matplotlib.colors import Normalize
 import numpy as np
 from sklearn.metrics import mean_squared_error
+from mdl.mdl_predict import mdl_predict
 from us101dataset import US101Dataset
 from mdl.mdl_model import get_MDL_model
 
@@ -13,11 +14,11 @@ from mdl.mdl_model import get_MDL_model
 def createMDLModelAndTrain(
     train_dataset: US101Dataset,
     num_features: int = 1,
-    validation_ratio: float = 0.125,
     learning_rate: float = 0.0002,
     num_epochs: int = 50,
     batch_size: int = 16,
     num_skip: int = 20,
+    realtime_mode: bool = True
 ):
     dataset_size = train_dataset.num_samples
     history_len = train_dataset.history_len
@@ -27,38 +28,55 @@ def createMDLModelAndTrain(
     num_lanes = train_dataset.num_lanes
     num_sections = train_dataset.num_sections
 
-    # val_split = int(np.floor((1 - (validation_ratio + test_ratio)) * dataset_size))
-    # test_split = int(np.floor((1 - test_ratio) * dataset_size))
-    val_split = int(np.floor((1 - validation_ratio) * dataset_size))
-
-    x_vel_train = train_dataset.X_data[:val_split, :, :, :, 0]
-    x_vel_val = train_dataset.X_data[val_split:, :, :, :, 0]
-    # x_vel_val = train_dataset.X_data[val_split:test_split, :, :, :, 0]
-    # x_vel_test = train_dataset.X_data[test_split:, :, :, :, 0]
-    x_dens_train = train_dataset.X_data[:val_split, :, :, :, 1]
-    # x_dens_val = train_dataset.X_data[val_split:test_split, :, :, :, 1]
-    # x_dens_test = train_dataset.X_data[test_split:, :, :, :, 1]
-    x_acc_train = train_dataset.X_data[:val_split, :, :, :, 2]
-    # x_acc_val = train_dataset.X_data[val_split:test_split, :, :, :, 2]
-    # x_acc_test = train_dataset.X_data[test_split:, :, :, :, 2]
-    y_train = np.reshape(train_dataset.Y_data[:val_split, :, :, :, 0], (val_split, predict_len, num_lanes*num_sections))
-    y_val = np.reshape(train_dataset.Y_data[val_split:, :, :, :, 0], (dataset_size - val_split, predict_len, num_lanes*num_sections))
-    # y_val = np.reshape(train_dataset.Y_data[val_split:test_split, :, :, :, 0], (test_split - val_split, predict_len, 5*21))
-    # y_test = np.reshape(train_dataset.Y_data[test_split:, :, :, :, 0], (dataset_size - test_split, predict_len, 5*21))
-
     optimizer = keras.optimizers.Adamax(learning_rate=learning_rate)
     model = get_MDL_model(history_len, num_lanes, num_sections, num_features)
     model.compile(loss='mean_squared_error', optimizer=optimizer)
     model.summary()
     model_name = f'mdl_model_{with_ramp_sign}_{train_dataset.timewindow}_{num_sections}_{train_dataset.history_len}_{num_features}_{num_skip}'
-    csv_logger = keras.callbacks.CSVLogger(f"logs/mdl/{model_name}.log")
+    csv_logger = keras.callbacks.CSVLogger(f"mdl/log/{model_name}.log")
     early_stop = keras.callbacks.EarlyStopping(monitor='val_loss', patience=5)
+
+    if not realtime_mode:
+        test_ratio = 0.2
+        validation_ratio = 0.1
+        val_split = int(np.floor((1 - (validation_ratio + test_ratio)) * dataset_size))
+        test_split = int(np.floor((1 - test_ratio) * dataset_size))
+
+        x_vel_train = train_dataset.X_data[:val_split, :, :, :, 0]
+        x_vel_val = train_dataset.X_data[val_split:test_split, :, :, :, 0]
+        x_vel_test = train_dataset.X_data[test_split:, :, :, :, 0]
+        
+        x_dens_train = train_dataset.X_data[:val_split, :, :, :, 1]
+        x_dens_val = train_dataset.X_data[val_split:test_split, :, :, :, 1]
+        x_dens_test = train_dataset.X_data[test_split:, :, :, :, 1]
+        
+        x_acc_train = train_dataset.X_data[:val_split, :, :, :, 2]
+        x_acc_val = train_dataset.X_data[val_split:test_split, :, :, :, 2]
+        x_acc_test = train_dataset.X_data[test_split:, :, :, :, 2]
+
+        y_train = np.reshape(train_dataset.Y_data[:val_split, :, :, :, 0], (val_split, predict_len, num_lanes*num_sections))
+        y_val = np.reshape(train_dataset.Y_data[val_split:test_split, :, :, :, 0], (test_split - val_split, predict_len, num_lanes*num_sections))
+        y_test = np.reshape(train_dataset.Y_data[test_split:, :, :, :, 0], (dataset_size - test_split, predict_len, num_lanes*num_sections))
+
+    else:
+        validation_ratio: float = 0.125
+        val_split = int(np.floor((1 - validation_ratio) * dataset_size))
+        
+        x_vel_train = train_dataset.X_data[:val_split, :, :, :, 0]
+        x_vel_val = train_dataset.X_data[val_split:, :, :, :, 0]
+        x_dens_train = train_dataset.X_data[:val_split, :, :, :, 1]
+        x_dens_val = train_dataset.X_data[val_split:, :, :, :, 1]
+        x_acc_train = train_dataset.X_data[:val_split, :, :, :, 2]
+        x_acc_val = train_dataset.X_data[val_split:, :, :, :, 2]
+        
+        y_val = np.reshape(train_dataset.Y_data[val_split:, :, :, :, 0], (dataset_size - val_split, predict_len, num_lanes*num_sections))
+        y_train = np.reshape(train_dataset.Y_data[:val_split, :, :, :, 0], (val_split, predict_len, num_lanes*num_sections))
 
     start = time.time()
     train_history = model.fit(x_vel_train, y_train, epochs=num_epochs, batch_size=batch_size, verbose=2, validation_data=(x_vel_val, y_val), callbacks=[early_stop, csv_logger])
     loss = train_history.history['loss']
     val_loss = train_history.history['val_loss']
-    model.save(f"models/mdl/{model_name}.keras", overwrite=True)
+    model.save(f"mdl/models/{model_name}.keras", overwrite=True)
     end = time.time()
 
     print(f"Time taken to train: {end-start} seconds")
@@ -66,6 +84,10 @@ def createMDLModelAndTrain(
     plt.plot(train_history.history['val_loss'], label='test')
     plt.legend()
     plt.show()
+
+    if not realtime_mode:
+        mdl_predict(model_name, model, x_vel_test, y_test, history_len, num_skip)
+    
 
 class LossHistory(keras.callbacks.Callback):
     def on_train_begin(self, logs={}):

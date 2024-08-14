@@ -21,17 +21,24 @@ config = SedonaContext.builder() \
 sedona = SedonaContext.create(config)
 print("Sedona Initialized")
 
+realtime_mode = False
 start = 45 # maybe for start, 45 sec and onwards, bc all sections are filled with data
-end = 2229.5 # after splitting the test and train data 80%:20%
+end = 2229.5 if realtime_mode else 2772.5 # after splitting the test and train data 80%:20%
 predict_len = 1
 
 preprocessing_param = {
     "timewindow": [0.5], #[1, 3, 5], 
     "num_section_splits": [20], #[40, 60], 
-    "history_len": [10], #[90, 120, 150],
+    "history_len": [20], #[90, 120, 150],
     "with_ramp": [False],
     "num_skip": 10
     }
+
+
+def check_max_elapsed_time(df):
+    max_elapsed_time = df.select("ElapsedTime").tail(1)[0]["ElapsedTime"]
+    print(f"Max Elapsed Time: {max_elapsed_time}")
+    return max_elapsed_time
 
 for timewindow in preprocessing_param["timewindow"]:
     for num_section_splits in preprocessing_param["num_section_splits"]:
@@ -39,9 +46,9 @@ for timewindow in preprocessing_param["timewindow"]:
             for with_ramp in preprocessing_param["with_ramp"]:
                 print(f"Model building with parameters = (timewindow: {timewindow}, num_section_splits: {num_section_splits}, history_len: {history_len}, with_ramp: {with_ramp})")
                 
-                if os.path.exists(f"train/preprocessed_data/us101_section_agg_{num_section_splits}"):
+                if os.path.exists(f"dataset/preprocessed_data/us101_section_agg_{num_section_splits}"):
                     us101_section_agg = sedona.read.csv(
-                        f"train/preprocessed_data/us101_section_agg_{num_section_splits}",
+                        f"dataset/preprocessed_data/us101_section_agg_{num_section_splits}",
                         schema = StructType([
                             StructField("ElapsedTime", LongType(), False), 
                             StructField("Section_ID", IntegerType(), False),
@@ -67,15 +74,16 @@ for timewindow in preprocessing_param["timewindow"]:
                         predict_len, 
                         num_skip=preprocessing_param['num_skip'],
                         with_ramp=with_ramp
-                        )        
+                        )    
                 else:
-                    data_path = "train/train_data.csv"
+                    data_path = "train_data.csv" if realtime_mode else "NGSIM_Data.csv"
 
-                    df = sedona.read.csv(data_path, header=True, schema=get_original_schema())
+                    df = sedona.read.csv(f"dataset/{data_path}", header=True, schema=get_original_schema())
+                    df = us101_filter(df)
                     df = convert_coordinate_system(df)
                     df = convert_timestamp(df)
                     df = add_distance_and_time_cols(df)
-                    df.show(1)
+
                     print("Data Preprocessing Done")
 
                     df = df.withColumns({
@@ -86,14 +94,14 @@ for timewindow in preprocessing_param["timewindow"]:
                         })
 
                     us101_filtered_hour = hour_filter(df, "us-101", [7, 8])
-                    max_elapsed_time = us101_filtered_hour.tail(1)[0]["ElapsedTime"] # for 7am 620200 ms = 10.3 minutes
+                    max_elapsed_time = check_max_elapsed_time(us101_filtered_hour) # for 7am 620200 ms = 10.3 minutes
                     end = max_elapsed_time // 1000 # convert to seconds
                     max_dist = us101_filtered_hour.select("Distance").sort("Distance").tail(1)[0]["Distance"] # 2224.6633212502065 
 
                     us101_section_agg = section_agg(us101_filtered_hour, max_dist, num_section_splits)
                     
-                    if not os.path.exists(f"train/preprocessed_data/us101_section_agg_{num_section_splits}"):
-                        us101_section_agg.write.csv(f"train/preprocessed_data/us101_section_agg_{num_section_splits}")
+                    if not os.path.exists(f"dataset/preprocessed_data/us101_section_agg_{num_section_splits}"):
+                        us101_section_agg.write.csv(f"dataset/preprocessed_data/us101_section_agg_{num_section_splits}")
 
                     timewindow_agg_df = timewindow_agg(us101_section_agg, start, end, timewindow)
 
@@ -111,5 +119,4 @@ for timewindow in preprocessing_param["timewindow"]:
                         with_ramp=with_ramp
                         )
                     
-                createMDLModelAndTrain(train_dataset=train_dataset, num_features=1, num_skip=preprocessing_param['num_skip'])
-
+                createMDLModelAndTrain(train_dataset=train_dataset, num_features=1, num_skip=preprocessing_param['num_skip'], realtime_mode=realtime_mode)
