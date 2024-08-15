@@ -1,4 +1,3 @@
-# Convert the coordinate system
 from pyspark import RDD
 import pyspark
 from sedona.sql.st_functions import ST_Transform, ST_Y, ST_X
@@ -39,21 +38,6 @@ def get_original_schema() -> pyspark.sql.types.StructType:
     ])
 
 def get_test_schema() -> pyspark.sql.types.StructType:
-    """
-    return StructType([
-        StructField("Global_Time", ArrayType(LongType()), False),
-        StructField("ElapsedTime", ArrayType(LongType()), False),
-        StructField("Vehicle_ID", ArrayType(IntegerType()), False),
-        StructField("Global_X", ArrayType(DoubleType()), False),
-        StructField("Global_Y", ArrayType(DoubleType()), False),
-        StructField("Local_X", ArrayType(DoubleType()), False),
-        StructField("Local_Y", ArrayType(DoubleType()), False),
-        StructField("v_Vel", ArrayType(DoubleType()), False),
-        StructField("v_Acc", ArrayType(DoubleType()), False),
-        StructField("Lane_ID", ArrayType(IntegerType()), False),
-        StructField("Location", ArrayType(StringType()), False)
-    ])
-    """
     return ArrayType(
                 StructType([
                     StructField("Global_Time", LongType(), False),
@@ -69,7 +53,16 @@ def get_test_schema() -> pyspark.sql.types.StructType:
                     StructField("Location", StringType(), False)
                 ])
             )
-            
+
+def convert_to_mph(df: DataFrame) -> DataFrame:
+    """
+    df: pyspark dataframe containing the US101 dataset
+    
+    Returns
+    -------
+    df: pyspark dataframe containing the v_Vel column converted from feet/second to mph
+    """
+    return df.withColumns({"v_Vel": F.col("v_Vel") / 1.46666667, "v_Acc": F.col("v_Acc") / 1.46666667})         
 
 def convert_coordinate_system(df: DataFrame) -> DataFrame:
     """
@@ -180,7 +173,7 @@ def create_np_matrices(df: DataFrame, num_lanes: int, num_sections: int, with_ra
     acc_matrix = np.zeros((num_lanes, num_sections))
 
     # Fill the matrix with the corresponding avg(v_Vel) values
-    for row in iter:
+    for row in df.collect():
         lane_index = row["Lane_ID"]
 
         # escape when with_ramp is False and lane_id is 6 (lane_index is 5)

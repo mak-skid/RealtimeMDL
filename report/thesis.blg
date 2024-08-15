@@ -1,0 +1,49 @@
+This is BibTeX, Version 0.99d (TeX Live 2024)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: thesis.aux
+The style file: acm.bst
+Database file #1: refs.bib
+Warning--empty booktitle in STARK
+Warning--empty booktitle in Sigurdsson2018RoadTC
+You've used 24 entries,
+            2253 wiz_defined-function locations,
+            682 strings with 9564 characters,
+and the built_in function-call counts, 9309 in all, are:
+= -- 837
+> -- 564
+< -- 0
++ -- 232
+- -- 205
+* -- 801
+:= -- 1532
+add.period$ -- 70
+call.type$ -- 24
+change.case$ -- 172
+chr.to.int$ -- 0
+cite$ -- 26
+duplicate$ -- 296
+empty$ -- 686
+format.name$ -- 205
+if$ -- 1906
+int.to.chr$ -- 0
+int.to.str$ -- 24
+missing$ -- 22
+newline$ -- 121
+num.names$ -- 50
+pop$ -- 182
+preamble$ -- 1
+purify$ -- 148
+quote$ -- 0
+skip$ -- 182
+stack$ -- 0
+substring$ -- 512
+swap$ -- 76
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 96
+warning$ -- 2
+while$ -- 73
+width$ -- 26
+write$ -- 238
+(There were 2 warnings)

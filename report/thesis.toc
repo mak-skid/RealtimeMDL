@@ -1,0 +1,24 @@
+\contentsline {chapter}{\numberline {1}Introduction}{1}{}%
+\contentsline {section}{\numberline {1.1}Introduction and Motivation}{1}{}%
+\contentsline {chapter}{\numberline {2}Literature Review}{3}{}%
+\contentsline {section}{\numberline {2.1}Research Field Challenges}{3}{}%
+\contentsline {section}{\numberline {2.2}Survey Scope}{4}{}%
+\contentsline {section}{\numberline {2.3}Search Methodology}{4}{}%
+\contentsline {section}{\numberline {2.4}Classification of Literature and Organisation}{5}{}%
+\contentsline {section}{\numberline {2.5}Paper Summaries}{5}{}%
+\contentsline {subsection}{\numberline {2.5.1}Microscopic traffic data processing}{5}{}%
+\contentsline {subsection}{\numberline {2.5.2}Macroscopic traffic data processing}{7}{}%
+\contentsline {chapter}{\numberline {3}Methodology}{9}{}%
+\contentsline {section}{\numberline {3.1}Dataset details}{9}{}%
+\contentsline {section}{\numberline {3.2}Preprocessing}{11}{}%
+\contentsline {section}{\numberline {3.3}Model}{13}{}%
+\contentsline {section}{\numberline {3.4}Evaluation method}{13}{}%
+\contentsline {section}{\numberline {3.5}Real-time streaming architecture}{13}{}%
+\contentsline {section}{\numberline {3.6}Kafka}{13}{}%
+\contentsline {section}{\numberline {3.7}Spark Structured Streaming}{13}{}%
+\contentsline {chapter}{\numberline {4}Results}{17}{}%
+\contentsline {chapter}{\numberline {5}Discussion, Limitations and Future Work}{18}{}%
+\contentsline {chapter}{\numberline {6}Conclusion}{19}{}%
+\contentsline {chapter}{References}{20}{}%
+\contentsline {chapter}{Appendix \numberline {A}Supplementary Materials I}{23}{}%
+\contentsline {chapter}{Appendix \numberline {B}Supplementary Materials II}{24}{}%

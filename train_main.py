@@ -80,6 +80,7 @@ for timewindow in preprocessing_param["timewindow"]:
 
                     df = sedona.read.csv(f"dataset/{data_path}", header=True, schema=get_original_schema())
                     df = us101_filter(df)
+                    df = convert_to_mph(df) if data_path == "NGSIM_Data.csv" else df
                     df = convert_coordinate_system(df)
                     df = convert_timestamp(df)
                     df = add_distance_and_time_cols(df)

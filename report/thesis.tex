@@ -1,0 +1,256 @@
+% UONTEST.TEX - a sample file for the UONTHESIS document style.
+% revised by Colin Johnson (Colin.Johnson@nottingham.ac.uk), 2020-02-18
+%
+\documentclass[11pt]{uonthesis}
+
+\usepackage[titletoc]{appendix}
+\usepackage{graphicx, multirow, multirow, subcaption, amsmath} % put additional packages here
+%\usepackage[backend=biber, sorting=nyt, style=numeric, firstinits=true]{biblatex}
+\bibliographystyle{acm} 
+%\addbibresource{refs.bib}
+
+\renewcommand{\appendixtocname}{List of appendices}
+
+\title{Real-time prediction of lane-level traffic speeds using Mixed Deep Learning model with Apache Spark and Kafka}
+\author{Makoto Ono}
+\prevdegrees{MSc}
+\university{The University of Nottingham}
+\degree{Master of Science in Computer Science with Artificial Intelligence}
+\date{February 2021}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\begin{frontmatter}
+\maketitle
+\tableofcontents
+
+\begin{abstract}
+According to the guidelines the abstract should not exceed 300 words.
+However, it is unlikely that anyone will be counting when you submit.
+If you still wish to do so, then better use Emacs \verb|count-words|
+command.
+\end{abstract}
+
+\begin{acknowledgements}
+It is good to thank here your supervisors and any sponsoring bodies,
+as well as any family, friends, cats, dogs etc. that have been
+supportive during your time at University.
+\end{acknowledgements}
+
+\begin{dedication}
+If you decide to dedicate your thesis to someone, it will be on a
+separate page.
+\end{dedication}
+
+\end{frontmatter}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Introduction}
+
+\section{Introduction and Motivation}
+Nowadays, urban transportation across the globe is facing unprecedented challenges: traffic congestion, road safety, pollution, and so on, due to rapid urbanisation and a rapid increase in car ownership and traffic volume in the last several decades. In addressing these problems, smart city and autonomous vehicles are of a particular interest of some researchers and policy makers, recently, and vehicle trajectory analysis, modelling, prediction play an essential role for realising these concepts. The efforts have been made so far in the name of development of Intelligent Transportation Systems (ITS) and, together with the evolution of Advanced Driver-Assistance Systems (ADAS) and Autonomous Vehicles (AVs), they have contributed to the improved efficiency of transportation systems, reduction of traffic congestion, and enhancement of road safety. In the future, the integration of these technologies will make it possible to implement large-scale real-time vehicle information sharing and processing. 
+
+% Collection of traffic data: road sensor, GPS, video calibration, etc.
+Traffic data can be collected from various sources such as road sensors, GPS devices, and video cameras. The data collected from these sources can be used to construct vehicle trajectories, which are sequences of spatial datapoints that represent the movement of vehicles over time. Vehicle trajectory data can be used to analyse traffic patterns, predict traffic congestion, and simulate traffic flow. However, the analysis and exploitation of vehicle trajectory data poses several challenges, such as the large volume of data, the complexity of the data, and the need for real-time processing. In order to address these challenges, researchers have developed various methods for processing and analysing vehicle trajectory data, including traditional machine learning methods, and deep learning. 
+
+% Traffic speed prediction: macro-to-microscopic including city-level, regional-level, road-level, lane-level  
+When it comes to traffic state analysis, we have to consider the scope of the analysis. Traffic speed prediction can be performed at different levels of granularity, ranging from city-level to lane-level. City-level traffic speed prediction aims to predict the average speed of traffic in a city, while road-level traffic speed prediction aims to predict the average speed of traffic on a specific road. Lane-level traffic speed prediction aims to predict the speed of traffic in a specific lane of a road. Lane-level traffic state forecasting is becoming an important topic of Intelligent Vehicle Infrastrcute Cooperative Systems (IVICS) which is a new devepment of ITS, because the short-term traffic states of lanes in a road section differ in traffic speed, volume and occupancy\cite{GU20191}, and the optimised use of all lanes help mitigate traffic congestions. 
+
+However, Lane-level traffic speed prediction is particularly challenging because it requires the prediction of the speed of individual vehicles in a specific lane, which can be affected by a variety of factors such as the number of lanes, the presence of on and off ramps, and the behaviour of other vehicles.
+
+In order to address these factors, in recent years, deep learning methods such as Recurrent Neural Networks (RNNs) which includes Long Short Term Memory networks, and Graph Neural Networks (GNNs) have been widely used for lane-level traffic state prediction, as the work of Li et al.\cite{li2024unifyinglaneleveltrafficprediction} has shown performance of a number of different models. According to the paper, those involving convolution or graph neural networks have been shown to be effective in capturing the spatial and temporal dependencies in vehicle trajectory data.
+
+There is another challenge that will be introduced by large-scale traffic prediction, which is, the constant stream of spatial trajectory data, typically generated by GPS, adds more complexity to trajectory data analysis and traffic prediction in terms of its scalability. Here, distributed computing comes into a play. One of the most popular approaches for vehicle trajectory analysis is the use of Apache Spark cluster computing system, and the previous works\cite{9077707}\cite{Sigurdsson2018RoadTC} have examined the applicability of the system to trajectory analysis.
+
+Extending the above ideas, this paper aims to provide a real-time prediction method of lane-level traffic speeds using a Mixed Deep Learning model, which was originally introduced by Lu et al.\cite{9284587}, with Apache Spark and Kafka. 
+
+\chapter{Literature Review}
+\section{Research Field Challenges}
+When performing vehicle trajectory analysis and simulation, researchers are required to address common challenges. The most relevant ones can fall into the following categories: \\
+
+- Scarcity of complete vehicle trajectory datasets: 
+
+The datasets are oftentimes difficult to collect because traffic flow is a wide-ranging spatiotemporal phenomenon, and it is very challenging to collect continuous data from such wide-ranging domain\cite{seo2020evaluation}. For example, usual loop detectors only collect data at a specific point, and combining data in other formats (data fusion) (i.e., Object tracking data from CCTV footage) can be a tough challenge. \\
+
+- Anomaly of urban traffic environment: 
+
+Urban road environment has lots of variables such as not only traffic accidents, events, protests, weather, but also Vehicle to Infrastructure interaction, Vehicle to Vehicle interaction, multimodality, generalizability (robustness to real-world road environment), etc. and they make the task of vehicle trajectory analysis more complex. The effort applying modern deep learning methods such as Long Short Time Memory networks and Generative Adversarial Networks (GANs) \cite{rossi2021vehicle}, have been made to improve the simulation model accuracy. Especially in microscopic road traffic simulation of multi-lane dual carriageways, complexity of multi-lane, multi-class traffic introduces additional challenges due to the uncertainty in human behaviours, such as lane changing\cite{DAHIYA2022100066}. \\
+
+In order to account for the massive volume of trajectory data, one has to apply the technologies of distributed computing when performing microscopic traffic analysis and simulation. However, distributed environment makes the task more challenging due to \cite{yu2020dissecting}: \\
+
+- Workload balance: 
+
+A scalable simulator has to divide the workload into smaller chunks (partitioning) and distribute them across different machines within a cluster. Yet, whenever a vehicle in the simulator seeks to switch lanes or accelerate, it has to assess its distance from neighboring vehicles. An effective partitioning approach should consider the spatial closeness of vehicles and reduce the amount of data exchange across partitions. \\
+
+- Dynamic distribution: 
+
+The spatial coordinates of moving vehicles changes over time, causing nearby vehicles to potentially distance themselves from each other. Simulators need to have appropriate mechanisms to address this dynamic distribution of vehicles. 
+
+\section{Survey Scope}
+The purpose of this survey is to provide an overview and analysis of existing literature pertaining to large-scale vehicle trajectory analysis. It has multiple hurdles which are worth noting when it comes to this particular task. However, this paper does not go into details with data collection and generation of trajectory data, trajectory/traffic data simulation with deep learning methods. Instead, the underlying technologies of distributed, large-scale traffic trajectory analysis: big spatial data processing and simulation mainly with Apache Spark and Sedona spatial data pipeline are covered in this survey.
+
+\section{Search Methodology} 
+
+For writing this survey, my supervisor Rebecca Tickle introduced Zheng's survey\cite{zheng2015trajectory} as a starting point, the paper written by Yu et al.\cite{yu2020dissecting} as an example of a scientific paper working with trajectories and Spark, and the webpage of Apache Sedona\cite{sedona} as an introduction to spatial data proccessing. Starting with these papers, further literature review was conducted mostly with the forward-looking approach. In addition, using a research paper search engine such as Google Scholar and particularly Gora et al.'s STAR paper of microscopic traffic simulation models\cite{gora2020microscopic} advanced this survey.
+
+\section{Classification of Literature and Organisation} % 1-2 paragraphs
+\begin{table}[h]
+\begin{tabular}{ |p{2cm}|p{2cm}||p{3.2cm}| }
+    \hline
+    Scope & Methods & List of papers\\
+    \hline
+    \multirow{3}{3em}{Microscopic} & Spark & \cite{10.1145/2820783.2820860},\cite{yu2020dissecting},\cite{10.1007/978-981-16-4126-8_24},\cite{9077707}
+    \\
+    & GPU & \cite{9075295}
+    \\
+    & Other & \cite{8569938},\cite{10.1145/3397536.3422274} 
+    \\
+    & Survey & \cite{gora2020microscopic}\\
+    \hline
+    Macroscopic & Spark & \cite{Sigurdsson2018RoadTC},\cite{Yang2019},\cite{FAN2019298},\cite{Zhang20231124}\\
+    \hline
+    \multirow{2}{2em}{Combined} & Spark & \cite{STARK}
+    \\
+    & Survey & \cite{10356753}, \cite{LI2020225}\\
+    \hline
+\end{tabular}
+\caption{Classification of Literature}
+\end{table}
+
+The explored literature can be classified into three main categories: microscopic, macroscopic, and the combination of the two. Microscopic traffic modeling is to simulate the details of traffic flow and interations between vehicle-driver units, whereas macroscopic traffic modelling considers traffic like a fluid, focusing on the big picture characteristics like density, flow rate, and average speed. There are methods for each modeling, such as using GPU parallelisation which generally optimises better with deep neural networks, and parallelisation with Apache Spark which performs better with machine learning techniques in general. This paper classifies literature according to the aforementioned three categories and methods, as well as survey papers which provide an overview of these categories.
+
+\section{Paper Summaries} % 1 paragraph for each paper
+Out of these 15 papers explored, the summaries of 10 papers are introduced in the section below. The following paper summaries are organised as the structure shown in (Table 1). 
+
+\subsection{Microscopic traffic data processing}
+Leveraging the efficiency of Apache Spark's parallel computing, Yu et al.\cite{10.1145/2820783.2820860} introduced GeoSpark, an in-memory cluster computing framework for processing large-scale spatial data, to account for the challenges of accommodating its ever-increasing size. The framework contains three layers: Apache Spark Layer, Spatial RDD (Resilient Distributed Datasets) Layer, and Spatial Query Processing Layer. The second layer extends the functionality of regular Apache Spark RDDs to support geometrical and spatial objects. The third layer efficiently executes spatial query processing algorithms, such as Join and KNN query. It also boosts spatial processing performance in each SRDD partition, by allowing users to create a spatial index. In the experiments, the researchers run the same queries twice on GeoSpark SRDDs and its Hadoop counterparts, Spatial Hadoop, and GeoSpark was proven to have better runtime performance than SpatialHadoop.
+
+Furthering the approach of GeoSpark, Yu et al.\cite{yu2020dissecting} proposed a spatial-temporal partitioning approach, GeoSparkSim, to automatically repartition vehicles over time in order to address spatial proximity. It is built on top of GeoSpark, a Spark-based spatial data management system, and it allows data scientists to simulate, analyse and visualise large-scale urban traffic data. The execution time of GeoSparkSim is 1.2 times faster than SMARTS, which partitions data only once in the beginning, at a fixed simulation period and also outperforms the competitor in terms of a scalability measure. The tool is capable of simulating the movements of 200,000 vehicles on a very large road network, which includes 250,000 road crossings and 300,000 road sections. 
+
+Verónica et al.\cite{10.1007/978-981-16-4126-8_24} presented an architecture to implement and evaluate the GeoSparkSim simulation tool on different Cloud services, such as Google, AWS, Azure. The researchers used a Docker container for each tool which was used, including MongoDB and Jupyter-Notebook, and conducted two-stage evaluation. Each stage contains 26 simulations in different geograpic areas of Quito, Equador. The result shows the potentials of GeoSparkSim and an ideal computational environment, which was found to be a machine with at least a 146 GB storage and 8 GB in RAM. 
+
+Anveshrithaa and Lavanya\cite{9077707} developed a real-time data stream processing model for forecasting vehicle traffic, using Apache Spark for parallel processing and Long Short-Term Memory (LSTM) networks to learn and train itself from traffic data. The two researchers integrated Apache Spark, a distributed streaming platform called Kafka, and the deep neural networks into a pipeline to analyse unstructured, real-time, streaming traffic data. The original data is fetched from an API and stored in MongoDB, a NoSQL database, along with the processed data. For evaluation of the model, five quantitative metrics including Root Mean Squared Error (RMSE) were used, and the model achieved a good performance with RMSE of 10.33. 
+
+While combining Apache Spark and deep neural networks is feasible, it is not necessarily an optimal solution due to its architectural design which uses CPU and Java for its implementation, compared to the use of GPU parallelisation and a specific deep learning library optimised with C language. Huang et al.\cite{9075295} took a different approach of trajectory data processing, introducing a GPU parallelisation framework. The large-scale data was generated from an automatic vessel-tracking system installed on ships which travelled in three different water areas of China. The data was compressed using the Douglas-Peucker algorithm and visualised with kenel density estimation (KDE) algorithm. The proposed framework was evaluated with four different quality measures including compression ratio, rate of length loss, and speed-up ratio, and it was proven to dramatically accelerate the algorithms for trajectory compression and visualisation. The proposed method can also be applicable for vehicle trajectory data analysis.
+
+Hao et al.'s QarSUMO\cite{10.1145/3397536.3422274} is a parallel, congestion-optimised traffic simulator bulit upon SUMO by partitioning road networks and distributing simulation tasks across multiple processes. Each process handles a segment of the network independently, synchronising at each timestep to exchange vehicle states. This design enhances scalability and reduces simulation time, making it suitable for larger and more complex traffic scenarios. The road networks of Doha's Corniche and Cologne and individual vehicle travel time were used to evaluate and compare the accuracy and the scalability of the model with SUMO model. The results show its improvement from SUMO's simulation efficiency while maintaining accuracy comparable to standard SUMO.
+
+\subsection{Macroscopic traffic data processing}
+Similarly to Anveshrithaa and Lavanya's work, Sigurdsson\cite{Sigurdsson2018RoadTC} developed a model to detect and track road traffic congestion in real time, leveraging the distributed pipeline of Kafka and Apache Spark Structured Streaming. The author adopted different approaches using the connected components algorithm and existing graph processing algorithms such as hierarchical data clustering to the set task. The model was evaluated on manually labelled congestion pattern data. The results show that hierarchical data clustering method yields the best results with an accuracy of 94\% for queue detection and 93\% for shockwave detection. 
+
+Yang et al.\cite{Yang2019} proposed two real-time traffic congestion detection methods: a distributed density-based spatial clustering of applications with noise (DBSCAN), and distributed topology analysis. The former clusters spatial and temporal trajectory points to detect congestions, while the latter examines patterns and connectivity of vehicle movements. Taking advantage of Spark Streaming, the efficiency of two methods were evaluated with real datasets. The researchers concluded that while the accuracy is better with distributed DBSCAN method, distributed topology analysis is a better choice from the scalability aspects.
+
+Fan et al.\cite{FAN2019298} presented a method for estimating vehicle miles traveled (VMT) using extensive GPS data. The researchers developed a geo-computing framework based on Apache Spark to handle the large-scale processing of GPS waypoints and trajectories. They applied this framework to the dataset containing 19.8 million GPS trips in Maryland, using a scalable map-matching module that incorporates spatiotemporal and topologic road network data (to account for altitudes and an consequent increase in distance). For the evaluation of the estimates, the correlation between the derived and annual average daily traffic volumes was used to prove that the proposed framework can accurately and efficiently estimate VMT.
+
+Based on Apache Spark and Sedona, Zhang et al.\cite{Zhang20231124} proposed a framework which is capable of traffic speed estimation for statewide road network of California from GPS trajectory data. The Sedona's Spatial RDDs was utilised to take advantage of its high computing efficiency in map matching and waypoint gap filling. With the dataset containing 126 million trajectory points, the authors computed hourly speed estimates of nearly 600,000 segments, which represents 17.3\% of the total state network. The estimates were made with their hourly speed estimation module. For validation of the estimates, freeway detector data from Californian authority's Performance Measurement System (PeMS) were used. 46\% of the estimated segments had a speed difference of less than 5mph from the actual data. 
+
+
+
+\chapter{Methodology}
+% why i chose the technogoies or the approaches 
+\section{Dataset details}
+
+The Dataset that is used for this study is Next Generation Simulation (NGSIM) Dataset collected by the United States Department of Transportation (US DOT) Federal Highway Administration (FHWA). The dataset is divided into several files, each of which contains the trajectory data for a different section of highways, including Highway US-101 and Interstate 80. For this study we used the trajectory data of a southbound section of Highway US-101 in Los Angeles, California. 
+
+Researchers for the NGSIM program collected detailed vehicle trajectory data of the section on 15th June, 2005. The study section is approximately 640 meters (2,100 feet) in length and has five lanes and an auxiliary on- and off-ramp. The section stretches between the on-ramp at Ventura Boulvevard and the off-ramp at Cahuenga Boulevard. The Data was transcribed from video recordings of the eight synchronised cameras mounted from the top of a 36-story building adjecant to the freeway, using a customised software application developed for this project. The dataset contains the precise coordinates of each vehicle within the section at 0.1 second intervals, as well as the vehicle's speed, acceleration, and lane position.
+
+The NGSIM's US-101 dataset provides a total of 45 minutes of vehicle trajectory data from 7:50 to 8:35 AM, which translates to 4,802,933 datapoints of 2,847 vehicles. Within the duration, the building up of congestion, or the transition between uncongested and congested conditions, and full congestion can be observed, as the figure 1 shows.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[]{{lane1.png}}
+    \caption{Vehicle speed visualisation of each vehicle in the farthest left (passing) lane (in mph)}
+\end{figure}
+
+Each datapoint contains the following attributes: \\
+\begin{description}
+    \item Vehicle ID - Vehicle identification number (ascending by time of entry into section)
+    \item Frame ID - Frame identification number (ascending by time)
+    \item Total Frames - Total number of frames in which the vehicle appears in this dataset
+    \item Global Time - Elapsed time in milliseconds since 1st January 1970
+    \item Local X - Lateral (X) coordinate of the front center of the vehicle in feet with respect to the entry edge of the section in the direction of travel
+    \item Local Y - Longitudinal (Y) coordinate of the front center of the vehicle in feet with respect to the entry edge of the section in the direction of travel
+    \item Global X - X Coordinate of the front center of the vehicle in feet based on CA State Plane III in NAD83
+    \item Global Y - Y Coordinate of the front center of the vehicle in feet based on CA State Plane III in NAD83
+    \item Vehicle Length - Length of the vehicle in feet
+    \item Vehicle Width - Width of the vehicle in feet
+    \item Vehicle Class - Vehicle type: motorcycle=1, auto=2, truck=3
+    \item Vehicle Velocity - Instantaneous velocity of vehicle in feet per second
+    \item Vehicle Acceleration - Instantaneous acceleration of vehicle in feet per second square
+    \item Lane ID - Current lane position of vehicle. Lane 1 is farthest left lane; lane 5 is farthest right lane. Lane 6 is the auxiliary lane between Ventura Boulevard on-ramp and the Cahuenga Boulevard off-ramp. Lane 7 is the on-ramp at Ventura Boulevard, and Lane 8 is the off-ramp at Cahuenga Boulevard
+    \item Preceding Vehicle ID - Vehicle ID of the vehicle immediately preceding the subject vehicle in the same lane
+    \item Following Vehicle ID - Vehicle ID of the vehicle immediately following the subject vehicle in the same lane
+    \item Space Headway - Distance between the front center of a vehicle to the front center of the preceding vehicle in feet
+    \item Time Headway - Time it takes for a vehicle to travel from the front center of the preceding vehicle to the front center of the subject vehicle in seconds
+\end{description}
+
+\section{Preprocessing}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=15cm]{{output1.png}}
+    \caption{Visualisation of vehicle speed, density, and acceleration in each road section}
+\end{figure}
+
+% MENTION NOISE OF THE DATA
+The NGSIM dataset is one of the most extensive and detailed vehicle trajectory datasets available, and it has become the de facto empirical microscopic traffic dataset. and it is widely used for the development and evaluation of traffic flow models. However, the dataset is not without its limitations. Coifmain et al\cite{COIFMAN2017362} argue that the dataset is known to have two major issues about its accuracy according to their evaluation paper.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[]{{trajectorycollision.jpg}}
+    \caption{"Collisions of trajectories" errors. Orange areas are vehicles after taking into account their length. This figure is from Coifman et al.}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[]{interpolation.jpg}
+    \caption{Speed interpolation errors. (A) A typical frame from the NGSIM validation video for I-80 camera 6 at 490s. Traffic is flowing from left to right in this image. The NGSIM researchers superimposed a pink bounding box for each vehicle. A Detail of lane 3 (3rd lane from the left) from the validation video for three frames (B) 485s, (C) 490s, and (D) 497.5s. For each vehicle the rear bumper location in the NGSIM data set is shown on the left (corresponding to the upstream end of the bounding box) and is indexed by the vehicle ID, while the new rear bumper location calculated in our study is shown on the right. Figures are from Coifman et al.}
+\end{figure}
+
+The first issue is that after accounting for vehicle length, trajectories often overrun those of proceeding vehicles seemingly resulting in "collisions of trajectories". Their analysis went on to discover the second issue: that the NGSIM acceleration often exhibits unrealistically large magnitudes and likewise that the NGSIM speeds exhibit unrealistic piecewise constant behavior, which means in the dataset some vehicles maintain zero acceleration for an unrealistically long time. It appears as if at low speeds the NGSIM video image processing frequently linearly interpolates the trajectories between two points in space observed many seconds apart.
+
+In order to alleviate the impact of these errors in the dataset, we dropped the particularly problematic acceleration attribute and performed sub-sectioning and time binning of the data, creating an image-like input for the model. To do that, the study section needed to be split into a number of sub-sections along the length of the highway. Therefore, we gave each datapoint an additional attribute, which is distance from the start of the section. The Euclidean distance was calculated simply taking the Local X and Local Y coordinates of the datapoint, since the section stretches almost straight. The section was then divided into 21 sub-sections % NEEDS EDITS
+, each of which is roughly 100 feet in length. The distance attribute was then used to assign each datapoint to a sub-section, by adding the "Section ID" attribute.
+
+Then, the datapoints were aggregated using the "Section ID" attribute, and now the data at each timestamp is binned into 21 sub-sections and the average speed, density, and acceleration of the vehicles in each sub-section at each timestamp is calculated. Then, time series aggregation was performed to fill as many sub-sections as possible with non-zero density and speed values at each interval, as well as further filling null values with appropriate values (density for 0, speed for 60 mph).
+
+To create the 4D tensor input for the model, the Spark dataframe was converted to RDDs, and the RDDs were grouped by key and then mapped to a key-value pair, where the key is the interval ID and the value is Row objects containing the speed, density, and acceleration values of each sub-section at each interval. The key-value pairs were then converted to a numpy array in a User Defined Function, and the returned numpy arrays were stacked to create the 4D tensor, with a shape of \[(intervals, lanes, sub-sections, attributes)\].
+
+Training a model to forecast the state of traffic of the future requires the past data as well as target data. Therefore, We have to provide another dimension to the tensor, creating a stack of 4D tensors of the fixed length of intervals, which results in a 5D tensor with a shape of \[(samples, lookbacks/targets, lanes, subsections, attributes)\]. Furthermore, in order to provide the model an extra time for inference, the target data were shifted by a fixed number of intervals, which is the skip parameter.
+
+\section{Model}
+\section{Evaluation method}
+
+\section{Real-time streaming architecture}
+\section{Kafka}
+\section{Spark Structured Streaming}
+
+\chapter{Results}
+
+\chapter{Discussion, Limitations and Future Work}
+% Reflection on the paper with the initial objectives, etc. (refer to the student handbook)
+\chapter{Conclusion}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliography{refs.bib}
+%\printbibliography
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{appendices}
+
+\chapter{Supplementary Materials I}
+
+Sample text sample text sample text sample text sample text sample
+text sample text sample text sample text sample text sample text
+sample text sample text sample text sample text sample text.
+
+\chapter{Supplementary Materials II}
+
+Sample text sample text sample text sample text sample text sample
+text sample text sample text sample text sample text sample text
+sample text sample text sample text sample text sample text.
+
+\end{appendices}
+
+\end{document}

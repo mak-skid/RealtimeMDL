@@ -7,9 +7,6 @@ from mdl.mdl_train import createMDLModelAndTrain
 from utils.datapreprocessing_utils import *
 from pyspark.sql import functions as F
 from pyspark.sql import DataFrame
-
-from lstms.lstm_train import createModelAndTrain
-from train.train_distributed import createDistributedModelAndTrain
 from us101dataset import US101Dataset
 
 
@@ -24,14 +21,15 @@ config = SedonaContext.builder() \
 sedona = SedonaContext.create(config)
 print("Sedona Initialized")
 
-data_path = "NGSIM_Data.csv"
+data_path = "dataset/NGSIM_Data.csv"
 
 df = sedona.read.csv(data_path, header=True, schema=get_original_schema())
 df = us101_filter(df)
+df = convert_to_mph(df)
 df = df.withColumns({"ElapsedTime": F.col("Global_Time") - 1113433135300 - 5413844400})
 
 start = 2229.5 # split the test and train data 80%:20%
-#train_df = df.filter(df["ElapsedTime"] < start*1000)
+train_df = df.filter(df["ElapsedTime"] < start*1000)
 test_df = df.filter(df["ElapsedTime"] >= start*1000) \
             .sort("ElapsedTime") \
             .select(
@@ -48,7 +46,7 @@ test_df = df.filter(df["ElapsedTime"] >= start*1000) \
                 "Location"
             )
 
-#train_df.drop("ElapsedTime").coalesce(1).write.csv("train_data.csv", header=True)
-test_df.coalesce(1).write.csv("test_data.csv", header=True)
+train_df.drop("ElapsedTime").coalesce(1).write.csv("dataset/train_data.csv", header=True)
+test_df.coalesce(1).write.csv("dataset/test_data.csv", header=True)
 
 sedona.stop()

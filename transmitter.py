@@ -6,7 +6,7 @@ from kafka import KafkaProducer
 def transmitter():
     producer = KafkaProducer(bootstrap_servers='localhost:9092')
 
-    pdf = pandas.read_csv('predict/test_data.csv', header=0)
+    pdf = pandas.read_csv('dataset/test_data.csv', header=0)
 
     elapsed_time = 1118849209200
     print("Started sending test data")

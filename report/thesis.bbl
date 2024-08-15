@@ -1,0 +1,158 @@
+\begin{thebibliography}{10}
+
+\bibitem{10.1007/978-981-16-4126-8_24}
+{\sc Alba~Valencia, V., and Proa{\~{n}}o~Orellana, J.}
+\newblock Design and evaluation of a distributed architecture for geosparksim.
+\newblock In {\em Communication, Smart Technologies and Innovation for
+  Society\/} (Singapore, 2022), {\'A}.~Rocha, P.~C. L{\'o}pez-L{\'o}pez, and
+  J.~P. Salgado-Guerrero, Eds., Springer Singapore, pp.~253--263.
+
+\bibitem{9077707}
+{\sc Anveshrithaa, S., and Lavanya, K.}
+\newblock Real-time vehicle traffic analysis using long short term memory
+  networks in apache spark.
+\newblock In {\em 2020 International Conference on Emerging Trends in
+  Information Technology and Engineering (ic-ETITE)\/} (2020), pp.~1--5.
+
+\bibitem{10.1145/3397536.3422274}
+{\sc Chen, H., Yang, K., Rizzo, S.~G., Vantini, G., Taylor, P., Ma, X., and
+  Chawla, S.}
+\newblock Qarsumo: A parallel, congestion-optimized traffic simulator.
+\newblock In {\em Proceedings of the 28th International Conference on Advances
+  in Geographic Information Systems\/} (New York, NY, USA, 2020), SIGSPATIAL
+  '20, Association for Computing Machinery, pp.~578--588.
+
+\bibitem{COIFMAN2017362}
+{\sc Coifman, B., and Li, L.}
+\newblock A critical evaluation of the next generation simulation (ngsim)
+  vehicle trajectory dataset.
+\newblock {\em Transportation Research Part B: Methodological 105\/} (2017),
+  362--377.
+
+\bibitem{DAHIYA2022100066}
+{\sc Dahiya, G., Asakura, Y., and Nakanishi, W.}
+\newblock Analysis of the single-regime speed-density fundamental relationships
+  for varying spatiotemporal resolution using zen traffic data.
+\newblock {\em Asian Transport Studies 8\/} (2022), 100066.
+
+\bibitem{FAN2019298}
+{\sc Fan, J., Fu, C., Stewart, K., and Zhang, L.}
+\newblock Using big gps trajectory data analytics for vehicle miles traveled
+  estimation.
+\newblock {\em Transportation Research Part C: Emerging Technologies 103\/}
+  (2019), 298--307.
+
+\bibitem{sedona}
+{\sc Foundation, T. A.~S.}
+\newblock Overview - apache sedona™.
+
+\bibitem{gora2020microscopic}
+{\sc Gora, P., Katrakazas, C., Drabicki, A., Islam, F., and Ostaszewski, P.}
+\newblock Microscopic traffic simulation models for connected and automated
+  vehicles (cavs) - state-of-the-art.
+\newblock {\em Procedia Computer Science 170\/} (2020), 474--481.
+\newblock The 11th International Conference on Ambient Systems, Networks and
+  Technologies (ANT) / The 3rd International Conference on Emerging Data and
+  Industry 4.0 (EDI40) / Affiliated Workshops.
+
+\bibitem{GU20191}
+{\sc Gu, Y., Lu, W., Qin, L., Li, M., and Shao, Z.}
+\newblock Short-term prediction of lane-level traffic speeds: A fusion deep
+  learning model.
+\newblock {\em Transportation Research Part C: Emerging Technologies 106\/}
+  (2019), 1--16.
+
+\bibitem{STARK}
+{\sc Hagedorn, S., Götze, P., and Sattler, K.-U.}
+\newblock The stark framework for spatio-temporal data analytics on spark.
+
+\bibitem{9075295}
+{\sc Huang, Y., Li, Y., Zhang, Z., and Liu, R.~W.}
+\newblock Gpu-accelerated compression and visualization of large-scale vessel
+  trajectories in maritime iot industries.
+\newblock {\em IEEE Internet of Things Journal 7}, 11 (11 2020), 10794--10812.
+
+\bibitem{LI2020225}
+{\sc Li, L., Jiang, R., He, Z., Chen, X.~M., and Zhou, X.}
+\newblock Trajectory data-based traffic flow studies: A revisit.
+\newblock {\em Transportation Research Part C: Emerging Technologies 114\/}
+  (2020), 225--240.
+
+\bibitem{li2024unifyinglaneleveltrafficprediction}
+{\sc Li, S., Cui, Y., Xu, J., Li, L., Meng, L., Yang, W., Zhang, F., and Zhou,
+  X.}
+\newblock Unifying lane-level traffic prediction from a graph structural
+  perspective: Benchmark and baseline, 2024.
+
+\bibitem{10356753}
+{\sc Liang, H., Zhang, Z., Hu, C., Gong, Y., and Cheng, D.}
+\newblock A survey on spatio-temporal big data analytics ecosystem: Resource
+  management, processing platform, and applications.
+\newblock {\em IEEE Transactions on Big Data 10}, 2 (4 2024), 174--193.
+
+\bibitem{8569938}
+{\sc Lopez, P.~A., Behrisch, M., Bieker-Walz, L., Erdmann, J., Flötteröd,
+  Y.-P., Hilbrich, R., Lücken, L., Rummel, J., Wagner, P., and Wiessner, E.}
+\newblock Microscopic traffic simulation using sumo.
+\newblock In {\em 2018 21st International Conference on Intelligent
+  Transportation Systems (ITSC)\/} (11 2018), pp.~2575--2582.
+
+\bibitem{9284587}
+{\sc Lu, W., Rui, Y., and Ran, B.}
+\newblock Lane-level traffic speed forecasting: A novel mixed deep learning
+  model.
+\newblock {\em IEEE Transactions on Intelligent Transportation Systems 23}, 4
+  (2022), 3601--3612.
+
+\bibitem{rossi2021vehicle}
+{\sc Rossi, L., Ajmar, A., Paolanti, M., and Pierdicca, R.}
+\newblock Vehicle trajectory prediction and generation using lstm models and
+  gans.
+\newblock {\em PLOS ONE 16}, 7 (07 2021), 1--28.
+
+\bibitem{seo2020evaluation}
+{\sc Seo, T., Tago, Y., Shinkai, N., Nakanishi, M., Tanabe, J., Ushirogochi,
+  D., Kanamori, S., Abe, A., Kodama, T., Yoshimura, S., et~al.}
+\newblock Evaluation of large-scale complete vehicle trajectories dataset on
+  two kilometers highway segment for one hour duration: Zen traffic data.
+\newblock In {\em 2020 International Symposium on Transportation Data and
+  Modelling\/} (2020).
+
+\bibitem{Sigurdsson2018RoadTC}
+{\sc Sigurdsson, T.~T.}
+\newblock Road traffic congestion detection and tracking with spark streaming
+  analytics.
+
+\bibitem{Yang2019}
+{\sc Yang, Q., Yue, Z., Chen, R., Zhang, J., Hu, X., and Zhou, Y.}
+\newblock Real-time detection of traffic congestion based on trajectory data.
+\newblock {\em The Journal of Engineering 2019\/} (09 2019).
+
+\bibitem{yu2020dissecting}
+{\sc Yu, J., Fu, Z., and Sarwat, M.}
+\newblock Dissecting geosparksim: a scalable microscopic road network traffic
+  simulator in apache spark.
+\newblock {\em Distributed and Parallel Databases 38}, 4 (2020), 963--994.
+
+\bibitem{10.1145/2820783.2820860}
+{\sc Yu, J., Wu, J., and Sarwat, M.}
+\newblock Geospark: a cluster computing framework for processing large-scale
+  spatial data.
+\newblock In {\em Proceedings of the 23rd SIGSPATIAL International Conference
+  on Advances in Geographic Information Systems\/} (New York, NY, USA, 2015),
+  SIGSPATIAL '15, Association for Computing Machinery.
+
+\bibitem{Zhang20231124}
+{\sc Zhang, P., Stewart, K., and Li, Y.}
+\newblock Estimating traffic speed and speeding using passively collected big
+  mobility data and a distributed computing framework.
+\newblock {\em Transactions in GIS 27}, 4 (2023), 1124 -- 1144.
+\newblock Cited by: 1.
+
+\bibitem{zheng2015trajectory}
+{\sc Zheng, Y.}
+\newblock Trajectory data mining: an overview.
+\newblock {\em ACM Transactions on Intelligent Systems and Technology (TIST)
+  6}, 3 (2015), 1--41.
+
+\end{thebibliography}

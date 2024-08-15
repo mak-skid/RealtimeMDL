@@ -1,17 +1,17 @@
 from matplotlib.colors import Normalize
 import numpy as np
 import matplotlib.pyplot as plt
-from datapreprocessing_utils import create_np_matrices
+from utils.datapreprocessing_utils import create_np_matrices
 from pyspark.sql import DataFrame, functions as F
 from matplotlib.collections import LineCollection
 import geopandas as gpd
 
 
-def us101_section_vis(df: DataFrame, num_section_split: int, timestamp: str, with_ramp: bool) -> None:
-    vel_matrix, dens_matrix, acc_matrix = create_np_matrices(df, num_section_split)
-    
+def us101_section_vis(df: DataFrame, num_section_split: int, timestamp: str, with_ramp: bool) -> None:    
     lanes = ["1", "2", "3", "4", "5", "6 (Ramp)"] if with_ramp else ["1", "2", "3", "4", "5"]
     sections = [i for i in range(num_section_split+1)]
+
+    vel_matrix, dens_matrix, acc_matrix = create_np_matrices(df, num_lanes=len(lanes), num_sections=num_section_split+1, with_ramp=with_ramp)
 
     fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(35, 10))
     im1 = ax1.imshow(vel_matrix, cmap='turbo_r', norm=Normalize(vmin=0, vmax=60))
@@ -67,7 +67,7 @@ def visualise_shockwave(df: DataFrame, lane_id: int, max_dist: int, max_elapsed_
     vehicles = pdf.groupby("Vehicle_ID")
 
     fig, ax = plt.subplots()
-    norm = plt.Normalize(0, 100)
+    norm = plt.Normalize(0, 60)
 
     for _, points in vehicles:
         x = points["ElapsedTime"].to_numpy()
@@ -82,7 +82,7 @@ def visualise_shockwave(df: DataFrame, lane_id: int, max_dist: int, max_elapsed_
         lc.set_linewidth(1)
         ax.add_collection(lc)
         
-    fig.colorbar(lc, ax=ax)
+    fig.colorbar(lc, ax=ax, label="Velocity (mph)")
     ax.set_xlim(0, max_elapsed_time)
     ax.set_ylim(0, max_dist)
 

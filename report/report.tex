@@ -73,21 +73,21 @@ Extending the above ideas, this paper aims to provide a real-time prediction met
 
 \section{Research Field Challenges}
 \label{sec:challenges} % 1 paragraph
-When performing vehicle trajectory analysis and simulation, researchers are required to address common challenges. The most relevant ones can fall into the following categories: \\
+When performing vehicle trajectory analysis and simulation, researchers are required to address common challenges. The most relevant ones can fall into the following categories:
 
 - Scarcity of complete vehicle trajectory datasets: 
 
-The datasets are oftentimes difficult to collect because traffic flow is a wide-ranging spatiotemporal phenomenon, and it is very challenging to collect continuous data from such wide-ranging domain\cite{seo2020evaluation}. For example, usual loop detectors only collect data at a specific point, and combining data in other formats (data fusion) (i.e., Object tracking data from CCTV footage) can be a tough challenge. \\
+The datasets are oftentimes difficult to collect because traffic flow is a wide-ranging spatiotemporal phenomenon, and it is very challenging to collect continuous data from such wide-ranging domain\cite{seo2020evaluation}. For example, usual loop detectors only collect data at a specific point, and combining data in other formats (data fusion) (i.e., Object tracking data from CCTV footage) can be a tough challenge.
 
 - Anomaly of urban traffic environment: 
 
-Urban road environment has lots of variables such as not only traffic accidents, events, protests, weather, but also Vehicle to Infrastructure interaction, Vehicle to Vehicle interaction, multimodality, generalizability (robustness to real-world road environment), etc. and they make the task of vehicle trajectory analysis more complex. The effort applying modern deep learning methods such as Long Short Time Memory networks and Generative Adversarial Networks (GANs) \cite{rossi2021vehicle}, have been made to improve the simulation model accuracy. Especially in microscopic road traffic simulation of multi-lane dual carriageways, complexity of multi-lane, multi-class traffic introduces additional challenges due to the uncertainty in human behaviours, such as lane changing\cite{DAHIYA2022100066}. \\
+Urban road environment has lots of variables such as not only traffic accidents, events, protests, weather, but also Vehicle to Infrastructure interaction, Vehicle to Vehicle interaction, multimodality, generalizability (robustness to real-world road environment), etc. and they make the task of vehicle trajectory analysis more complex. The effort applying modern deep learning methods such as Long Short Time Memory networks and Generative Adversarial Networks (GANs) \cite{rossi2021vehicle}, have been made to improve the simulation model accuracy. Especially in microscopic road traffic simulation of multi-lane dual carriageways, complexity of multi-lane, multi-class traffic introduces additional challenges due to the uncertainty in human behaviours, such as lane changing\cite{DAHIYA2022100066}. 
 
-In order to account for the massive volume of trajectory data, one has to apply the technologies of distributed computing when performing microscopic traffic analysis and simulation. However, distributed environment makes the task more challenging due to \cite{yu2020dissecting}: \\
+In order to account for the massive volume of trajectory data, one has to apply the technologies of distributed computing when performing microscopic traffic analysis and simulation. However, distributed environment makes the task more challenging due to \cite{yu2020dissecting}: 
 
 - Workload balance: 
 
-A scalable simulator has to divide the workload into smaller chunks (partitioning) and distribute them across different machines within a cluster. Yet, whenever a vehicle in the simulator seeks to switch lanes or accelerate, it has to assess its distance from neighboring vehicles. An effective partitioning approach should consider the spatial closeness of vehicles and reduce the amount of data exchange across partitions. \\
+A scalable simulator has to divide the workload into smaller chunks (partitioning) and distribute them across different machines within a cluster. Yet, whenever a vehicle in the simulator seeks to switch lanes or accelerate, it has to assess its distance from neighboring vehicles. An effective partitioning approach should consider the spatial closeness of vehicles and reduce the amount of data exchange across partitions. 
 
 - Dynamic distribution: 
 
@@ -99,12 +99,6 @@ The purpose of this survey is to provide an overview and analysis of existing li
 
 \section{Search Methodology} 
 \label{sec:methodology} % 1-2 paragraphs
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=8.5cm,height=5cm,angle=0]{{ConnectedPapers.png}}
-    \caption{ConnectedPapers Screenshot}
-\end{figure}
 
 For writing this survey, my supervisor Rebecca Tickle introduced Zheng's survey\cite{zheng2015trajectory} as a starting point, the paper written by Yu et al.\cite{yu2020dissecting} as an example of a scientific paper working with trajectories and Spark, and the webpage of Apache Sedona\cite{sedona} as an introduction to spatial data proccessing. Starting with these papers, further literature review was conducted mostly with the forward-looking approach. In addition, using a research paper search engine such as Google Scholar and particularly Gora et al.'s STAR paper of microscopic traffic simulation models\cite{gora2020microscopic} advanced this survey.
 
@@ -167,22 +161,57 @@ Based on Apache Spark and Sedona, Zhang et al.\cite{Zhang20231124} proposed a fr
 
 \section{Methodology}
 % why i chose the technogoies or the approaches 
-\subsection{Dataset}
+\subsection{Dataset details}
 
 The Dataset that is used for this study is Next Generation Simulation (NGSIM) Dataset collected by the United States Department of Transportation (US DOT) Federal Highway Administration (FHWA). The dataset is divided into several files, each of which contains the trajectory data for a different section of highways, including Highway US-101 and Interstate 80. For this study we used the trajectory data of a southbound section of Highway US-101 in Los Angeles, California. 
 
-Researchers for the NGSIM program collected detailed vehicle trajectory data of the section on 15th June, 2005. The study section is approximately 640 meters (2,100 feet) in length and has five lanes and an auxiliary on- and off-ramp. The section stretches between the on-ramp at Ventura Boulvevard and the off-ramp at Cahuenga Boulevard. The Data was transcribed from video recordings of the eight synchronised cameras mounted from the top of a 36-story building adjecant to the freeway, using a customised software application developed for this project. The dataset contains the precise location of each vehicle within the section at 0.1 second intervals, as well as the vehicle's speed, acceleration, and lane position.
+Researchers for the NGSIM program collected detailed vehicle trajectory data of the section on 15th June, 2005. The study section is approximately 640 meters (2,100 feet) in length and has five lanes and an auxiliary on- and off-ramp. The section stretches between the on-ramp at Ventura Boulvevard and the off-ramp at Cahuenga Boulevard. The Data was transcribed from video recordings of the eight synchronised cameras mounted from the top of a 36-story building adjecant to the freeway, using a customised software application developed for this project. The dataset contains the precise coordinates of each vehicle within the section at 0.1 second intervals, as well as the vehicle's speed, acceleration, and lane position.
 
 The NGSIM's US-101 dataset provides a total of 45 minutes of vehicle trajectory data from 7:50 to 8:35 AM, which translates to 4,802,933 datapoints of 2,847 vehicles. Within the duration, the building up of congestion, or the transition between uncongested and congested conditions, and full congestion can be observed, as the figure 1 shows.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=8.5cm,height=5cm,angle=0]{{lane1.png}}
-    \caption{Vehicle speed visualisation of each vehicle in the left-most (passing) lane (in mph)}
+    \includegraphics[width=8.5cm,height=6.5cm,angle=0]{{lane1.png}}
+    \caption{Vehicle speed visualisation of each vehicle in the farthest left (passing) lane (in mph)}
 \end{figure}
 
-\subsection{Exploratory Data Analysis}
+Each datapoint contains the following attributes: \\
+\begin{description}
+    \item Vehicle ID - Vehicle identification number (ascending by time of entry into section)
+    \item Frame ID - Frame identification number (ascending by time)
+    \item Total Frames - Total number of frames in which the vehicle appears in this dataset
+    \item Global Time - Elapsed time in milliseconds since 1st January 1970
+    \item Local X - Lateral (X) coordinate of the front center of the vehicle in feet with respect to the entry edge of the section in the direction of travel
+    \item Local Y - Longitudinal (Y) coordinate of the front center of the vehicle in feet with respect to the entry edge of the section in the direction of travel
+    \item Global X - X Coordinate of the front center of the vehicle in feet based on CA State Plane III in NAD83
+    \item Global Y - Y Coordinate of the front center of the vehicle in feet based on CA State Plane III in NAD83
+    \item Vehicle Length - Length of the vehicle in feet
+    \item Vehicle Width - Width of the vehicle in feet
+    \item Vehicle Class - Vehicle type: motorcycle=1, auto=2, truck=3
+    \item Vehicle Velocity - Instantaneous velocity of vehicle in feet per second
+    \item Vehicle Acceleration - Instantaneous acceleration of vehicle in feet per second square
+    \item Lane ID - Current lane position of vehicle. Lane 1 is farthest left lane; lane 5 is farthest right lane. Lane 6 is the auxiliary lane between Ventura Boulevard on-ramp and the Cahuenga Boulevard off-ramp. Lane 7 is the on-ramp at Ventura Boulevard, and Lane 8 is the off-ramp at Cahuenga Boulevard
+    \item Preceding Vehicle ID - Vehicle ID of the vehicle immediately preceding the subject vehicle in the same lane
+    \item Following Vehicle ID - Vehicle ID of the vehicle immediately following the subject vehicle in the same lane
+    \item Space Headway - Distance between the front center of a vehicle to the front center of the preceding vehicle in feet
+    \item Time Headway - Time it takes for a vehicle to travel from the front center of the preceding vehicle to the front center of the subject vehicle in seconds
+\end{description}
+
 \subsection{Preprocessing}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=9cm,height=10.5cm,angle=0]{{output1.png}}
+    \caption{Visualisation of vehicle speed, density, and acceleration in each road section}
+\end{figure}
+
+% MENTION NOISE OF THE DATA
+The NGSIM dataset is one of the most extensive and detailed vehicle trajectory datasets available, and it has become the de facto empirical microscopic traffic dataset. and it is widely used for the development and evaluation of traffic flow models. However, the dataset is not without its limitations. The dataset is known to contain noise. In order to address the noise in the dataset, we performed sub-sectioning and time binning of the data, as well as filtering out the outliers. 
+
+In order to create an image-like input for the model, the study section needed to be split into a number of sub-sections along the length of the highway. Therefore, we had to give each datapoint an additional attribute, which is distance from the start of the section. The distance was calculated simply using the Pythagorean theorem with the Local X and Local Y coordinates of the datapoint, since the section stretches almost straight. The section was then divided into 21 sub-sections % NEEDS EDITS
+, each of which is roughly 100 feet in length. The distance attribute was then used to assign each datapoint to a sub-section, by adding the "Section ID" attribute.
+
+
 \subsection{Model}
 \subsection{Evaluation method}
 
