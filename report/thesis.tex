@@ -215,11 +215,39 @@ In order to alleviate the impact of these errors in the dataset, we dropped the 
 
 Then, the datapoints were aggregated using the "Section ID" attribute, and now the data at each timestamp is binned into 21 sub-sections and the average speed, density, and acceleration of the vehicles in each sub-section at each timestamp is calculated. Then, time series aggregation was performed to fill as many sub-sections as possible with non-zero density and speed values at each interval, as well as further filling null values with appropriate values (density for 0, speed for 60 mph).
 
-To create the 4D tensor input for the model, the Spark dataframe was converted to RDDs, and the RDDs were grouped by key and then mapped to a key-value pair, where the key is the interval ID and the value is Row objects containing the speed, density, and acceleration values of each sub-section at each interval. The key-value pairs were then converted to a numpy array in a User Defined Function, and the returned numpy arrays were stacked to create the 4D tensor, with a shape of \[(intervals, lanes, sub-sections, attributes)\].
+To create the 3D tensors, the Spark dataframe was converted to RDDs, and the RDDs were grouped by key and then mapped to a key-value pair, where the key is the interval ID and the value is Row objects containing the speed, density, and acceleration values of each sub-section at each interval. The key-value pairs were then converted to a numpy array in a User Defined Function, and the returned numpy arrays were stacked to create the 4D tensor, with a shape of \[(intervals, lanes, sub-sections, attributes)\].
 
-Training a model to forecast the state of traffic of the future requires the past data as well as target data. Therefore, We have to provide another dimension to the tensor, creating a stack of 4D tensors of the fixed length of intervals, which results in a 5D tensor with a shape of \[(samples, lookbacks/targets, lanes, subsections, attributes)\]. Furthermore, in order to provide the model an extra time for inference, the target data were shifted by a fixed number of intervals, which is the skip parameter.
+Training a model to forecast the state of traffic of the future requires the past data as well as target data. Therefore, we have to provide another dimension to the tensor, creating a stack of 4D tensors of the fixed length of intervals, which results in a 5D tensor with a shape of \[(batches, lookbacks/targets, lanes, subsections, attributes)\]. Furthermore, in order to provide the model an extra time for inference, the target data were shifted by a fixed number of intervals, which is the skip parameter. This operation was performed sliding the "window" by the time series aggregation interval, and the resulting 5D tensor was then split into training and test datasets.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[]{{3dto5d.png}}
+    \caption{Gantt chart-like representation of the transformation of the data from 3D to 5D tensor. First, 3D matrices are stacked to create a 4D tensor, and the fixed number of 4D tensors are stacked to create a stack of past data and target data. Then, they will be again stacked to create a batch, resulting in 5D tensor.}
+\end{figure}
 
 \section{Model}
+
+The model used in this study is a Mixed Deep Learning model, which consists of a sequence of deep learning layers which includes a Convolutional Neural Network (CNN) and a Convolutional long short term memory neural network (Conv-LSTM), which is a combination of a Convolutional Neural Network (CNN) and a Long Short-Term Memory (LSTM) network. The model was originally introduced by Lu et al.\cite{9284587} for the prediction of lane-level traffic speeds. The model is designed to capture the spatial and temporal dependencies in vehicle trajectory data, and it has been shown to outperform other models such as the LSTM and the Conv-LSTM in terms of prediction accuracy.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[]{{MDL.png}}
+    \caption{The structure of the MDL model. The figure is from Lu et al.}
+\end{figure}
+
+\subsection{Convolutional Long Short Term Memory Neural Network}
+Conv-LSTM, which MDL is based on, is a type of neural network that combines the spatial processing capabilities of CNN with the temporal processing capabilities of an LSTM to handle spatio-temporal data. Conv-LSTM was first proposed by Shi et al \cite{NIPS2015_07563a3f}. In short, the idea is to add Convolutional operations to an LSTM cell. This section first introduces the LSTM, then extend it into Conv-LSTM.
+
+Traditional Recurrent Neural Networks (RNNs) can track arbitary long-term dependencies in sequential data. However, while training a traditional RNN, it performs backpropagation in which it updates the weights in the network by calculating the gradient of the loss function with respect to the weights. The problem is that the longer the input sequence is, the more vulnerable it becomes to the phenomenon called vanishing gradient problem, where the gradient of the loss function becomes too small to update the weights, causing the model training to slow down or to come to a complete halt. % DO I NEED TO ADD MATHEMATICAL FORMULA?
+
+In order to address this issue, Long Short-Term Memory was introduced by Hochreiter and Schmidhuber\cite{lstm}.
+
+
+The key idea behind LSTM is the introduction of a memory cell, which is capable of storing information over long periods of time. The memory cell is controlled by three gates: the input gate, the forget gate, and the output gate. The input gate controls the flow of information into the memory cell, the forget gate controls the flow of information out of the memory cell, and the output gate controls the flow of information from the memory cell to the output. The gates are controlled by sigmoid activation functions, which output values between 0 and 1, and a tanh activation function, which outputs values between -1 and 1. The gates are trained to learn which information to keep and which information to discard.
+
+
+\subsection{Mixed Deep Learning Model}
+
 \section{Evaluation method}
 
 \section{Real-time streaming architecture}
