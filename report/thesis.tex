@@ -213,7 +213,7 @@ The first issue is that after accounting for vehicle length, trajectories often 
 In order to alleviate the impact of these errors in the dataset to the model training, we dropped the particularly problematic acceleration attribute and performed sub-sectioning and time binning of the data, creating an image-like input for the model. To achieve that, the study section needed to be split into a number of sub-sections along the length of the highway. Therefore, we gave each datapoint an additional attribute, which is distance from the start of the section. The Euclidean distance was calculated simply taking the Local X and Local Y coordinates of the datapoint, since the section stretches almost straight. The section was then divided into 21 sub-sections % NEEDS EDITS
 , each of which is roughly 100 feet in length. The distance attribute was then used to assign each datapoint to a sub-section, by adding the "Section ID" attribute.
 
-Then, the datapoints were aggregated using the "Section ID" attribute, and now the data at each timestamp is binned into 21 sub-sections and the average speed, density, and acceleration of the vehicles in each sub-section at each timestamp is calculated. Then, time series aggregation was performed to fill as many sub-sections as possible with non-zero density and speed values at each interval, as well as further filling null values with appropriate and plausible values. For this study, zero values for density attribute and the maximum speed limit of 60 mph for speed attribute were simply used, although the average speed of vehicles in the proceeding and following block can also be used. 
+Then, the datapoints were aggregated using the "Section ID" attribute, and now the data at each timestamp is binned into 21 sub-sections and the average speed, density, and acceleration of the vehicles in each sub-section at each timestamp is calculated. Then, time series aggregation was performed to fill as many sub-sections as possible with non-zero density and speed values at each interval, as well as further filling null values with appropriate and plausible values. For this study, zero values for density attribute and the maximum speed limit of 60 mph for speed attribute were simply used, although the average speed of vehicles in the proceeding and following grids can also be used. 
 
 To create the 3D tensors, the Spark dataframe was converted to RDDs, and the RDDs were grouped by key and then mapped to a key-value pair, where the key is the interval ID and the value is Row objects containing the speed, density, and acceleration values of each sub-section at each interval. The key-value pairs were then converted to a numpy array in a User Defined Function, and the returned numpy arrays were stacked to create the 4D tensor, with a shape of $R_{i{\times}h{\times}w{\times}l}$, where $i$, $h$, $w$, $l$ denotes the number of timewindows (intervals), the height of grid (lanes), the width of grid (sub-sections), the number of attributes, respecitively. % include psuedo code?
 
@@ -228,12 +228,6 @@ Training a model to forecast the state of traffic of the future requires the pas
 \section{Model}
 
 The model used in this study is a Mixed Deep Learning (MDL) model, which consists of a sequence of deep learning layers which includes a Convolutional Neural Network (CNN) and a Convolutional long short term memory neural network (Conv-LSTM), which is a combination of a Convolutional Neural Network (CNN) and a Long Short-Term Memory (LSTM) network. The model was originally introduced by Lu et al.\cite{9284587} for the prediction of lane-level traffic speeds. For lane-level traffic state prediction, it is important to make the model capture the variable traffic state over time as well as behaviours of surrounding vehicles. The model is designed to effectively capture these spatial and temporal dependencies in vehicle trajectory data, and it has been shown to outperform other models such as the LSTM and the Conv-LSTM in terms of prediction accuracy. In this secftion, we first introduce the underlying ideas of MDL, which are the standard LSTM and the Conv-LSTM, then move on to the description of the Mixed Deep Learning model.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=14cm]{{MDL.png}}
-    \caption{The structure of the MDL model. From Lu et al.}
-\end{figure}
 
 \subsection{Convolutional Long Short Term Memory Neural Network}
 Conv-LSTM, which MDL is based on, is a type of neural network that combines the spatial processing capabilities of CNN with the temporal processing capabilities of an LSTM to handle spatio-temporal data. Conv-LSTM was first proposed by Shi et al \cite{NIPS2015_07563a3f}. In short, the idea is to add Convolutional operations to an LSTM cell. This section first introduces the LSTM, then extend it into Conv-LSTM.
@@ -282,7 +276,13 @@ During convolution process in the MDL model described in the following section, 
 
 \subsection{Mixed Deep Learning Model}
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=14cm]{{MDL.png}}
+    \caption{The structure of the MDL model. From Lu et al.}
+\end{figure}
 
+Mixed Deep Learning (MDL) model was proposed by by Lu et al.\cite{9284587} to forecast the traffic speeds of lane sections. The structure of the MDL model is shown in Fig. 3.6. The model simplifies the study area of the road as $l{\times}w$ grids, where $l$ is the number of lanes and $w$ is the number of the road sections at one road section. Each grid represents the area of a road section and a $l{\times}w$ matrix stores values for a spatio-temporal variable such as traffic speed and vehicle density. 
 
 \section{Evaluation method}
 
