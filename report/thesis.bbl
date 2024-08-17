@@ -66,6 +66,11 @@
 {\sc Hagedorn, S., Götze, P., and Sattler, K.-U.}
 \newblock The stark framework for spatio-temporal data analytics on spark.
 
+\bibitem{lstm}
+{\sc Hochreiter, S., and Schmidhuber, J.}
+\newblock Long short-term memory.
+\newblock {\em Neural computation 9\/} (12 1997), 1735--80.
+
 \bibitem{9075295}
 {\sc Huang, Y., Li, Y., Zhang, Z., and Liu, R.~W.}
 \newblock Gpu-accelerated compression and visualization of large-scale vessel
@@ -117,6 +122,14 @@
   two kilometers highway segment for one hour duration: Zen traffic data.
 \newblock In {\em 2020 International Symposium on Transportation Data and
   Modelling\/} (2020).
+
+\bibitem{NIPS2015_07563a3f}
+{\sc SHI, X., Chen, Z., Wang, H., Yeung, D.-Y., Wong, W.-k., and WOO, W.-c.}
+\newblock Convolutional lstm network: A machine learning approach for
+  precipitation nowcasting.
+\newblock In {\em Advances in Neural Information Processing Systems\/} (2015),
+  C.~Cortes, N.~Lawrence, D.~Lee, M.~Sugiyama, and R.~Garnett, Eds., vol.~28,
+  Curran Associates, Inc.
 
 \bibitem{Sigurdsson2018RoadTC}
 {\sc Sigurdsson, T.~T.}

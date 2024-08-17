@@ -16,7 +16,7 @@
 \prevdegrees{MSc}
 \university{The University of Nottingham}
 \degree{Master of Science in Computer Science with Artificial Intelligence}
-\date{February 2021}
+\date{September 2024}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
@@ -67,23 +67,23 @@ Extending the above ideas, this paper aims to provide a real-time prediction met
 
 \chapter{Literature Review}
 \section{Research Field Challenges}
-When performing vehicle trajectory analysis and simulation, researchers are required to address common challenges. The most relevant ones can fall into the following categories: \\
+When performing vehicle trajectory analysis and simulation, researchers are required to address common challenges. The most relevant ones can fall into the following categories:
+\\
+\noindent- Scarcity of complete vehicle trajectory datasets:
 
-- Scarcity of complete vehicle trajectory datasets: 
+The datasets are oftentimes difficult to collect because traffic flow is a wide-ranging spatiotemporal phenomenon, and it is very challenging to collect continuous data from such wide-ranging domain\cite{seo2020evaluation}. For example, usual loop detectors only collect data at a specific point, and combining data in other formats (data fusion) (i.e., Object tracking data from CCTV footage) can be a tough challenge.
+\\
+\noident- Anomaly of urban traffic environment:
 
-The datasets are oftentimes difficult to collect because traffic flow is a wide-ranging spatiotemporal phenomenon, and it is very challenging to collect continuous data from such wide-ranging domain\cite{seo2020evaluation}. For example, usual loop detectors only collect data at a specific point, and combining data in other formats (data fusion) (i.e., Object tracking data from CCTV footage) can be a tough challenge. \\
+Urban road environment has lots of variables such as not only traffic accidents, events, protests, weather, but also Vehicle to Infrastructure interaction, Vehicle to Vehicle interaction, multimodality, generalizability (robustness to real-world road environment), etc. and they make the task of vehicle trajectory analysis more complex. The effort applying modern deep learning methods such as Long Short Time Memory networks and Generative Adversarial Networks (GANs) \cite{rossi2021vehicle}, have been made to improve the simulation model accuracy. Especially in microscopic road traffic simulation of multi-lane dual carriageways, complexity of multi-lane, multi-class traffic introduces additional challenges due to the uncertainty in human behaviours, such as lane changing\cite{DAHIYA2022100066}.
 
-- Anomaly of urban traffic environment: 
+In order to account for the massive volume of trajectory data, one has to apply the technologies of distributed computing when performing microscopic traffic analysis and simulation. However, distributed environment makes the task more challenging due to \cite{yu2020dissecting}:
+\\
+\noindent- Workload balance:
 
-Urban road environment has lots of variables such as not only traffic accidents, events, protests, weather, but also Vehicle to Infrastructure interaction, Vehicle to Vehicle interaction, multimodality, generalizability (robustness to real-world road environment), etc. and they make the task of vehicle trajectory analysis more complex. The effort applying modern deep learning methods such as Long Short Time Memory networks and Generative Adversarial Networks (GANs) \cite{rossi2021vehicle}, have been made to improve the simulation model accuracy. Especially in microscopic road traffic simulation of multi-lane dual carriageways, complexity of multi-lane, multi-class traffic introduces additional challenges due to the uncertainty in human behaviours, such as lane changing\cite{DAHIYA2022100066}. \\
-
-In order to account for the massive volume of trajectory data, one has to apply the technologies of distributed computing when performing microscopic traffic analysis and simulation. However, distributed environment makes the task more challenging due to \cite{yu2020dissecting}: \\
-
-- Workload balance: 
-
-A scalable simulator has to divide the workload into smaller chunks (partitioning) and distribute them across different machines within a cluster. Yet, whenever a vehicle in the simulator seeks to switch lanes or accelerate, it has to assess its distance from neighboring vehicles. An effective partitioning approach should consider the spatial closeness of vehicles and reduce the amount of data exchange across partitions. \\
-
-- Dynamic distribution: 
+A scalable simulator has to divide the workload into smaller chunks (partitioning) and distribute them across different machines within a cluster. Yet, whenever a vehicle in the simulator seeks to switch lanes or accelerate, it has to assess its distance from neighboring vehicles. An effective partitioning approach should consider the spatial closeness of vehicles and reduce the amount of data exchange across partitions.
+\\
+\noindent- Dynamic distribution:
 
 The spatial coordinates of moving vehicles changes over time, causing nearby vehicles to potentially distance themselves from each other. Simulators need to have appropriate mechanisms to address this dynamic distribution of vehicles. 
 
@@ -163,7 +163,7 @@ The NGSIM's US-101 dataset provides a total of 45 minutes of vehicle trajectory 
     \caption{Vehicle speed visualisation of each vehicle in the farthest left (passing) lane (in mph)}
 \end{figure}
 
-Each datapoint contains the following attributes: \\
+Each datapoint contains the following attributes:
 \begin{description}
     \item Vehicle ID - Vehicle identification number (ascending by time of entry into section)
     \item Frame ID - Frame identification number (ascending by time)
@@ -204,47 +204,68 @@ The NGSIM dataset is one of the most extensive and detailed vehicle trajectory d
 
 \begin{figure}[h]
     \centering
-    \includegraphics[]{interpolation.jpg}
-    \caption{Speed interpolation errors. (A) A typical frame from the NGSIM validation video for I-80 camera 6 at 490s. Traffic is flowing from left to right in this image. The NGSIM researchers superimposed a pink bounding box for each vehicle. A Detail of lane 3 (3rd lane from the left) from the validation video for three frames (B) 485s, (C) 490s, and (D) 497.5s. For each vehicle the rear bumper location in the NGSIM data set is shown on the left (corresponding to the upstream end of the bounding box) and is indexed by the vehicle ID, while the new rear bumper location calculated in our study is shown on the right. Figures are from Coifman et al.}
+    \includegraphics[width=14cm]{interpolation.jpg}
+    \caption{Speed interpolation errors. (A) A typical frame from the NGSIM validation video for I-80 camera 6 at 490s. Traffic is flowing from left to right in this image. The NGSIM researchers superimposed a pink bounding box for each vehicle. A Detail of lane 3 (3rd lane from the left) from the validation video for three frames (B) 485s, (C) 490s, and (D) 497.5s. For each vehicle the rear bumper location in the NGSIM data set is shown on the left (corresponding to the upstream end of the bounding box) and is indexed by the vehicle ID, while the new rear bumper location calculated in our study is shown on the right. From Coifman et al.}
 \end{figure}
 
 The first issue is that after accounting for vehicle length, trajectories often overrun those of proceeding vehicles seemingly resulting in "collisions of trajectories". Their analysis went on to discover the second issue: that the NGSIM acceleration often exhibits unrealistically large magnitudes and likewise that the NGSIM speeds exhibit unrealistic piecewise constant behavior, which means in the dataset some vehicles maintain zero acceleration for an unrealistically long time. It appears as if at low speeds the NGSIM video image processing frequently linearly interpolates the trajectories between two points in space observed many seconds apart.
 
-In order to alleviate the impact of these errors in the dataset, we dropped the particularly problematic acceleration attribute and performed sub-sectioning and time binning of the data, creating an image-like input for the model. To do that, the study section needed to be split into a number of sub-sections along the length of the highway. Therefore, we gave each datapoint an additional attribute, which is distance from the start of the section. The Euclidean distance was calculated simply taking the Local X and Local Y coordinates of the datapoint, since the section stretches almost straight. The section was then divided into 21 sub-sections % NEEDS EDITS
+In order to alleviate the impact of these errors in the dataset to the model training, we dropped the particularly problematic acceleration attribute and performed sub-sectioning and time binning of the data, creating an image-like input for the model. To achieve that, the study section needed to be split into a number of sub-sections along the length of the highway. Therefore, we gave each datapoint an additional attribute, which is distance from the start of the section. The Euclidean distance was calculated simply taking the Local X and Local Y coordinates of the datapoint, since the section stretches almost straight. The section was then divided into 21 sub-sections % NEEDS EDITS
 , each of which is roughly 100 feet in length. The distance attribute was then used to assign each datapoint to a sub-section, by adding the "Section ID" attribute.
 
 Then, the datapoints were aggregated using the "Section ID" attribute, and now the data at each timestamp is binned into 21 sub-sections and the average speed, density, and acceleration of the vehicles in each sub-section at each timestamp is calculated. Then, time series aggregation was performed to fill as many sub-sections as possible with non-zero density and speed values at each interval, as well as further filling null values with appropriate values (density for 0, speed for 60 mph).
 
-To create the 3D tensors, the Spark dataframe was converted to RDDs, and the RDDs were grouped by key and then mapped to a key-value pair, where the key is the interval ID and the value is Row objects containing the speed, density, and acceleration values of each sub-section at each interval. The key-value pairs were then converted to a numpy array in a User Defined Function, and the returned numpy arrays were stacked to create the 4D tensor, with a shape of \[(intervals, lanes, sub-sections, attributes)\].
+To create the 3D tensors, the Spark dataframe was converted to RDDs, and the RDDs were grouped by key and then mapped to a key-value pair, where the key is the interval ID and the value is Row objects containing the speed, density, and acceleration values of each sub-section at each interval. The key-value pairs were then converted to a numpy array in a User Defined Function, and the returned numpy arrays were stacked to create the 4D tensor, with a shape of $(intervals, lanes, sub-sections, attributes)$. % include psuedo code?
 
-Training a model to forecast the state of traffic of the future requires the past data as well as target data. Therefore, we have to provide another dimension to the tensor, creating a stack of 4D tensors of the fixed length of intervals, which results in a 5D tensor with a shape of \[(batches, lookbacks/targets, lanes, subsections, attributes)\]. Furthermore, in order to provide the model an extra time for inference, the target data were shifted by a fixed number of intervals, which is the skip parameter. This operation was performed sliding the "window" by the time series aggregation interval, and the resulting 5D tensor was then split into training and test datasets.
+Training a model to forecast the state of traffic of the future requires the past data as well as target data. Therefore, we have to provide another dimension to the tensor, creating a stack of 4D tensors of the fixed length of intervals, which results in a 5D tensor with a shape of $(batches, lookbacks/targets, lanes, subsections, attributes)$. Furthermore, in order to provide the model an extra time for inference, the target data were shifted by a fixed number of intervals, which is the skip parameter. This operation was performed sliding the "window" by the time series aggregation interval, and the resulting 5D tensor was then split into training and test datasets. % include psuedo code?
 
 \begin{figure}[h]
     \centering
-    \includegraphics[]{{3dto5d.png}}
-    \caption{Gantt chart-like representation of the transformation of the data from 3D to 5D tensor. First, 3D matrices are stacked to create a 4D tensor, and the fixed number of 4D tensors are stacked to create a stack of past data and target data. Then, they will be again stacked to create a batch, resulting in 5D tensor.}
+    \includegraphics[width=14cm]{{3dto5d.png}}
+    \caption{Gantt chart-like representation of the transformation of the data from 3D to 5D tensor. Firstly, 3D matrices are stacked to create a 4D tensor, and the fixed number of 4D tensors are stacked to create a stack of past data and target data. Then, they will be again stacked to create a batch, resulting in 5D tensor.}
 \end{figure}
 
 \section{Model}
 
-The model used in this study is a Mixed Deep Learning model, which consists of a sequence of deep learning layers which includes a Convolutional Neural Network (CNN) and a Convolutional long short term memory neural network (Conv-LSTM), which is a combination of a Convolutional Neural Network (CNN) and a Long Short-Term Memory (LSTM) network. The model was originally introduced by Lu et al.\cite{9284587} for the prediction of lane-level traffic speeds. The model is designed to capture the spatial and temporal dependencies in vehicle trajectory data, and it has been shown to outperform other models such as the LSTM and the Conv-LSTM in terms of prediction accuracy.
+The model used in this study is a Mixed Deep Learning (MDL) model, which consists of a sequence of deep learning layers which includes a Convolutional Neural Network (CNN) and a Convolutional long short term memory neural network (Conv-LSTM), which is a combination of a Convolutional Neural Network (CNN) and a Long Short-Term Memory (LSTM) network. The model was originally introduced by Lu et al.\cite{9284587} for the prediction of lane-level traffic speeds. For lane-level traffic state prediction, it is important to make the model capture the variable traffic state over time as well as behaviours of surrounding vehicles. The model is designed to effectively capture these spatial and temporal dependencies in vehicle trajectory data, and it has been shown to outperform other models such as the LSTM and the Conv-LSTM in terms of prediction accuracy. In this secftion, we first introduce the underlying ideas of MDL, which are the standard LSTM and the Conv-LSTM, then move on to the description of the Mixed Deep Learning model.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[]{{MDL.png}}
-    \caption{The structure of the MDL model. The figure is from Lu et al.}
+    \includegraphics[width=14cm]{{MDL.png}}
+    \caption{The structure of the MDL model. From Lu et al.}
 \end{figure}
 
 \subsection{Convolutional Long Short Term Memory Neural Network}
 Conv-LSTM, which MDL is based on, is a type of neural network that combines the spatial processing capabilities of CNN with the temporal processing capabilities of an LSTM to handle spatio-temporal data. Conv-LSTM was first proposed by Shi et al \cite{NIPS2015_07563a3f}. In short, the idea is to add Convolutional operations to an LSTM cell. This section first introduces the LSTM, then extend it into Conv-LSTM.
 
-Traditional Recurrent Neural Networks (RNNs) can track arbitary long-term dependencies in sequential data. However, while training a traditional RNN, it performs backpropagation in which it updates the weights in the network by calculating the gradient of the loss function with respect to the weights. The problem is that the longer the input sequence is, the more vulnerable it becomes to the phenomenon called vanishing gradient problem, where the gradient of the loss function becomes too small to update the weights, causing the model training to slow down or to come to a complete halt. % DO I NEED TO ADD MATHEMATICAL FORMULA?
+Traditional Recurrent Neural Networks (RNNs) can track arbitary long-term dependencies in sequential data. However, while training a traditional RNN, it performs backpropagation in which it updates the weights in the network by calculating the gradient of the loss function with respect to the weights. The problem is that the longer the input sequence is, the more vulnerable it becomes to the phenomenon called vanishing gradient problem, where the gradient of the loss function becomes too small to update the weights, causing the model training to slow down or possibly come to a complete halt. % DO I NEED TO ADD MATHEMATICAL FORMULA?
 
-In order to address this issue, Long Short-Term Memory was introduced by Hochreiter and Schmidhuber\cite{lstm}.
+In order to address this issue, Long Short-Term Memory was introduced by Hochreiter and Schmidhuber\cite{lstm}. The key idea behind LSTM is the introduction of a memory cell in the hidden layer, which is a container of the cell state $c_t$ in which information gets stored over longer periods of time. The memory cell has three special structures that allow information to selectively influence the cell state at every moment: the input gate, the forget gate, and the output gate. The input gate $i_t$ controls the input of information to the memory cell, the forget gate $f_t$ controls the removal of information from the memory cell, and the output gate $o_t$ controls what information is output from the memory cell. The gates are controlled by sigmoid activation functions $\sigma$, which output values between 0 and 1, and a tanh activation function, which outputs values between -1 and 1. The gates are trained to learn which information to keep and which information to discard.
 
+Let $T$, $x$, $h$ be the number of the timestamps, the input vector sequences, and the output vector sequences of the hidden layer, respecitively, the structure of LSTM neural network can be written in the following equations:
+\[t = 1, 2, ..., T\]
+\[x = (x_{1}, x_{2},..., x_t)\]
+\[h = (h_{1}, h_{2},..., h_t)\]
+\[f_t = \sigma(w_{xf} x_t + w_{hf} h_{t-1} + w_{cf} \odot c_{t-1} + b_f )\]
+\[i_t = \sigma(w_{xi} x_t + w_{hi} h_{t-1} + w_{ci} \odot c_{t-1} + b_i )\]
+\[c_t = f_t \odot c_{t-1} + i_t \odot \tanh(w_{xc} x_t + w_{hc} h_{t-1} + b_c)\] 
+\[o_t = \sigma(w_{xo} x_t + w_{ho} h_{t-1} + w_co \odot c_t + b_o)\]
+\[h_t = o_t \odot \tanh(c_t)\]
 
-The key idea behind LSTM is the introduction of a memory cell, which is capable of storing information over long periods of time. The memory cell is controlled by three gates: the input gate, the forget gate, and the output gate. The input gate controls the flow of information into the memory cell, the forget gate controls the flow of information out of the memory cell, and the output gate controls the flow of information from the memory cell to the output. The gates are controlled by sigmoid activation functions, which output values between 0 and 1, and a tanh activation function, which outputs values between -1 and 1. The gates are trained to learn which information to keep and which information to discard.
+\noindent where
+$\odot$ denotes the Hadamard product (element-wise multiplication) of two vectors, matrices, or tensors with the same dimension;
+$\sigma$ is the sigmoid activation function;
+$w_{hi}$, $w_{hf}$, $w_{ho}$ and $w_{xi}$, $w_{xf}$, $w_{xo}$ are the weight matrices for the input, forget, and output gates, respectively;
+$w_{ci}$, $w_{cf}$, $w_{co}$ are the weight matrices for the cell state;
+$b_i$, $b_f$, $b_o$, $b_c$ are the bias terms for the input, forget, and output gates, and cell state, respectively.
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=14cm]{{lstmvsrnn.png}}
+    \caption{The comparison between (a) RNN and (b) LSTM structures. From Lu et al.}
+\end{figure}
+
+The standard LSTM is suitable for 1D sequential data processing, and yet it is not capable of effectively capturing the contextual information of pixel data, thus it is not ideal for 2D signal processing tasks such as images and feature maps. Conv-LSTM extends the LSTM by adding convolutional operations to both the input-to-state and state-to-state transitions in the LSTM cell, which allows the model to learn spatial features as well as temporal features from the input data. The Conv-LSTM cell has the same structure as the LSTM cell, apart from the aforementioned modification to the LSTM cell. The 
 
 \subsection{Mixed Deep Learning Model}
 
