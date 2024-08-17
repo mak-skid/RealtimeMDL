@@ -213,11 +213,11 @@ The first issue is that after accounting for vehicle length, trajectories often 
 In order to alleviate the impact of these errors in the dataset to the model training, we dropped the particularly problematic acceleration attribute and performed sub-sectioning and time binning of the data, creating an image-like input for the model. To achieve that, the study section needed to be split into a number of sub-sections along the length of the highway. Therefore, we gave each datapoint an additional attribute, which is distance from the start of the section. The Euclidean distance was calculated simply taking the Local X and Local Y coordinates of the datapoint, since the section stretches almost straight. The section was then divided into 21 sub-sections % NEEDS EDITS
 , each of which is roughly 100 feet in length. The distance attribute was then used to assign each datapoint to a sub-section, by adding the "Section ID" attribute.
 
-Then, the datapoints were aggregated using the "Section ID" attribute, and now the data at each timestamp is binned into 21 sub-sections and the average speed, density, and acceleration of the vehicles in each sub-section at each timestamp is calculated. Then, time series aggregation was performed to fill as many sub-sections as possible with non-zero density and speed values at each interval, as well as further filling null values with appropriate values (density for 0, speed for 60 mph).
+Then, the datapoints were aggregated using the "Section ID" attribute, and now the data at each timestamp is binned into 21 sub-sections and the average speed, density, and acceleration of the vehicles in each sub-section at each timestamp is calculated. Then, time series aggregation was performed to fill as many sub-sections as possible with non-zero density and speed values at each interval, as well as further filling null values with appropriate and plausible values. For this study, zero values for density attribute and the maximum speed limit of 60 mph for speed attribute were simply used, although the average speed of vehicles in the proceeding and following block can also be used. 
 
-To create the 3D tensors, the Spark dataframe was converted to RDDs, and the RDDs were grouped by key and then mapped to a key-value pair, where the key is the interval ID and the value is Row objects containing the speed, density, and acceleration values of each sub-section at each interval. The key-value pairs were then converted to a numpy array in a User Defined Function, and the returned numpy arrays were stacked to create the 4D tensor, with a shape of $(intervals, lanes, sub-sections, attributes)$. % include psuedo code?
+To create the 3D tensors, the Spark dataframe was converted to RDDs, and the RDDs were grouped by key and then mapped to a key-value pair, where the key is the interval ID and the value is Row objects containing the speed, density, and acceleration values of each sub-section at each interval. The key-value pairs were then converted to a numpy array in a User Defined Function, and the returned numpy arrays were stacked to create the 4D tensor, with a shape of $R_{i{\times}h{\times}w{\times}l}$, where $i$, $h$, $w$, $l$ denotes the number of timewindows (intervals), the height of grid (lanes), the width of grid (sub-sections), the number of attributes, respecitively. % include psuedo code?
 
-Training a model to forecast the state of traffic of the future requires the past data as well as target data. Therefore, we have to provide another dimension to the tensor, creating a stack of 4D tensors of the fixed length of intervals, which results in a 5D tensor with a shape of $(batches, lookbacks/targets, lanes, subsections, attributes)$. Furthermore, in order to provide the model an extra time for inference, the target data were shifted by a fixed number of intervals, which is the skip parameter. This operation was performed sliding the "window" by the time series aggregation interval, and the resulting 5D tensor was then split into training and test datasets. % include psuedo code?
+Training a model to forecast the state of traffic of the future requires the past data as well as target data. Therefore, we have to provide another dimension to the tensor, creating a stack of 4D tensors of the fixed length of intervals, which results in a 5D tensor with a shape of $R_{s{\times}p{\times}h{\times}w{\times}l}$, where $s$, $p$, $h$, $w$, $l$ denotes the number of samples, the number of timewindows to look back or the target timewindows, the height of grid (lanes), the width of grid (sub-sections), the number of attributes, respecitively. Furthermore, in order to provide the model an extra time for inference, the target data were shifted by a fixed number of intervals, which is the skip parameter. This operation was performed sliding the "window" by the time series aggregation interval, and the resulting 5D tensor was then split into training and test datasets. % include psuedo code?
 
 \begin{figure}[h]
     \centering
@@ -251,8 +251,7 @@ Let $T$, $x$, $h$ be the number of the timestamps, the input vector sequences, a
 \[c_t = f_t \odot c_{t-1} + i_t \odot \tanh(w_{xc} x_t + w_{hc} h_{t-1} + b_c)\] 
 \[o_t = \sigma(w_{xo} x_t + w_{ho} h_{t-1} + w_co \odot c_t + b_o)\]
 \[h_t = o_t \odot \tanh(c_t)\]
-
-\noindent where
+where
 $\odot$ denotes the Hadamard product (element-wise multiplication) of two vectors, matrices, or tensors with the same dimension;
 $\sigma$ is the sigmoid activation function;
 $w_{hi}$, $w_{hf}$, $w_{ho}$ and $w_{xi}$, $w_{xf}$, $w_{xo}$ are the weight matrices for the input, forget, and output gates, respectively;
@@ -265,9 +264,25 @@ $b_i$, $b_f$, $b_o$, $b_c$ are the bias terms for the input, forget, and output 
     \caption{The comparison between (a) RNN and (b) LSTM structures. From Lu et al.}
 \end{figure}
 
-The standard LSTM is suitable for 1D sequential data processing, and yet it is not capable of effectively capturing the contextual information of pixel data, thus it is not ideal for 2D signal processing tasks such as images and feature maps. Conv-LSTM extends the LSTM by adding convolutional operations to both the input-to-state and state-to-state transitions in the LSTM cell, which allows the model to learn spatial features as well as temporal features from the input data. The Conv-LSTM cell has the same structure as the LSTM cell, apart from the aforementioned modification to the LSTM cell. The 
+The standard LSTM is suitable for 1D sequential data processing, and yet it is not capable of effectively capturing the contextual information of pixel data, thus it is not ideal for 2D and 3D signal processing tasks such as images and feature maps. Conv-LSTM extends the LSTM by adding convolutional operations to both the input-to-state and state-to-state transitions in the LSTM cell, which allows the model to learn spatial features as well as temporal features from the input data. The Conv-LSTM cell has the same structure as the LSTM cell, apart from the aforementioned modification to the LSTM cell. The mathmatical equations of the Conv-LSTM cell are summarised as follows according to \cite{9779153}:
+\[I_t = \sigma(W_{xi} * X_t + W_{hi} * H_{t-1} + W_{ci} \odot C_{t-1} + b_i)\]
+\[F_t = \sigma(W_{xf} * X_t + W_{hf} * H_{t-1} + W_{cf} \odot C_{t-1} + b_f)\]
+\[C_t = F_t \odot C_{t-1} + I_t \odot \tanh(W_{xc} * X_t + W_{hc} * H_{t-1} + b_c)\]
+\[O_t = \sigma(W_{xo} * X_t + W_{ho} * H_{t-1} + W_{co} \odot C_t + b_o)\]
+\[H_t = O_t \odot \tanh(C_t)\]
+where $*$ denotes the convolution operator. Note that $X_t$, $C_t$, $H_t$, $I_t$, $F_t$, $O_t$ $\in$ $R_{H \times W \times L}$, where $R_{H \times W \times L}$ denotes the space of the 3D tensor, and $H$, $W$, and $L$ are the height, width, and each grid feature vector of the tensor, respectively. 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=14cm]{{convlstm.png}}
+    \caption{Inner structure of ConvLSTM. From Shi et al.}
+\end{figure}
+
+During convolution process in the MDL model described in the following section, the widely-used filter size of 3$\times$3 was also used for this study. In order to avoid the output feature map size reduction, often resulting in the loss of information on the edges of the input feature map, the zero-padding method in which it creates zero values around the input feature map before the process was applied.
 
 \subsection{Mixed Deep Learning Model}
+
+
 
 \section{Evaluation method}
 
@@ -279,6 +294,7 @@ The standard LSTM is suitable for 1D sequential data processing, and yet it is n
 
 \chapter{Discussion, Limitations and Future Work}
 % Reflection on the paper with the initial objectives, etc. (refer to the student handbook)
+% Mention that time series aggregation window length has to be further optimised by feature correlation analysis method
 \chapter{Conclusion}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
