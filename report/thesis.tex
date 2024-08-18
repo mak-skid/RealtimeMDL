@@ -278,12 +278,6 @@ One Conv-LSTM layer can process an input tensor $X = (X_1, X_2,..., X_T)$ into a
 
 \subsection{Mixed Deep Learning Model}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=14cm]{{MDL.png}}
-    \caption{The structure of the MDL model. From Lu et al.}
-\end{figure}
-
 Mixed Deep Learning (MDL) model was proposed by by Lu et al.\cite{9284587} to forecast the traffic speeds of lane sections. The structure of the MDL model is shown in Fig. 3.6. The model simplifies the study area of the road as $m{\times}n$ grids, where $m$ is the number of lanes and $n$ is the number of the road sections at one road section. Each grid represents the area of a road section and a $l{\times}w$ matrix stores values for a spatio-temporal variable such as traffic speed and vehicle density. Looking at the third to fifth dimensions of the aforementioned 5D tensor and taking each attribute (speed and vehicle density) from the aforementioned tensor, we can translate the third to fifth dimensions of the original tensor into a tensor of ${V_t}$ and ${D_t}$ with dimention of $M{\times}N{\times}1$, which contains each attribute variables during the time series aggregation interval $t$. The prediction target vector $Y_t$ contains traffic speed of all sections during the timewindow $T_h$ and length of the $Y_t$ is $T_h{\times}M{\times}N$, where $T_h$ is the forecast horizon with an offset of the "skip" parameter. % POSSIBLY MATHMATICALLY INPRECISENESS
 
 Since it is imporant to speed up training and inference time especially when real-time inference is in mind, we attempted to downsize the model as well as reduce the number of attributes to be fed into the architecture, which differs from the original MDL model. The original MDL architecture, where the two kinds of variables (historical travel speed and vehicle density) are fed into two sperarate architectures of stacked Conv-LSTM and CNN layers, was also tested. Here, let $L_s$ and $L_q$ be the numbers of the stacked Conv-LSTM layers in the architectures for speed and vehicle density, the downsized model's $L_s$ is $1$, whereas the original model's $L_s$ and $L_q$ are $2$. Note that the downsized model has only one stream (architecture). $T_b$ represents the input historical timewindow of speed variable, and also vehicle density variable for the original MDL model. The architecture for the spatio-temporal variable for the speed attribute can be generalised and formulated as follows:
@@ -300,7 +294,13 @@ where $F(\cdot)$ is the flatten operation, $Conc(\cdot)$ is the concatenation op
 
 During the training, the model is trained to minimise the mean squared error between the predicted and the actual traffic speeds using the objective function:
 \[\min_{W, b} \parallel \hat{Y_t} - Y_t \parallel^2_2 + \alpha \parallel W \parallel^2_2 \]
-where $\hat{Y_t}$ is the predicted speed vector and $Y_t$ is the actual speed vector; $\alpha \parallel W \parallel^2_2$ is the L2 regularisation term to reduce overfitting; $W$ refers to the weighted parameters in $\hat{Y_t}$; $\alpha$ is a regularisation parameter.
+where $\hat{Y_t}$ is the predicted speed vector and $Y_t$ is the actual speed vector; $\alpha \parallel W \parallel^2_2$ is the L2-norm regularisation term to reduce overfitting; $W$ refers to the weighted parameters in $\hat{Y_t}$; $\alpha$ is a regularisation parameter.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=14cm]{{MDL.png}}
+    \caption{The structure of the orginal MDL model. From Lu et al. Note that the downsized model has only one stream of speed and thus no merging operation.}
+\end{figure}
 
 \section{Evaluation method}
 

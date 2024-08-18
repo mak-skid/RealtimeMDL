@@ -13,14 +13,14 @@
 \contentsline {section}{\numberline {3.2}Preprocessing}{11}{}%
 \contentsline {section}{\numberline {3.3}Model}{13}{}%
 \contentsline {subsection}{\numberline {3.3.1}Convolutional Long Short Term Memory Neural Network}{13}{}%
-\contentsline {subsection}{\numberline {3.3.2}Mixed Deep Learning Model}{15}{}%
-\contentsline {section}{\numberline {3.4}Evaluation method}{16}{}%
-\contentsline {section}{\numberline {3.5}Real-time streaming architecture}{16}{}%
-\contentsline {section}{\numberline {3.6}Kafka}{16}{}%
-\contentsline {section}{\numberline {3.7}Spark Structured Streaming}{16}{}%
-\contentsline {chapter}{\numberline {4}Results}{24}{}%
-\contentsline {chapter}{\numberline {5}Discussion, Limitations and Future Work}{25}{}%
-\contentsline {chapter}{\numberline {6}Conclusion}{26}{}%
-\contentsline {chapter}{References}{27}{}%
-\contentsline {chapter}{Appendix \numberline {A}Supplementary Materials I}{31}{}%
-\contentsline {chapter}{Appendix \numberline {B}Supplementary Materials II}{32}{}%
+\contentsline {subsection}{\numberline {3.3.2}Mixed Deep Learning Model}{16}{}%
+\contentsline {section}{\numberline {3.4}Evaluation method}{17}{}%
+\contentsline {section}{\numberline {3.5}Real-time streaming architecture}{17}{}%
+\contentsline {section}{\numberline {3.6}Kafka}{17}{}%
+\contentsline {section}{\numberline {3.7}Spark Structured Streaming}{17}{}%
+\contentsline {chapter}{\numberline {4}Results}{25}{}%
+\contentsline {chapter}{\numberline {5}Discussion, Limitations and Future Work}{26}{}%
+\contentsline {chapter}{\numberline {6}Conclusion}{27}{}%
+\contentsline {chapter}{References}{28}{}%
+\contentsline {chapter}{Appendix \numberline {A}Supplementary Materials I}{32}{}%
+\contentsline {chapter}{Appendix \numberline {B}Supplementary Materials II}{33}{}%

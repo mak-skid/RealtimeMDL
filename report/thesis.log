@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.5.4)  18 AUG 2024 15:29
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.5.4)  18 AUG 2024 20:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -373,35 +373,35 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 <MDL.png, id=85, 800.9925pt x 823.075pt>
 File: MDL.png Graphic file (type png)
 <use MDL.png>
-Package pdftex.def Info: MDL.png  used on input line 281.
+Package pdftex.def Info: MDL.png  used on input line 283.
 (pdftex.def)             Requested size: 398.33858pt x 409.32608pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[15] [16] [17 <./output1.png>] [18 <./trajectorycollision.jpg>] [19 <./interpol
-ation.jpg>] [20 <./3dto5d.png>] [21 <./lstmvsrnn.png>] [22 <./convlstm.png>]
-[23 <./MDL.png>]
+[15] [16] [17] [18 <./output1.png>] [19 <./trajectorycollision.jpg>] [20 <./int
+erpolation.jpg>] [21 <./3dto5d.png>] [22 <./lstmvsrnn.png>] [23 <./convlstm.png
+>] [24 <./MDL.png>]
 Chapter 4.
-[24
-
-]
-Chapter 5.
 [25
 
 ]
-Chapter 6.
-(./thesis.bbl [26
+Chapter 5.
+[26
 
-] [27
+]
+Chapter 6.
+(./thesis.bbl [27
+
+] [28
 
 {/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
- [28] [29]) [30]
+ [29] [30]) [31]
 Appendix A.
-[31
+[32
 
 ]
 Appendix B.
-[32
+[33
 
 ] (./thesis.aux)
  ***********
@@ -419,30 +419,32 @@ LaTeX Warning: There were undefined references.
 Here is how much of TeX's memory you used:
  4368 strings out of 474116
  75060 string characters out of 5743683
- 1938187 words of memory out of 5000000
+ 1939187 words of memory out of 5000000
  26688 multiletter control sequences out of 15000+600000
  565962 words of font info for 63 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 67i,11n,77p,1066b,307s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 67i,11n,77p,1199b,307s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb>
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><
-/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></u
-sr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr
-/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/l
-ocal/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/loc
-al/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/
-texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/t
-exlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/te
-xlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texl
-ive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texli
-ve/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texliv
-e/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb>
-Output written on thesis.pdf (37 pages, 1890217 bytes).
+/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></u
+sr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr
+/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/l
+ocal/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/loc
+al/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local
+/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/te
+xlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/tex
+live/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texl
+ive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texliv
+e/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/
+2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2
+024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/20
+24/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb>
+Output written on thesis.pdf (38 pages, 1915887 bytes).
 PDF statistics:
- 214 PDF objects out of 1000 (max. 8388607)
- 132 compressed objects within 2 object streams
+ 227 PDF objects out of 1000 (max. 8388607)
+ 140 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  41 words of extra memory for PDF output out of 10000 (max. 10000000)
 
