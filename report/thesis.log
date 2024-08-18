@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.5.4)  17 AUG 2024 18:34
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.5.4)  18 AUG 2024 15:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -340,7 +340,7 @@ Package pdftex.def Info: interpolation.jpg  used on input line 207.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [11] [12]
-<3dto5d.png, id=72, 1048.91875pt x 540.0175pt>
+<3dto5d.png, id=73, 1048.91875pt x 540.0175pt>
 File: 3dto5d.png Graphic file (type png)
 <use 3dto5d.png>
 Package pdftex.def Info: 3dto5d.png  used on input line 224.
@@ -349,47 +349,59 @@ Package pdftex.def Info: 3dto5d.png  used on input line 224.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<MDL.png, id=73, 800.9925pt x 823.075pt>
-File: MDL.png Graphic file (type png)
-<use MDL.png>
-Package pdftex.def Info: MDL.png  used on input line 234.
-(pdftex.def)             Requested size: 398.33858pt x 409.32608pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
 [13]
 <lstmvsrnn.png, id=77, 823.075pt x 773.89125pt>
 File: lstmvsrnn.png Graphic file (type png)
 <use lstmvsrnn.png>
-Package pdftex.def Info: lstmvsrnn.png  used on input line 264.
+Package pdftex.def Info: lstmvsrnn.png  used on input line 257.
 (pdftex.def)             Requested size: 398.33858pt x 374.53381pt.
-
+ [14]
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[14] [15] [16 <./output1.png>] [17 <./trajectorycollision.jpg>] [18 <./interpol
-ation.jpg>] [19 <./3dto5d.png>] [20 <./MDL.png>] [21 <./lstmvsrnn.png>]
+
+LaTeX Warning: Citation `9779153' on page 15 undefined on input line 261.
+
+<convlstm.png, id=84, 552.0625pt x 379.4175pt>
+File: convlstm.png Graphic file (type png)
+<use convlstm.png>
+Package pdftex.def Info: convlstm.png  used on input line 271.
+(pdftex.def)             Requested size: 398.33858pt x 273.77669pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<MDL.png, id=85, 800.9925pt x 823.075pt>
+File: MDL.png Graphic file (type png)
+<use MDL.png>
+Package pdftex.def Info: MDL.png  used on input line 281.
+(pdftex.def)             Requested size: 398.33858pt x 409.32608pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[15] [16] [17 <./output1.png>] [18 <./trajectorycollision.jpg>] [19 <./interpol
+ation.jpg>] [20 <./3dto5d.png>] [21 <./lstmvsrnn.png>] [22 <./convlstm.png>]
+[23 <./MDL.png>]
 Chapter 4.
-[22
+[24
 
 ]
 Chapter 5.
-[23
+[25
 
 ]
 Chapter 6.
-(./thesis.bbl [24
+(./thesis.bbl [26
 
-] [25
+] [27
 
 {/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
- [26] [27]) [28]
+ [28] [29]) [30]
 Appendix A.
-[29
+[31
 
 ]
 Appendix B.
-[30
+[32
 
 ] (./thesis.aux)
  ***********
@@ -400,12 +412,15 @@ L3 programming layer <2024-02-20>
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
+
+LaTeX Warning: There were undefined references.
+
  ) 
 Here is how much of TeX's memory you used:
- 4360 strings out of 474116
- 74902 string characters out of 5743683
+ 4368 strings out of 474116
+ 75060 string characters out of 5743683
  1938187 words of memory out of 5000000
- 26680 multiletter control sequences out of 15000+600000
+ 26688 multiletter control sequences out of 15000+600000
  565962 words of font info for 63 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  67i,11n,77p,1066b,307s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -424,10 +439,10 @@ xlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texl
 ive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texli
 ve/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texliv
 e/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb>
-Output written on thesis.pdf (35 pages, 1851488 bytes).
+Output written on thesis.pdf (37 pages, 1890217 bytes).
 PDF statistics:
- 204 PDF objects out of 1000 (max. 8388607)
- 125 compressed objects within 2 object streams
+ 214 PDF objects out of 1000 (max. 8388607)
+ 132 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 36 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 41 words of extra memory for PDF output out of 10000 (max. 10000000)
 
