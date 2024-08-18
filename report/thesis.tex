@@ -215,9 +215,9 @@ In order to alleviate the impact of these errors in the dataset to the model tra
 
 Then, the datapoints were aggregated using the "Section ID" attribute, and now the data at each timestamp is binned into 21 sub-sections and the average speed, density, and acceleration of the vehicles in each sub-section at each timestamp is calculated. Then, time series aggregation was performed to fill as many sub-sections as possible with non-zero density and speed values at each interval, as well as further filling null values with appropriate and plausible values. For this study, zero values for density attribute and the maximum speed limit of 60 mph for speed attribute were simply used, although the average speed of vehicles in the proceeding and following grids can also be used. 
 
-To create the 3D tensors, the Spark dataframe was converted to RDDs, and the RDDs were grouped by key and then mapped to a key-value pair, where the key is the interval ID and the value is Row objects containing the speed, density, and acceleration values of each sub-section at each interval. The key-value pairs were then converted to a numpy array in a User Defined Function, and the returned numpy arrays were stacked to create the 4D tensor, with a shape of $R^{i{\times}h{\times}w{\times}l}$, where $i$, $h$, $w$, $l$ denotes the number of timewindows (intervals), the height of grid (lanes), the width of grid (sub-sections), the number of attributes, respecitively. % include psuedo code?
+To create the 3D tensors, the Spark dataframe was converted to RDDs, and the RDDs were grouped by key and then mapped to a key-value pair, where the key is the interval ID and the value is Row objects containing the speed, density, and acceleration values of each sub-section at each interval. The key-value pairs were then converted to a numpy array in a User Defined Function, and the returned numpy arrays were stacked to create the 4D tensor, with a shape of $R^{T{\times}M{\times}N{\times}L}$, where $T$, $M$, $N$, $L$ denotes the number of timewindows (intervals), the height of grid (lanes), the width of grid (sub-sections), the number of attributes, respecitively. % include psuedo code?
 
-Training a model to forecast the state of traffic of the future requires the past data as well as target data. Therefore, we have to provide another dimension to the tensor, creating a stack of 4D tensors of the fixed length of intervals, which results in a 5D tensor with a shape of $R^{s{\times}p{\times}h{\times}w{\times}l}$, where $s$, $p$, $h$, $w$, $l$ denotes the number of samples, the number of timewindows to look back or the prediction target timewindows, the height of grid (lanes), the width of grid (sub-sections), the number of attributes, respecitively. Furthermore, in order to provide the model an extra time for inference, the prediction target data were offset by a fixed number of intervals, which is the skip parameter. This operation was performed sliding the "window" by the time series aggregation interval, and the resulting 5D tensor was then split into training and test datasets. % include psuedo code?
+Training a model to forecast the state of traffic of the future requires the past data as well as target data. Therefore, we have to provide another dimension to the tensor, creating a stack of 4D tensors of the fixed length of intervals, which results in a 5D tensor with a shape of $R^{s{\times}p{\times}M{\times}N{\times}L}$, where $s$, $p$, $M$, $N$, $L$ denotes the number of samples, the number of timewindows to look back or the prediction target timewindows, the height of grid (lanes), the width of grid (sub-sections), the number of attributes, respecitively. Furthermore, in order to provide the model an extra time for inference, the prediction target data were offset by a fixed number of intervals, which is the skip parameter. This operation was performed sliding the "window" by the time series aggregation interval, and the resulting 5D tensor was then split into training and test datasets. % include psuedo code?
 
 \begin{figure}[h]
     \centering
@@ -238,8 +238,8 @@ In order to address this issue, Long Short-Term Memory was introduced by Hochrei
 
 Let $T$, $x$, $h$ be the number of the timestamps, the input vector sequences, and the output vector sequences of the hidden layer, respecitively, the structure of LSTM neural network can be written in the following equations:
 \[t = 1, 2, ..., T\]
-\[x = (x_{1}, x_{2},..., x_t)\]
-\[h = (h_{1}, h_{2},..., h_t)\]
+\[x = (x_{1}, x_{2},..., x_T)\]
+\[h = (h_{1}, h_{2},..., h_T)\]
 \[f_t = \sigma(w_{xf} x_t + w_{hf} h_{t-1} + w_{cf} \odot c_{t-1} + b_f )\]
 \[i_t = \sigma(w_{xi} x_t + w_{hi} h_{t-1} + w_{ci} \odot c_{t-1} + b_i )\]
 \[c_t = f_t \odot c_{t-1} + i_t \odot \tanh(w_{xc} x_t + w_{hc} h_{t-1} + b_c)\] 
@@ -264,7 +264,7 @@ The standard LSTM is suitable for 1D sequential data processing, and yet it is n
 \[C_t = F_t \odot C_{t-1} + I_t \odot \tanh(W_{xc} * X_t + W_{hc} * H_{t-1} + b_c)\]
 \[O_t = \sigma(W_{xo} * X_t + W_{ho} * H_{t-1} + W_{co} \odot C_t + b_o)\]
 \[H_t = O_t \odot \tanh(C_t)\]
-where $*$ denotes the convolution operator. Note that $X_t$, $C_t$, $H_t$, $I_t$, $F_t$, $O_t$ $\in$ $R^{H \times W \times L}$, where $R^{H \times W \times L}$ denotes the space of the 3D tensor, and $H$, $W$, and $L$ are the height, width, and each grid feature vector of the tensor, respectively. 
+where $*$ denotes the convolution operator. Note that $X_t$, $C_t$, $H_t$, $I_t$, $F_t$, $O_t$ $\in$ $R^{M \times N \times L}$, where $R^{M \times N \times L}$ denotes the space of the 3D tensor, and $M$, $N$, and $L$ are the height, width, and each grid feature vector of the tensor, respectively. 
 
 \begin{figure}[h]
     \centering
@@ -274,6 +274,8 @@ where $*$ denotes the convolution operator. Note that $X_t$, $C_t$, $H_t$, $I_t$
 
 During convolution process in the MDL model described in the following section, the widely-used filter size of 3$\times$3 was also used for this study. In order to avoid the output feature map size reduction, often resulting in the loss of information on the edges of the input feature map, the zero-padding method in which it creates zero values around the input feature map before the process was applied.
 
+One Conv-LSTM layer can process an input tensor $X = (X_1, X_2,..., X_T)$ into an input tensor $H = (H_1, H_2,..., H_T)$, where $T$ donates the number of the timestamps. Therefore, each Conv-LSTM layer can be defined as a mapping function $F^{CL}: R^{T{\times}M{\times}N{\times}L} \rightarrow R^{T{\times}M{\times}N{\times}L^{\prime}}$, where $L$ refers to the length of one input feature vector in each grid and $L^{\prime}$ refers to the length of the output feature vector in each grid. %PARAPHRASE THIS PARAGRAPH
+
 \subsection{Mixed Deep Learning Model}
 
 \begin{figure}[h]
@@ -282,11 +284,26 @@ During convolution process in the MDL model described in the following section, 
     \caption{The structure of the MDL model. From Lu et al.}
 \end{figure}
 
-Mixed Deep Learning (MDL) model was proposed by by Lu et al.\cite{9284587} to forecast the traffic speeds of lane sections. The structure of the MDL model is shown in Fig. 3.6. The model simplifies the study area of the road as $l{\times}w$ grids, where $l$ is the number of lanes and $w$ is the number of the road sections at one road section. Each grid represents the area of a road section and a $l{\times}w$ matrix stores values for a spatio-temporal variable such as traffic speed and vehicle density. Let $V_t$ and $D_t$ be the speed matrix and vehicle density matrix respectively during the timewindow $t$, taking each attribute of the aforementioned 5D tensor, we can translate the original tensor into a tensor of $\hat{V_t}$ and $\hat{D_t}$ with dimention of $s{\times}p{\times}h{\times}w{\times}1$. The prediction target vector $Y_t$ contains traffic speed of all sections during the timewindow $T_h$ and length of the $Y_t$ is $T_h{\times}h{\times}w$, where $T_h$ is the forecast horizon with an offset of the "skip" parameter. % POSSIBLY MATHMATICALLY INPRECISENESS
+Mixed Deep Learning (MDL) model was proposed by by Lu et al.\cite{9284587} to forecast the traffic speeds of lane sections. The structure of the MDL model is shown in Fig. 3.6. The model simplifies the study area of the road as $m{\times}n$ grids, where $m$ is the number of lanes and $n$ is the number of the road sections at one road section. Each grid represents the area of a road section and a $l{\times}w$ matrix stores values for a spatio-temporal variable such as traffic speed and vehicle density. Looking at the third to fifth dimensions of the aforementioned 5D tensor and taking each attribute (speed and vehicle density) from the aforementioned tensor, we can translate the third to fifth dimensions of the original tensor into a tensor of ${V_t}$ and ${D_t}$ with dimention of $M{\times}N{\times}1$, which contains each attribute variables during the time series aggregation interval $t$. The prediction target vector $Y_t$ contains traffic speed of all sections during the timewindow $T_h$ and length of the $Y_t$ is $T_h{\times}M{\times}N$, where $T_h$ is the forecast horizon with an offset of the "skip" parameter. % POSSIBLY MATHMATICALLY INPRECISENESS
 
-Since it is imporant to speed up training and inference time especially when real-time inference is in mind, we attempted to downsize the model as well as reduce the number of attributes to be fed into the architecture, which differs from the original MDL model. The original MDL architecture, where the two kinds of variables (historical travel speed and traffic volume) are fed into two sperarate architectures of stacked Conv-LSTM and CNN layers, was also tested. Here, let $L_s$ and $L_q$ be the numbers of the stacked Conv-LSTM layers in the architectures for speed and volume, the downsized model's $L_s$ is one, whereas the original model's $L_s$ and $L_q$ are two. Note that the downsized model has only one stream (architecture). $T_b$ represents the input look-back timewindow of speed  
+Since it is imporant to speed up training and inference time especially when real-time inference is in mind, we attempted to downsize the model as well as reduce the number of attributes to be fed into the architecture, which differs from the original MDL model. The original MDL architecture, where the two kinds of variables (historical travel speed and vehicle density) are fed into two sperarate architectures of stacked Conv-LSTM and CNN layers, was also tested. Here, let $L_s$ and $L_q$ be the numbers of the stacked Conv-LSTM layers in the architectures for speed and vehicle density, the downsized model's $L_s$ is $1$, whereas the original model's $L_s$ and $L_q$ are $2$. Note that the downsized model has only one stream (architecture). $T_b$ represents the input historical timewindow of speed variable, and also vehicle density variable for the original MDL model. The architecture for the spatio-temporal variable for the speed attribute can be generalised and formulated as follows:
+\[ (U^{L_s}_{t-T_b}, U^{L_s}_{t-T_b+1},..., U^{L_s}_{t-1}) = F^{CL}_{L_s}...F^{CL}_{l}...F^{CL}_{1} (V_{t-T_b}, V_{t-T_b+1},..., V_{t-1}) \]
+\[ \hat{Y^s_{t}} = {\sigma}_r (W_s\ast{U^{L_s}_{t-1}} + b_s) \]
+The original MDL model considers an additional spatio-temporal variable which is the vehicle density attribute, adding the following architecture to the model parallelly:
+\[ (G^{L_q}_{t-T_b}, G^{L_q}_{t-T_b+1},...,G^{L_q}_{t-1}) = F^{CL}_{L_q}...F^{CL}_{l}...F^{CL}_{1} (D_{t-T_b}, D_{t-T_b+1},..., D_{t-1}) \]
+\[ \hat{Y^q_{t}} = {\sigma}_r (W_q\ast{G^{L_q}_{t-1}} + b_q) \]
+where $U^{L_s}_{t-t^{\prime}}$, $t\prime = 1, 2,..., T_b$ and $G^{L_q}_{t-t^{\prime}}$, $t\prime = 1, 2,..., T_b$ are output hidden tensors in the highest-level layers of the speed and volume, respecitively; $W_s$ and $W_q$ are the convolutional operators to further capture the spatial correlation of the high-dimensional output tensors of the Conv-LSTM layers; $b_s$ and $b_q$ are the bias tensors; $\sigma_r$ is the ReLU activation function.
+
+Then, we flatten the output obtained from the convolutional layers $\hat{Y^{s}_t}$, followed by feeding the vector to the fully connected layer. The original architecture has an additional operation after obtaining the two outputs $\hat{Y^{s}_t}$ and $\hat{Y^q_t}$: they are flattened and fused into one vector by performing concatenation:
+\[ \hat{Y_t} = W_y \times Conc[F(\hat{Y^s_t}), F(\hat{Y^q_t})] + b_y\]
+where $F(\cdot)$ is the flatten operation, $Conc(\cdot)$ is the concatenation operation, $W_y$ and $b_y$ are the weight and bias, respectively. % PUT PSUDOCODE
+
+During the training, the model is trained to minimise the mean squared error between the predicted and the actual traffic speeds using the objective function:
+\[\min_{W, b} \parallel \hat{Y_t} - Y_t \parallel^2_2 + \alpha \parallel W \parallel^2_2 \]
+where $\hat{Y_t}$ is the predicted speed vector and $Y_t$ is the actual speed vector; $\alpha \parallel W \parallel^2_2$ is the L2 regularisation term to reduce overfitting; $W$ refers to the weighted parameters in $\hat{Y_t}$; $\alpha$ is a regularisation parameter.
 
 \section{Evaluation method}
+
 
 \section{Real-time streaming architecture}
 \section{Kafka}
