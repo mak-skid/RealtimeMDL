@@ -151,7 +151,22 @@ Based on Apache Spark and Sedona, Zhang et al.\cite{Zhang20231124} proposed a fr
 % why i chose the technogoies or the approaches 
 \section{Dataset details}
 
-The Dataset that is used for this study is Next Generation Simulation (NGSIM) Dataset collected by the United States Department of Transportation (US DOT) Federal Highway Administration (FHWA). The dataset is divided into several files, each of which contains the trajectory data for a different section of highways, including Highway US-101 and Interstate 80. For this study we used the trajectory data of a southbound section of Highway US-101 in Los Angeles, California. 
+The Dataset that is used for this study is Next Generation Simulation (NGSIM) Dataset collected by the United States Department of Transportation (US DOT) Federal Highway Administration (FHWA). The dataset is divided into several files, each of which contains the trajectory data for a different section of highways, including Highway US-101 and Interstate 80. For this study we used the trajectory data of a southbound section of Highway US-101 in Los Angeles, California, since the most observations are on US-101.
+
+\begin{table}[ht!]
+    \centering
+    \begin{tabular}{ |p{3cm}|p{3cm}|p{3cm}| }
+        \hline
+        Section & Lanes & Observations\\
+        \hline
+        US-101 & 1-5 & 4802933\\
+        I-80 & 1-7 & 4566387\\ 
+        Lankersim & 1-4 plus 2 & 1607319\\
+        Peachtree & 1-4 plus 2 & 873887\\
+        \hline
+    \end{tabular}
+\caption{NGSIM Observed datapoints, all vehicle classes}
+\end{table}
 
 Researchers for the NGSIM program collected detailed vehicle trajectory data of the section on 15th June, 2005. The study section is approximately 640 meters (2,100 feet) in length and has five lanes and an auxiliary on- and off-ramp. The section stretches between the on-ramp at Ventura Boulvevard and the off-ramp at Cahuenga Boulevard. The Data was transcribed from video recordings of the eight synchronised cameras mounted from the top of a 36-story building adjecant to the freeway, using a customised software application developed for this project. The dataset contains the precise coordinates of each vehicle within the section at 0.1 second intervals, as well as the vehicle's speed, acceleration, and lane position.
 
@@ -187,39 +202,41 @@ Each datapoint contains the following attributes:
 
 \section{Preprocessing}
 
-\begin{figure}[h]
+% MENTION NOISE OF THE DATA
+The NGSIM dataset is one of the most extensive and detailed vehicle trajectory datasets available, and it has become the de facto empirical microscopic traffic dataset\cite{COIFMAN2017362}, and it is widely used for the development and evaluation of traffic flow models. However, the dataset is not without its limitations. Coifmain et al. argue that the dataset is known to have two major issues about its accuracy according to their evaluation paper.
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[]{{trajectorycollision.jpg}}
+    \caption{"Collisions of trajectories" errors. Orange areas are vehicles after taking their length into account. From Coifman et al.}
+\end{figure}
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=12cm]{interpolation.jpg}
+    \caption{Speed interpolation errors. (A) A typical frame from the NGSIM validation video for I-80 camera 6 at 490s. Traffic is flowing from left to right in this image. The NGSIM researchers superimposed a pink bounding box for each vehicle. A Detail of lane 3 (3rd lane from the left) from the validation video for three frames (B) 485s, (C) 490s, and (D) 497.5s. For each vehicle the rear bumper location in the NGSIM data set is shown on the left (corresponding to the upstream end of the bounding box) and is indexed by the vehicle ID, while the new rear bumper location calculated in our study is shown on the right. From Coifman et al.}
+\end{figure}
+
+The first issue is that after accounting for vehicle length, trajectories often overrun those of proceeding vehicles seemingly resulting in "collisions of trajectories". Their analysis went on to discover the second issue: that the NGSIM acceleration often exhibits unrealistically large magnitudes and likewise that the NGSIM speeds exhibit unrealistic piecewise constant behavior, which means in the dataset some vehicles maintain zero acceleration for an unrealistically long time. As shown in Fig. 3.3, %DOUBLE CHECK THE FIGURE NUMBER ONE LAST TIME
+it appears as if at low speeds the NGSIM video image processing frequently linearly interpolates the trajectories between two points in space observed many seconds apart.
+
+In order to alleviate the impact of these errors in the dataset to the model training, we dropped the particularly problematic acceleration attribute and performed sub-sectioning and time binning of the data, creating an image-like input for the model. To achieve that, the study section needed to be split into a number of sub-sections along the length of the highway. Therefore, we gave each datapoint an additional attribute, which is distance from the start of the section. The Euclidean distance was calculated simply taking the Local X and Local Y coordinates of the datapoint, since the section stretches almost straight. The section was then divided into 21 sub-sections % NEEDS EDITS
+, each of which is roughly 100 feet in length. The distance attribute was then used to assign each datapoint to a sub-section, by adding the "Section ID" attribute.
+
+\begin{figure}[ht!]
     \centering
     \includegraphics[width=15cm]{{output1.png}}
     \caption{Visualisation of vehicle speed, density, and acceleration in each road section}
 \end{figure}
 
-% MENTION NOISE OF THE DATA
-The NGSIM dataset is one of the most extensive and detailed vehicle trajectory datasets available, and it has become the de facto empirical microscopic traffic dataset. and it is widely used for the development and evaluation of traffic flow models. However, the dataset is not without its limitations. Coifmain et al\cite{COIFMAN2017362} argue that the dataset is known to have two major issues about its accuracy according to their evaluation paper.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[]{{trajectorycollision.jpg}}
-    \caption{"Collisions of trajectories" errors. Orange areas are vehicles after taking into account their length. This figure is from Coifman et al.}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=14cm]{interpolation.jpg}
-    \caption{Speed interpolation errors. (A) A typical frame from the NGSIM validation video for I-80 camera 6 at 490s. Traffic is flowing from left to right in this image. The NGSIM researchers superimposed a pink bounding box for each vehicle. A Detail of lane 3 (3rd lane from the left) from the validation video for three frames (B) 485s, (C) 490s, and (D) 497.5s. For each vehicle the rear bumper location in the NGSIM data set is shown on the left (corresponding to the upstream end of the bounding box) and is indexed by the vehicle ID, while the new rear bumper location calculated in our study is shown on the right. From Coifman et al.}
-\end{figure}
-
-The first issue is that after accounting for vehicle length, trajectories often overrun those of proceeding vehicles seemingly resulting in "collisions of trajectories". Their analysis went on to discover the second issue: that the NGSIM acceleration often exhibits unrealistically large magnitudes and likewise that the NGSIM speeds exhibit unrealistic piecewise constant behavior, which means in the dataset some vehicles maintain zero acceleration for an unrealistically long time. It appears as if at low speeds the NGSIM video image processing frequently linearly interpolates the trajectories between two points in space observed many seconds apart.
-
-In order to alleviate the impact of these errors in the dataset to the model training, we dropped the particularly problematic acceleration attribute and performed sub-sectioning and time binning of the data, creating an image-like input for the model. To achieve that, the study section needed to be split into a number of sub-sections along the length of the highway. Therefore, we gave each datapoint an additional attribute, which is distance from the start of the section. The Euclidean distance was calculated simply taking the Local X and Local Y coordinates of the datapoint, since the section stretches almost straight. The section was then divided into 21 sub-sections % NEEDS EDITS
-, each of which is roughly 100 feet in length. The distance attribute was then used to assign each datapoint to a sub-section, by adding the "Section ID" attribute.
-
-Then, the datapoints were aggregated using the "Section ID" attribute, and now the data at each timestamp is binned into 21 sub-sections and the average speed, density, and acceleration of the vehicles in each sub-section at each timestamp is calculated. Then, time series aggregation was performed to fill as many sub-sections as possible with non-zero density and speed values at each interval, as well as further filling null values with appropriate and plausible values. For this study, zero values for density attribute and the maximum speed limit of 60 mph for speed attribute were simply used, although the average speed of vehicles in the proceeding and following grids can also be used. 
+Then, the datapoints were aggregated using the "Section ID" attribute, and now the data at each timestamp is binned into 21 sub-sections and the average speed, density, and acceleration of the vehicles in each sub-section at each timestamp is calculated. In the beginning of the traffic observation, some parts of the study section are not filled with datapoints yet as seen in Fig. 3.4 % DOUBLE CHECK THE FIGURE NUMBER ONE LAST TIME
+, so we decided to drop the first 45 seconds of the data to remove such noise in the training data. Then, time series aggregation was performed to fill as many sub-sections as possible with non-zero density and speed values at each interval, as well as further filling null values with appropriate and plausible values. For this study, zero values for density attribute and the maximum speed limit of 60 mph for speed attribute were simply used, although the average speed of vehicles in the proceeding and following grids can also be used. 
 
 To create the 3D tensors, the Spark dataframe was converted to RDDs, and the RDDs were grouped by key and then mapped to a key-value pair, where the key is the interval ID and the value is Row objects containing the speed, density, and acceleration values of each sub-section at each interval. The key-value pairs were then converted to a numpy array in a User Defined Function, and the returned numpy arrays were stacked to create the 4D tensor, with a shape of $R^{T{\times}M{\times}N{\times}L}$, where $T$, $M$, $N$, $L$ denotes the number of timewindows (intervals), the height of grid (lanes), the width of grid (sub-sections), the number of attributes, respecitively. % include psuedo code?
 
 Training a model to forecast the state of traffic of the future requires the past data as well as target data. Therefore, we have to provide another dimension to the tensor, creating a stack of 4D tensors of the fixed length of intervals, which results in a 5D tensor with a shape of $R^{s{\times}p{\times}M{\times}N{\times}L}$, where $s$, $p$, $M$, $N$, $L$ denotes the number of samples, the number of timewindows to look back or the prediction target timewindows, the height of grid (lanes), the width of grid (sub-sections), the number of attributes, respecitively. Furthermore, in order to provide the model an extra time for inference, the prediction target data were offset by a fixed number of intervals, which is the skip parameter. This operation was performed sliding the "window" by the time series aggregation interval, and the resulting 5D tensor was then split into training and test datasets. % include psuedo code?
 
-\begin{figure}[h]
+\begin{figure}[ht!]
     \centering
     \includegraphics[width=14cm]{{3dto5d.png}}
     \caption{Gantt chart-like representation of the transformation of the data from 3D to 5D tensor. Firstly, 3D matrices are stacked to create a 4D tensor, and the fixed number of 4D tensors are stacked to create a stack of past data and target data. Then, they will be again stacked to create a batch, resulting in 5D tensor.}
@@ -252,7 +269,7 @@ $w_{hi}$, $w_{hf}$, $w_{ho}$ and $w_{xi}$, $w_{xf}$, $w_{xo}$ are the weight mat
 $w_{ci}$, $w_{cf}$, $w_{co}$ are the weight matrices for the cell state;
 $b_i$, $b_f$, $b_o$, $b_c$ are the bias terms for the input, forget, and output gates, and cell state, respectively.
 
-\begin{figure}[h]
+\begin{figure}[ht!]
     \centering
     \includegraphics[width=14cm]{{lstmvsrnn.png}}
     \caption{The comparison between (a) RNN and (b) LSTM structures. From Lu et al.}
@@ -266,7 +283,7 @@ The standard LSTM is suitable for 1D sequential data processing, and yet it is n
 \[H_t = O_t \odot \tanh(C_t)\]
 where $*$ denotes the convolution operator. Note that $X_t$, $C_t$, $H_t$, $I_t$, $F_t$, $O_t$ $\in$ $R^{M \times N \times L}$, where $R^{M \times N \times L}$ denotes the space of the 3D tensor, and $M$, $N$, and $L$ are the height, width, and each grid feature vector of the tensor, respectively. 
 
-\begin{figure}[h]
+\begin{figure}[ht!]
     \centering
     \includegraphics[width=14cm]{{convlstm.png}}
     \caption{Inner structure of ConvLSTM. From Shi et al.}
@@ -296,18 +313,56 @@ During the training, the model is trained to minimise the mean squared error bet
 \[\min_{W, b} \parallel \hat{Y_t} - Y_t \parallel^2_2 + \alpha \parallel W \parallel^2_2 \]
 where $\hat{Y_t}$ is the predicted speed vector and $Y_t$ is the actual speed vector; $\alpha \parallel W \parallel^2_2$ is the L2-norm regularisation term to reduce overfitting; $W$ refers to the weighted parameters in $\hat{Y_t}$; $\alpha$ is a regularisation parameter.
 
-\begin{figure}[h]
+\begin{figure}[ht!]
     \centering
     \includegraphics[width=14cm]{{MDL.png}}
     \caption{The structure of the orginal MDL model. From Lu et al. Note that the downsized model has only one stream of speed and thus no merging operation.}
 \end{figure}
 
-\section{Evaluation method}
-
-
 \section{Real-time streaming architecture}
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=14cm]{{realtime_arch.png}}
+    \caption{The proposed architecture of real-time prediction data pipeline.}
+\end{figure}
+
+Above this section is the description of the model training and evaluation process. In this section, we describe the architecture of the real-time prediction data pipeline. Fig. 3.9 represents the architecture. % DOUBLE CHECK THE FIGURE NUMBER ONE LAST TIME
+The pipeline consists of three main components: the data ingestion component, the Kafka streaming component, and the Spark Structured Streaming component. In this study, we reprecated an API by defining a fucntion in which the 20 percent of the total datapoints reserved for testing are converted to JSON strings and ingested chunk by chunk to Kafka server every 0.1 second, which is the same as the original data collection interval. The chunk of datapoints stored in a Kafka topic are then streamed to the Spark Structured Streaming component, where the data is preprocessed and aggregated by the time series aggregation interval $t$. This operation allows Spark to further create a 3D matrix with dimension of $R^{M{\times}N{\times}L}$, which was already explained in the preprocessing section above. Note that since Spark Strcutured Streaming does not support RDD conversion, the matrix creation is performed within the Spark DataFrame API, without converting to RDDs, which is a key difference from the preprocessing process in the training section. 
+
+After parsing the dataframe to JSON string, the data stream is again ingested to the Kafka server, but into a different Kafka topic. The data is then streamed to the Spark Structured Streaming component, where this time the dataframe is aggregated by the length of historical timewindow $T_b$. Now the dataframe contains a 4D tensor with dimension of $R^{T{\times}M{\times}N{\times}L}$ within a column. The tensor is converted to a numpy array and fed into the trained model in a User Defined Function (UDF) registered in each Spark DataFrame Row. After the UDF stores predicted speed values in a new column, the JSON string parsed from a dataframe is streamed to the Kafka server, where the predicted speed values are stored in another Kafka topic. The predicted speed values can be then visualised in real-time using a dashboard or used for various applications such as Advanced Driver-Assistance Systems (ADAS) and Autonomous Vehicles (AVs). 
+
 \section{Kafka}
 \section{Spark Structured Streaming}
+
+
+
+\section{Evaluation method}
+
+According to Li et al.\cite{li2024unifyinglaneleveltrafficprediction}, the lane-level traffic prediction model accuracy is evaluated typically using three key metrics: Root Mean Squared Error (RMSE), Mean Absolute Error (MAE), and Mean Absolute Percentage Error (MAPE). However, the researchers also emphasise the importance of considering the duration of its training when the model is to be used in real-time lane-level traffic prediction, where rapid response and real-time updates are essential. This paper focuses on the architecture of real-time inference, and thus instead of considering the training time, the model's inference time as well as data preprocessing time of the streaming architecture are evaluated. The formulas for the three metrics are as follows:
+
+\[ RMSE = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(\hat{Y_i} - Y_i)^2} \]
+\[ MAE = \frac{1}{n}\sum_{i=1}^{n}|\hat{Y_i} - Y_i| \]
+\[ MAPE = \frac{1}{n}\sum_{i=1}^{n}\frac{|\hat{Y_i} - Y_i|}{Y_i} \]
+\[ Inference (Preprocessing) Time = \frac{1}{n}\sum_{i=1}^{n}t_i \]
+where $\hat{Y_i}$ is the predicted speed, $Y_i$ is the actual speed during $i$-th time interval, $n$ is the total number of predicted samples, and $t_i$ is the inference / preprocessing time of the $i$th sample.
+
+\begin{table}[ht!]
+    \centering
+    \begin{tabular}{ |c|c|c| }
+        \hline
+        Models & Input Feature & Conv-LSTM layers number\\
+        \hline
+        Original & speed, density & 2\\
+        Original (Real Time) & speed, density & 2\\
+        Downsized & speed & 1\\ 
+        Downsized (Real Time) & speed & 1\\
+        \hline
+    \end{tabular}
+\caption{List of models evaluated}
+\end{table}
+
+We compared the original MDL model and the downsized version of the model, in terms of accuracy and real-time inference time. We also compared the accuracy of non-real-time prediction with that of real-time prediction, considering the impact of datapoint losses during streaming. 
 
 \chapter{Results}
 
