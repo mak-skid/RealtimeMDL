@@ -1,31 +1,41 @@
 
+import csv
 from matplotlib import pyplot as plt
 from matplotlib.colors import Normalize
 import numpy as np
-from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_squared_error, mean_absolute_error, mean_absolute_percentage_error
 
+from mdl.mdl_model import get_MDL_model
 from us101dataset import US101Dataset
 
 
 def mdl_predict(model_name: str, model, x_vel_test, y_test, history_len, num_skip):
+    model.load_weights(f"mdl/models/{model_name}.weights.h5")
     y_pred = model.predict(x_vel_test)
     print(y_pred.shape, y_test.shape)
     num_test_samples = y_test.shape[0]
 
-    model = model.save(f'models/mdl/{model_name}.keras')
-    print('Model saved')
     y_test = y_test.cpu().data.numpy()
-    y_test = np.reshape(y_test, (num_test_samples, 105))
+    y_test = np.reshape(y_test, (num_test_samples, 50))
     mse = mean_squared_error(y_test, y_pred)
+    mae = mean_absolute_error(y_test, y_pred)
+    mape = mean_absolute_percentage_error(y_test, y_pred)
     rmse = np.sqrt(mse)
-    print(f"RMSE: {rmse}")
-    y_pred = np.reshape(y_pred, (num_test_samples, 5, 21))
-    y_test = np.reshape(y_test, (num_test_samples, 5, 21))
+
+    print(f"Model: {model_name}, MAE: {mae}, MAPE: {mape}, RMSE: {rmse}")
+    
+    with open(f"mdl/mdl_results.csv", "a") as f:
+        fields = ["model_name", "mae", "mape", "rmse"]
+        writer = csv.DictWriter(f, fieldnames=fields)
+        writer.writerow({"model_name": model_name, "mae": mae, "mape": mape, "rmse": rmse})
+
+    y_pred = np.reshape(y_pred, (num_test_samples, 5, 10))
+    y_test = np.reshape(y_test, (num_test_samples, 5, 10))
 
     start = 45
     timewindow = 0.5
     timestamp = start + (history_len + num_skip) * timewindow
-    visualise_mdl_output(y_pred[0], y_test[0], timestamp, 20, model_name, "velocity")
+    visualise_mdl_output(y_pred[0], y_test[0], timestamp, 9, model_name, "velocity")
 
 def visualise_mdl_output(pred, real, timestamp: int, num_section_split: int, model_name: str, feature_name: str):
     lanes = ["1", "2", "3", "4", "5"]
@@ -65,5 +75,5 @@ def visualise_mdl_output(pred, real, timestamp: int, num_section_split: int, mod
     #ax3.set_title(f"{mat_type} Average acceleration by Section and Lane at t={timestamp}")
 
     plt.subplots_adjust(hspace=0.4)
-    plt.savefig(f"predict_output_figs/{model_name}_{feature_name}_output_{timestamp}.png")
+    plt.savefig(f"mdl/predict_output_figs/{model_name}_{feature_name}_output_{timestamp}.png")
     plt.show()

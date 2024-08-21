@@ -7,3 +7,11 @@
 2. run transmitter file: `python3 predict/transmitter.py`
 3. in another terminal, run `python3 predict_main_1.py`
 4. in another terminal, run `python3 predict_main_2.py`
+
+
+experiment idea
+different model complexity: 1 vs 2 features = 2 variants
+different history length: 20, 40, 60 and skip 10, 20 = 6 variants
+with or without ramp: 2 variants
+
+write the abstract part by the next meeting 

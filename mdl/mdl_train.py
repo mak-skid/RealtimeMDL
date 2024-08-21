@@ -76,7 +76,8 @@ def createMDLModelAndTrain(
     train_history = model.fit(x_vel_train, y_train, epochs=num_epochs, batch_size=batch_size, verbose=2, validation_data=(x_vel_val, y_val), callbacks=[early_stop, csv_logger])
     loss = train_history.history['loss']
     val_loss = train_history.history['val_loss']
-    model.save(f"mdl/models/{model_name}.keras", overwrite=True)
+    #model.save(f"mdl/models/{model_name}.keras", overwrite=True)
+    model.save_weights(f"mdl/models/{model_name}.weights.h5", overwrite=True)
     end = time.time()
 
     print(f"Time taken to train: {end-start} seconds")
@@ -86,6 +87,7 @@ def createMDLModelAndTrain(
     plt.show()
 
     if not realtime_mode:
+        model = get_MDL_model(history_len, num_lanes, num_sections, num_features)
         mdl_predict(model_name, model, x_vel_test, y_test, history_len, num_skip)
     
 

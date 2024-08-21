@@ -20,7 +20,7 @@ class FirstWatermarkAggregator:
         self.predict_len = 1
 
         self.timewindow = 0.5
-        self.num_section_splits = 20
+        self.num_section_splits = 9
         self.num_lanes = 5
         self.history_len = 20
         self.with_ramp = False
@@ -137,7 +137,7 @@ class FirstWatermarkAggregator:
             .select(F.to_json(F.struct("timewindow", "start_timestamp")).alias("key"), F.to_json(F.col("3D_mat")).alias("value")) \
             .writeStream \
             .queryName("FirstWatermarkAggregator") \
-            .outputMode("update") \
+            .outputMode("append") \
             .format("kafka") \
             .option("kafka.bootstrap.servers", self.bootstrap_servers) \
             .option("topic", "us101_agg1") \
