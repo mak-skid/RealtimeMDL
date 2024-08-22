@@ -15,7 +15,7 @@ def createMDLModelAndTrain(
     train_dataset: US101Dataset,
     num_features: int = 1,
     learning_rate: float = 0.0002,
-    num_epochs: int = 50,
+    num_epochs: int = 500,
     batch_size: int = 16,
     num_skip: int = 20,
     realtime_mode: bool = True

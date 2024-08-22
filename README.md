@@ -14,4 +14,6 @@ different model complexity: 1 vs 2 features = 2 variants
 different history length: 20, 40, 60 and skip 10, 20 = 6 variants
 with or without ramp: 2 variants
 
+for real-time analysis, try timewindow 10 sec, speed feature only, skip 1 history 6 = 1min,  
+
 write the abstract part by the next meeting 

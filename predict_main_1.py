@@ -3,6 +3,7 @@ import pickle
 from sedona.spark import *
 from pyspark.sql.types import StructType, StructField, IntegerType, LongType, DoubleType, StringType, DecimalType, ArrayType, FloatType
 from pyspark.ml.torch.distributor import TorchDistributor
+from realtime_predictor import RealTimePredictor
 from utils.datapreprocessing_utils import *
 from pyspark.sql import functions as F
 from pyspark.sql import Window
@@ -11,21 +12,24 @@ from pyspark.sql import DataFrame
 from us101dataset import US101Dataset
 
 
-class FirstWatermarkAggregator:
+class FirstWatermarkAggregator(RealTimePredictor):
     def __init__(self):
+        super().__init__()
+        """
         self.bootstrap_servers = 'localhost:9092'
 
         self.start = 2229.5 # after spliting the test and train data 80%:20%
         self.end = 2772 # max_elapsed_time=2772000 ms = 46.2 minutes if hour is 7-8am
         self.predict_len = 1
 
-        self.timewindow = 0.5
+        self.timewindow = 10 #0.5
         self.num_section_splits = 9
         self.num_lanes = 5
-        self.history_len = 20
+        self.history_len = 6 #20
         self.with_ramp = False
-        self.num_skip = 10
+        self.num_skip = 1 #10
         self.max_dist = 2224.6633212502065
+        """
 
     def parse_df(self, df: DataFrame) -> DataFrame:
         return df \
@@ -72,12 +76,10 @@ class FirstWatermarkAggregator:
                     F.col("datetime"), 
                     f"{self.timewindow} second"
                 ).alias("timewindow"),
-                "Global_Time", 
                 "Section_ID", 
                 "Lane_ID"
             ) \
             .agg(
-                F.min("Global_Time").alias("start_timestamp"),
                 F.round(F.avg("avg(v_Vel)"), 1).alias("avg(v_Vel)")
             ) 
     
@@ -95,14 +97,14 @@ class FirstWatermarkAggregator:
         to_3d_np_udf = F.udf(to_3d_np, ArrayType(ArrayType(ArrayType(IntegerType()))))
 
         return df \
-            .groupBy("timewindow", "start_timestamp") \
+            .groupBy("timewindow") \
             .agg(   
                 F.collect_list(
                     F.struct("Lane_ID", "Section_ID", "avg(v_Vel)")
                 ).alias("rows")
             ) \
             .withColumn("3D_mat", to_3d_np_udf(F.col('rows'))) \
-            .select("timewindow", "start_timestamp", "3D_mat")
+            .select("timewindow", "3D_mat")
     
     def init_job(self):
         config = SedonaContext.builder() \
@@ -134,10 +136,10 @@ class FirstWatermarkAggregator:
         np_df = self.rows_to_np_df(timewindow_agg_df)
 
         query = np_df \
-            .select(F.to_json(F.struct("timewindow", "start_timestamp")).alias("key"), F.to_json(F.col("3D_mat")).alias("value")) \
+            .select(F.to_json(F.struct("timewindow")).alias("key"), F.to_json(F.col("3D_mat")).alias("value")) \
             .writeStream \
             .queryName("FirstWatermarkAggregator") \
-            .outputMode("append") \
+            .outputMode("update") \
             .format("kafka") \
             .option("kafka.bootstrap.servers", self.bootstrap_servers) \
             .option("topic", "us101_agg1") \

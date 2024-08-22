@@ -5,6 +5,7 @@ from sedona.spark import *
 from pyspark.sql.types import StructType, StructField, IntegerType, LongType, DoubleType, StringType, TimestampType, DecimalType, ArrayType, FloatType
 from pyspark.ml.torch.distributor import TorchDistributor
 from mdl.mdl_model import get_MDL_model
+from realtime_predictor import RealTimePredictor
 from utils.datapreprocessing_utils import *
 from pyspark.sql import functions as F
 from pyspark.sql import Window
@@ -12,8 +13,11 @@ from pyspark.sql import DataFrame
 
 from us101dataset import US101Dataset
 
-class SecondWatermarkAggregator:
+class SecondWatermarkAggregator(RealTimePredictor):
     def __init__(self):
+        super().__init__()
+        """
+        
         self.bootstrap_servers = 'localhost:9092'    
 
         self.start = 2229.5 # after spliting the test and train data 80%:20%
@@ -33,6 +37,7 @@ class SecondWatermarkAggregator:
         self.num_features = 1
 
         self.model = get_MDL_model(self.history_len, self.num_lanes, self.num_sections, self.num_features)
+        """
     
     def parse_df(self, df: DataFrame) -> DataFrame:
         key_schema = StructType([
@@ -40,9 +45,8 @@ class SecondWatermarkAggregator:
                 StructType([
                     StructField("start", TimestampType()),
                     StructField("end", TimestampType())
-                ])),
-            StructField("start_timestamp", LongType())
-        ])
+                ]))
+            ])
         value_schema = ArrayType(ArrayType(ArrayType(IntegerType(), False), False), False)
 
         return df \
@@ -51,12 +55,13 @@ class SecondWatermarkAggregator:
                 F.from_json(F.col("value").cast("string"), schema=value_schema).alias("3D_mat")
             ) \
             .withColumn("timewindow", F.col("parsed_key.timewindow")) \
-            .withColumn("Global_Time", F.col("parsed_key.start_timestamp")) \
             .drop("parsed_key")
 
     def to_4d_np(self, df: DataFrame) -> DataFrame:  
-        return convert_timestamp(df) \
+        return df \
+            .withColumn("datetime", F.col("timewindow.start")) \
             .withWatermark("datetime", f"{self.timewindow*self.history_len} second") \
+            .dropDuplicates(["datetime"]) \
             .groupBy(
                 F.window(
                     F.col("datetime"), 
@@ -65,33 +70,30 @@ class SecondWatermarkAggregator:
                 ).alias("timewindow")
             ) \
             .agg(
-                F.sort_array(F.collect_list(F.struct("Global_Time", "3D_mat"))).alias("4D_mat")
+                F.sort_array(F.collect_list(F.struct("timewindow", "3D_mat"))).alias("4D_mat")
             ) \
             .withColumn("sorted_4D_mat", F.col("4D_mat.3D_mat")) \
-            .select("timewindow", "4D_mat.Global_Time", "sorted_4D_mat") # (history_len, num_lanes, num_sections, num_features)
+            .select(F.col("timewindow").alias("based_timewindow"), F.col("4D_mat.timewindow").alias("timewindows"), "sorted_4D_mat") # (history_len, num_lanes, num_sections, num_features)
     
     def real_time_prediction(self, df: DataFrame) -> DataFrame:
-        def prediction(rows):
+        def prediction(input):
             model_name = f'mdl_model_{self.with_ramp_sign}_{self.timewindow}_{self.num_sections}_{self.history_len}_{self.num_features}_{self.num_skip}'
             #model = keras.saving.load_model(f"mdl/models/{model_name}.keras")
             self.model.load_weights(f"mdl/models/{model_name}.weights.h5")
 
-            if len(rows) < 20: # if there is not enough data to predict
-                return np.zeros((self.num_lanes, self.num_sections)).tolist()
-            input = rows[:20]
-            input_mat = np.array(input).reshape(1, self.history_len, self.num_lanes, self.num_sections, self.num_features)
-
-            if input_mat.shape != (1, self.history_len, self.num_lanes, self.num_sections, self.num_features):
-                return np.zeros((self.num_lanes, self.num_sections)).tolist()
+            if len(input) != self.history_len: # if there is not enough data to predict
+                return np.zeros((self.num_lanes, self.num_sections), dtype=int).tolist()
             
+            input_mat = np.reshape(np.array(input), (1, self.history_len, self.num_lanes, self.num_sections, self.num_features))
             pred = self.model.predict(input_mat)
-            return pred.reshape(self.num_lanes, self.num_sections).tolist()
+            round_pred = np.rint(pred).astype(int)
+            return round_pred.reshape(self.num_lanes, self.num_sections).tolist()
 
         pred_udf = F.udf(prediction, ArrayType(ArrayType(IntegerType())))
 
         return df \
             .withColumn("prediction", pred_udf(F.col("sorted_4D_mat"))) \
-            .select(F.col("timewindow").alias("based_timewindow"), F.col("prediction")) \
+            .select(F.col("based_timewindow"), F.col("prediction")) \
         
     def init_job(self):
         config = SedonaContext.builder() \
@@ -116,9 +118,9 @@ class SecondWatermarkAggregator:
             .option('startingOffsets', 'earliest') \
             .load()
         
-        df.printSchema()
         parsed_df = self.parse_df(df)
         test_df = self.to_4d_np(parsed_df)
+        #pred_df = self.check_shape(test_df)
         pred_df = self.real_time_prediction(test_df)
 
         query = pred_df \
