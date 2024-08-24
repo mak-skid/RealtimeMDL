@@ -10,7 +10,7 @@ from us101dataset import US101Dataset
 
 
 def get_MDL_model(history_len, num_lanes, num_sections, num_features):
-    speed_input = Input(shape=(history_len, num_lanes, num_sections, num_features)) # history, lanes, sections, features
+    speed_input = Input(shape=(history_len, num_lanes, num_sections, 1)) # history, lanes, sections, features
     speed_input1 = BatchNormalization()(speed_input)
     layer1 = ConvLSTM2D(
         filters=3,
@@ -31,13 +31,12 @@ def get_MDL_model(history_len, num_lanes, num_sections, num_features):
         padding='same')(layer1)
     flat1 = Flatten()(layer2)
 
-    """
     # UNCOMMENT THIS TO ADD DENSITY AND ACCELERATION AS INPUTS
-
-    dens_input = Input(shape=(history_len, 5, 21, 1))
+    
+    dens_input = Input(shape=(history_len, num_lanes, num_sections, 1))
     dens_input1 = BatchNormalization()(dens_input)
     layer4 = ConvLSTM2D(
-        filters=1,
+        filters=3,
         kernel_size=(3, 3),
         data_format='channels_last',
         kernel_regularizer = keras.regularizers.l2(0.01),
@@ -55,6 +54,7 @@ def get_MDL_model(history_len, num_lanes, num_sections, num_features):
         padding='same')(layer4)
     flat2 = Flatten()(layer6)
 
+    """
     acc_input = Input(shape=(history_len, 5, 21, 1))
     acc_input1 = BatchNormalization()(acc_input)
     layer7 = ConvLSTM2D(
@@ -75,9 +75,8 @@ def get_MDL_model(history_len, num_lanes, num_sections, num_features):
         activation='relu',
         padding='same')(layer7)
     flat3 = Flatten()(layer8)
-
-    merged_output = keras.layers.concatenate([flat1, flat2, flat3])
     """
-
-    out = Dense(num_lanes*num_sections*num_features)(flat1) # 5 lanes, 21 sections, 1 feature
-    return Model(inputs=[speed_input], outputs=out)
+    merged_output = keras.layers.concatenate([flat1, flat2])
+    
+    out = Dense(num_lanes*num_sections)(merged_output) # lanes, sections, pred_len
+    return Model(inputs=[speed_input, dens_input], outputs=out)

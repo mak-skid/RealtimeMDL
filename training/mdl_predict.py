@@ -5,44 +5,45 @@ from matplotlib.colors import Normalize
 import numpy as np
 from sklearn.metrics import mean_squared_error, mean_absolute_error, mean_absolute_percentage_error
 
-from mdl.mdl_model import get_MDL_model
+from training.mdl_model import get_MDL_model
 from us101dataset import US101Dataset
 
 
-def mdl_predict(model_name: str, model, x_vel_test, y_test, history_len, num_skip):
-    model.load_weights(f"mdl/models/{model_name}.weights.h5")
-    y_pred = model.predict(x_vel_test)
+def mdl_predict(model_name: str, model, x_test, y_test, history_len, num_skip, num_lanes, num_sections):
+    model.load_weights(f"training/models/{model_name}.weights.h5")
+    y_pred = model.predict(x_test)
     print(y_pred.shape, y_test.shape)
     num_test_samples = y_test.shape[0]
 
     y_test = y_test.cpu().data.numpy()
-    y_test = np.reshape(y_test, (num_test_samples, 50))
+    y_test = np.reshape(y_test, (num_test_samples, num_lanes*num_sections))
     mse = mean_squared_error(y_test, y_pred)
     mae = mean_absolute_error(y_test, y_pred)
     mape = mean_absolute_percentage_error(y_test, y_pred)
+    maape = np.average(np.arctan(np.abs(y_test - y_pred) / np.abs(y_test)))
     rmse = np.sqrt(mse)
 
-    print(f"Model: {model_name}, MAE: {mae}, MAPE: {mape}, RMSE: {rmse}")
+    print(f"Model: {model_name}, MAE: {mae}, MAPE: {mape}, MAAPE:{maape}, RMSE: {rmse}")
     
-    with open(f"mdl/mdl_results.csv", "a") as f:
-        fields = ["model_name", "mae", "mape", "rmse"]
+    with open(f"training/mdl_results.csv", "a") as f:
+        fields = ["model_name", "mae", "mape", "maape", "rmse"]
         writer = csv.DictWriter(f, fieldnames=fields)
-        writer.writerow({"model_name": model_name, "mae": mae, "mape": mape, "rmse": rmse})
+        writer.writerow({"model_name": model_name, "mae": mae, "mape": mape, "maape": maape, "rmse": rmse})
 
-    y_pred = np.reshape(y_pred, (num_test_samples, 5, 10))
-    y_test = np.reshape(y_test, (num_test_samples, 5, 10))
+    y_pred = np.reshape(y_pred, (num_test_samples, num_lanes, num_sections))
+    y_test = np.reshape(y_test, (num_test_samples, num_lanes, num_sections))
 
-    start = 45
+    start = 2229.5
     timewindow = 0.5
     timestamp = start + (history_len + num_skip) * timewindow
-    visualise_mdl_output(y_pred[0], y_test[0], timestamp, 9, model_name, "velocity")
+    visualise_mdl_output(y_pred[0], y_test[0], timestamp, model_name, "velocity", num_lanes, num_sections)
 
-def visualise_mdl_output(pred, real, timestamp: int, num_section_split: int, model_name: str, feature_name: str):
-    lanes = ["1", "2", "3", "4", "5"]
-    sections = [i for i in range(num_section_split+1)]
+def visualise_mdl_output(pred, real, timestamp: int, model_name: str, feature_name: str, num_lanes: int = 5, num_sections: int = 10):
+    lanes = [str(i+1) for i in range(num_lanes)]
+    sections = [i for i in range(num_sections)]
 
     #fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(35, 10))
-    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(20, 10))
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 10))
     im1 = ax1.imshow(pred, cmap='turbo_r', norm=Normalize(vmin=0, vmax=60))
     im2 = ax2.imshow(real, cmap='turbo_r', norm=Normalize(vmin=0, vmax=60))
     #im2 = ax2.imshow(dens_matrix, cmap='turbo', norm=Normalize(vmin=100, vmax=300))
@@ -70,10 +71,10 @@ def visualise_mdl_output(pred, real, timestamp: int, num_section_split: int, mod
             text = ax2.text(j, i, f"{real[i][j]:.2f}", ha="center", va="center", color="w")
             #text = ax3.text(j, i, acc_matrix[i][j], ha="center", va="center", color="w")
 
-    ax1.set_title(f"Predicted Average {feature_name} by Section and Lane at t={timestamp}")
-    ax2.set_title(f"Real Average {feature_name} by Section and Lane at t={timestamp}")
+    ax1.set_title(f"Predicted Average {feature_name} by Section and Lane at {timestamp} seconds")
+    ax2.set_title(f"Real Average {feature_name} by Section and Lane at {timestamp} seconds")
     #ax3.set_title(f"{mat_type} Average acceleration by Section and Lane at t={timestamp}")
 
     plt.subplots_adjust(hspace=0.4)
-    plt.savefig(f"mdl/predict_output_figs/{model_name}_{feature_name}_output_{timestamp}.png")
+    plt.savefig(f"training/predict_output_figs/{model_name}_{feature_name}_output_{timestamp}.png")
     plt.show()

@@ -6,7 +6,11 @@ from pyspark.sql import functions as F
 from pyspark.sql import DataFrame
 
 
-class FirstWatermarkAggregator(RealTimePredictor):
+class ActualValProducer(RealTimePredictor):
+    """
+    Produces Actual Data 
+    """
+
     def __init__(self):
         super().__init__()
 
@@ -63,7 +67,7 @@ class FirstWatermarkAggregator(RealTimePredictor):
             ) \
     
     def rows_to_np_df(self, df: DataFrame) -> DataFrame:
-        def to_3d_np(rows):
+        def to_2d_np(rows):
             vel_matrix = np.full((self.num_lanes, self.num_section_splits + 1), 60)
             for row in rows:
                 lane_index = row["Lane_ID"] - 1
@@ -71,9 +75,9 @@ class FirstWatermarkAggregator(RealTimePredictor):
                     continue
                 section_index = row["Section_ID"] - 1 if row["Section_ID"] == self.num_section_splits + 1 else row["Section_ID"]
                 vel_matrix[lane_index][section_index] = row["avg(v_Vel)"]
-            return np.expand_dims(vel_matrix, axis=-1).tolist()
+            return vel_matrix.tolist()
 
-        to_3d_np_udf = F.udf(to_3d_np, ArrayType(ArrayType(ArrayType(IntegerType()))))
+        to_2d_np_udf = F.udf(to_2d_np, ArrayType(ArrayType(IntegerType())))
 
         return df \
             .groupBy("timewindow") \
@@ -82,9 +86,17 @@ class FirstWatermarkAggregator(RealTimePredictor):
                     F.struct("Lane_ID", "Section_ID", "avg(v_Vel)")
                 ).alias("rows")
             ) \
-            .withColumn("3D_mat", to_3d_np_udf(F.col('rows'))) \
-            .select("timewindow", "3D_mat")
-    
+            .withColumn("2D_mat", to_2d_np_udf(F.col('rows'))) \
+            .withColumns({
+                "Global_Time": 
+                    F.unix_timestamp(
+                        F.to_utc_timestamp(F.col("timewindow.start"), 'America/Los_Angeles')
+                    ) 
+                    + 3600000 
+                    - (self.history_len+self.num_skip)*self.timewindow
+                }) \
+            .select(F.col("timewindow"), F.col("Global_Time"), F.col("2D_mat"))
+
     def init_job(self):
         config = SedonaContext.builder() \
             .master("local[*]") \
@@ -115,16 +127,17 @@ class FirstWatermarkAggregator(RealTimePredictor):
         np_df = self.rows_to_np_df(timewindow_agg_df)
 
         query = np_df \
-            .select(F.to_json(F.struct("timewindow")).alias("key"), F.to_json(F.col("3D_mat")).alias("value")) \
+            .select(F.to_json(F.struct(F.struct("timewindow"), F.col("Global_Time"))).alias("key"), F.to_json(F.col("2D_mat")).alias("value")) \
             .writeStream \
-            .queryName("FirstWatermarkAggregator") \
+            .queryName("ActualValProducer") \
             .outputMode("update") \
             .format("kafka") \
             .option("kafka.bootstrap.servers", self.bootstrap_servers) \
-            .option("topic", "us101_agg1") \
-            .option("checkpointLocation", "checkpoints/FirstWatermarkAggregator") \
+            .option("topic", "us101_a_agg") \
+            .option("checkpointLocation", "checkpoints/ActualValProducer") \
             .start()
-
+   
         query.awaitTermination()
 
-FirstWatermarkAggregator().init_job()
+
+ActualValProducer().init_job()

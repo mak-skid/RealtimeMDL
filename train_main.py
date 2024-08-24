@@ -3,7 +3,8 @@ import pickle
 from sedona.spark import *
 from pyspark.sql.types import StructType, StructField, IntegerType, LongType, DoubleType, StringType
 from pyspark.ml.torch.distributor import TorchDistributor
-from mdl.mdl_train import createMDLModelAndTrain
+from training.convlstm_train import createConvLSTMModelAndTrain
+from training.mdl_train import createMDLModelAndTrain
 from utils.datapreprocessing_utils import *
 from pyspark.sql import functions as F
 from pyspark.sql import DataFrame
@@ -26,14 +27,23 @@ start = 45 # maybe for start, 45 sec and onwards, bc all sections are filled wit
 end = 2229.5 if realtime_mode else 2772.5 # after splitting the test and train data 80%:20%
 predict_len = 1
 
+"""
+experiment idea
+different model complexity: 1 vs 2 features = 2 variants
+different history length: 20, 40, 60 and skip 10, 20 = 6 variants
+with or without ramp: 2 variants
+"""
+
 preprocessing_param = {
-    "timewindow": [10], #[0.5, 1, 3, 5], 
+    "timewindow": [0.5], #[0.5, 1, 3, 5], 
     "num_section_splits": [9], #[40, 60], 
-    "history_len": [6], #[20, 90, 120, 150],
-    "with_ramp": [False],
-    "num_skip": 1 # 10
+    "history_len": [120], #[20, 90, 120, 150],
+    "with_ramp": [False], #[True, False],
+    "num_skip": 20 # 10
     }
 
+# timewindow, history_len, numskip = 0.5s, 120 (60s), 20 (10s)
+# timewindow, history_len, numskip = 10s, 6 (60s), 1 (10s)
 
 def check_max_elapsed_time(df):
     max_elapsed_time = df.select("ElapsedTime").tail(1)[0]["ElapsedTime"]
@@ -120,4 +130,5 @@ for timewindow in preprocessing_param["timewindow"]:
                         with_ramp=with_ramp
                         )
                     
-                createMDLModelAndTrain(train_dataset=train_dataset, num_features=1, num_skip=preprocessing_param['num_skip'], realtime_mode=realtime_mode)
+                createMDLModelAndTrain(train_dataset=train_dataset, num_features=2, num_skip=preprocessing_param['num_skip'], realtime_mode=realtime_mode)
+                createConvLSTMModelAndTrain(train_dataset=train_dataset, num_features=1, num_skip=preprocessing_param['num_skip'], realtime_mode=realtime_mode)

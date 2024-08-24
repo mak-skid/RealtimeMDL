@@ -8,12 +8,24 @@
 3. in another terminal, run `python3 predict_main_1.py`
 4. in another terminal, run `python3 predict_main_2.py`
 
-
+"""
 experiment idea
 different model complexity: 1 vs 2 features = 2 variants
 different history length: 20, 40, 60 and skip 10, 20 = 6 variants
 with or without ramp: 2 variants
+"""
 
 for real-time analysis, try timewindow 10 sec, speed feature only, skip 1 history 6 = 1min,  
 
 write the abstract part by the next meeting 
+
+first batch spent 63979 milliseconds
+193770 milliseconds
+154688 milliseconds
+149528 milliseconds
+62879 milliseconds
+
+total inference time = 624.844 s
+total time studied = 543.0 s
+total samples = 54
+time for sample inference = 11.57s

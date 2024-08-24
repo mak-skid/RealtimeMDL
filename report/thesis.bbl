@@ -14,6 +14,15 @@
 \newblock In {\em 2020 International Conference on Emerging Trends in
   Information Technology and Engineering (ic-ETITE)\/} (2020), pp.~1--5.
 
+\bibitem{10.1145/3183713.3190664}
+{\sc Armbrust, M., Das, T., Torres, J., Yavuz, B., Zhu, S., Xin, R., Ghodsi,
+  A., Stoica, I., and Zaharia, M.}
+\newblock Structured streaming: A declarative api for real-time applications in
+  apache spark.
+\newblock In {\em Proceedings of the 2018 International Conference on
+  Management of Data\/} (New York, NY, USA, 2018), SIGMOD '18, Association for
+  Computing Machinery, p.~601–613.
+
 \bibitem{10.1145/3397536.3422274}
 {\sc Chen, H., Yang, K., Rizzo, S.~G., Vantini, G., Taylor, P., Ma, X., and
   Chawla, S.}
@@ -77,6 +86,16 @@
   trajectories in maritime iot industries.
 \newblock {\em IEEE Internet of Things Journal 7}, 11 (11 2020), 10794--10812.
 
+\bibitem{Kreps2011KafkaA}
+{\sc Jay~Kreps, Neha~Narkhede, J.~R.}
+\newblock Kafka: a distributed messaging system for log processing.
+
+\bibitem{KIM2016669}
+{\sc Kim, S., and Kim, H.}
+\newblock A new metric of absolute percentage error for intermittent demand
+  forecasts.
+\newblock {\em International Journal of Forecasting 32}, 3 (2016), 669--679.
+
 \bibitem{LI2020225}
 {\sc Li, L., Jiang, R., He, Z., Chen, X.~M., and Zhou, X.}
 \newblock Trajectory data-based traffic flow studies: A revisit.
@@ -122,6 +141,14 @@
   two kilometers highway segment for one hour duration: Zen traffic data.
 \newblock In {\em 2020 International Symposium on Transportation Data and
   Modelling\/} (2020).
+
+\bibitem{9779153}
+{\sc Shi, C., Zhang, Z., Zhang, W., Zhang, C., and Xu, Q.}
+\newblock Learning multiscale temporal-spatial-spectral features via a
+  multipath convolutional lstm neural network for change detection with
+  hyperspectral images.
+\newblock {\em IEEE Transactions on Geoscience and Remote Sensing 60\/} (2022),
+  1--16.
 
 \bibitem{NIPS2015_07563a3f}
 {\sc SHI, X., Chen, Z., Wang, H., Yeung, D.-Y., Wong, W.-k., and WOO, W.-c.}

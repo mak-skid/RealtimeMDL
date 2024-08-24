@@ -50,7 +50,7 @@ def get_test_schema() -> pyspark.sql.types.StructType:
                     StructField("v_Vel", DoubleType(), False),
                     StructField("v_Acc", DoubleType(), False),
                     StructField("Lane_ID", IntegerType(), False),
-                    StructField("Location", StringType(), False)
+                    StructField("Location", StringType(), False), 
                 ])
             )
 

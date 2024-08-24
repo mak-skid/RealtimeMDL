@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.5.4)  19 AUG 2024 21:29
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.5.4)  25 AUG 2024 00:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -163,79 +163,56 @@ LaTeX Info: Redefining \Relbar on input line 971.
 LaTeX Info: Redefining \[ on input line 2953.
 LaTeX Info: Redefining \] on input line 2954.
 )
+(/usr/local/texlive/2024/texmf-dist/tex/latex/tools/array.sty
+Package: array 2023/10/16 v2.5g Tabular extension package (FMi)
+\col@sep=\dimen161
+\ar@mcellbox=\box53
+\extrarowheight=\dimen162
+\NC@list=\toks23
+\extratabsurround=\skip55
+\backup@length=\skip56
+\ar@cellbox=\box54
+)
 (/usr/local/texlive/2024/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-02-20 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count283
-\l__pdf_internal_box=\box53
+\l__pdf_internal_box=\box55
 )
 (./thesis.aux)
 \openout1 = `thesis.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
 
 (/usr/local/texlive/2024/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count284
-\scratchdimen=\dimen161
-\scratchbox=\box54
+\scratchdimen=\dimen163
+\scratchbox=\box56
 \nofMPsegments=\count285
 \nofMParguments=\count286
-\everyMPshowfont=\toks23
+\everyMPshowfont=\toks24
 \MPscratchCnt=\count287
-\MPscratchDim=\dimen162
+\MPscratchDim=\dimen164
 \MPnumerator=\count288
 \makeMPintoPDFobject=\count289
-\everyMPtoPDFconversion=\toks24
+\everyMPtoPDFconversion=\toks25
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
-
-(/usr/local/texlive/2024/texmf-dist/tex/generic/infwarerr/infwarerr.sty
-Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
-)
-(/usr/local/texlive/2024/texmf-dist/tex/latex/grfext/grfext.sty
-Package: grfext 2019/12/03 v1.3 Manage graphics extensions (HO)
-
-(/usr/local/texlive/2024/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
-Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
-)) (/usr/local/texlive/2024/texmf-dist/tex/latex/kvoptions/kvoptions.sty
-Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
-
-(/usr/local/texlive/2024/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
-Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
-)
-(/usr/local/texlive/2024/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
-Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
-))
-(/usr/local/texlive/2024/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
-Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
-)
-
-(/usr/local/texlive/2024/texmf-dist/tex/generic/iftex/iftex.sty
-Package: iftex 2022/02/03 v1.0f TeX engine tests
-)
-Package pdftexcmds Info: \pdf@primitive is available.
-Package pdftexcmds Info: \pdf@ifprimitive is available.
-Package pdftexcmds Info: \pdfdraftmode found.
-)
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 85.
-Package grfext Info: Graphics extension search list:
-(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
-G,.JBIG2,.JB2,.eps]
-(grfext)             \AppendGraphicsExtensions on input line 504.
 
 (/usr/local/texlive/2024/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
@@ -257,7 +234,7 @@ Package caption Info: End \AtBeginDocument code.
 Chapter 1.
 
 LaTeX Font Warning: Font shape `OT1/cmr/bx/sc' undefined
-(Font)              using `OT1/cmr/bx/n' instead on input line 49.
+(Font)              using `OT1/cmr/bx/n' instead on input line 50.
 
 [1
 
@@ -266,23 +243,23 @@ Chapter 2.
 ! Undefined control sequence.
 <recently read> \noident 
                          
-l.76 \noident
+l.77 \noident
              - Anomaly of urban traffic environment:
 ? 
 [3
 
 ]
-Overfull \hbox (23.51207pt too wide) in paragraph at lines 103--103
+Overfull \hbox (23.51207pt too wide) in paragraph at lines 104--104
 []|\OT1/cmr/m/n/10.95 Microscopic|  
  []
 
 
-Overfull \hbox (1.88998pt too wide) in paragraph at lines 111--111
-[]\OT1/cmr/m/n/10.95 Macroscopic| 
+Overfull \hbox (1.88998pt too wide) in paragraph at lines 112--112
+[]|\OT1/cmr/m/n/10.95 Macroscopic| 
  []
 
 
-Overfull \hbox (26.4625pt too wide) in paragraph at lines 113--113
+Overfull \hbox (26.4625pt too wide) in paragraph at lines 114--114
 []|\OT1/cmr/m/n/10.95 Combined|  
  []
 
@@ -290,13 +267,13 @@ Overfull \hbox (26.4625pt too wide) in paragraph at lines 113--113
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [4]
-Overfull \hbox (8.97223pt too wide) in paragraph at lines 127--128
+Overfull \hbox (8.97223pt too wide) in paragraph at lines 128--129
 \OT1/cmr/m/n/10.95 work con-tains three lay-ers: Apache Spark Layer, Spa-tial R
 DD (Re-silient Dis-tributed Datasets)
  []
 
 [5]
-Overfull \hbox (6.79872pt too wide) in paragraph at lines 131--132
+Overfull \hbox (6.79872pt too wide) in paragraph at lines 132--133
 []\OT1/cmr/m/n/10.95 Ver^^Sonica et al.[[]] pre-sented an ar-chi-tec-ture to im
 -ple-ment and eval-u-ate the GeoSpark-
  []
@@ -309,81 +286,100 @@ Chapter 3.
 <lane1.png, id=55, 412.6617pt x 328.8285pt>
 File: lane1.png Graphic file (type png)
 <use lane1.png>
-Package pdftex.def Info: lane1.png  used on input line 177.
+Package pdftex.def Info: lane1.png  used on input line 178.
 (pdftex.def)             Requested size: 412.66068pt x 328.8277pt.
  [10 <./lane1.png>] [11]
 <trajectorycollision.jpg, id=64, 421.62318pt x 313.50726pt>
 File: trajectorycollision.jpg Graphic file (type jpg)
 <use trajectorycollision.jpg>
-Package pdftex.def Info: trajectorycollision.jpg  used on input line 210.
+Package pdftex.def Info: trajectorycollision.jpg  used on input line 211.
 (pdftex.def)             Requested size: 421.62215pt x 313.50648pt.
 <interpolation.jpg, id=65, 457.28363pt x 496.29663pt>
 File: interpolation.jpg Graphic file (type jpg)
 <use interpolation.jpg>
-Package pdftex.def Info: interpolation.jpg  used on input line 216.
+Package pdftex.def Info: interpolation.jpg  used on input line 217.
 (pdftex.def)             Requested size: 341.43306pt x 370.5631pt.
  [12 <./trajectorycollision.jpg>] [13 <./interpolation.jpg>]
 <output1.png, id=72, 569.4876pt x 612.1269pt>
 File: output1.png Graphic file (type png)
 <use output1.png>
-Package pdftex.def Info: output1.png  used on input line 228.
+Package pdftex.def Info: output1.png  used on input line 229.
 (pdftex.def)             Requested size: 426.79134pt x 458.75778pt.
- [14]
-<3dto5d.png, id=80, 1048.91875pt x 540.0175pt>
+ [14] [15 <./output1.png>]
+<3dto5d.png, id=84, 1048.91875pt x 540.0175pt>
 File: 3dto5d.png Graphic file (type png)
 <use 3dto5d.png>
-Package pdftex.def Info: 3dto5d.png  used on input line 241.
+Package pdftex.def Info: 3dto5d.png  used on input line 242.
 (pdftex.def)             Requested size: 398.33858pt x 205.07693pt.
- [15 <./output1.png>] [16 <./3dto5d.png>] [17]
-<lstmvsrnn.png, id=94, 823.075pt x 773.89125pt>
+ [16 <./3dto5d.png>] [17]
+<lstmvsrnn.png, id=92, 823.075pt x 773.89125pt>
 File: lstmvsrnn.png Graphic file (type png)
 <use lstmvsrnn.png>
-Package pdftex.def Info: lstmvsrnn.png  used on input line 274.
+Package pdftex.def Info: lstmvsrnn.png  used on input line 275.
 (pdftex.def)             Requested size: 398.33858pt x 374.53381pt.
-
-
-LaTeX Warning: Citation `9779153' on page 18 undefined on input line 278.
-
-[18 <./lstmvsrnn.png>]
-<convlstm.png, id=98, 552.0625pt x 379.4175pt>
+<convlstm.png, id=93, 552.0625pt x 379.4175pt>
 File: convlstm.png Graphic file (type png)
 <use convlstm.png>
-Package pdftex.def Info: convlstm.png  used on input line 288.
+Package pdftex.def Info: convlstm.png  used on input line 289.
 (pdftex.def)             Requested size: 398.33858pt x 273.77669pt.
- [19] [20 <./convlstm.png>]
-<MDL.png, id=107, 800.9925pt x 823.075pt>
+ [18] [19 <./lstmvsrnn.png>] [20 <./convlstm.png>] [21]
+<MDL.png, id=111, 800.9925pt x 823.075pt>
 File: MDL.png Graphic file (type png)
 <use MDL.png>
-Package pdftex.def Info: MDL.png  used on input line 318.
+Package pdftex.def Info: MDL.png  used on input line 319.
 (pdftex.def)             Requested size: 398.33858pt x 409.32608pt.
-<realtime_arch.png, id=108, 649.42625pt x 578.16pt>
+<realtime_arch.png, id=112, 649.42625pt x 578.16pt>
 File: realtime_arch.png Graphic file (type png)
 <use realtime_arch.png>
-Package pdftex.def Info: realtime_arch.png  used on input line 326.
+Package pdftex.def Info: realtime_arch.png  used on input line 328.
 (pdftex.def)             Requested size: 398.33858pt x 354.63556pt.
- [21] [22 <./MDL.png>]
-[23 <./realtime_arch.png>] [24] [25]
+ [22] [23 <./MDL.png>] [24 <./realtime_arch.png>]
+<throughput_comp.png, id=124, 411.5375pt x 250.9375pt>
+File: throughput_comp.png Graphic file (type png)
+<use throughput_comp.png>
+Package pdftex.def Info: throughput_comp.png  used on input line 347.
+(pdftex.def)             Requested size: 398.33858pt x 242.89215pt.
+ [25] [26 <./throughput_comp.png>]
+Overfull \hbox (4.23206pt too wide) in paragraph at lines 373--373
+ []|\OT1/cmr/m/n/10.95 Timewindow| 
+ []
+
+[27]
 Chapter 4.
-[26
+
+Overfull \hbox (7.78256pt too wide) in paragraph at lines 415--427
+ [][] 
+ []
+
+[28
 
 ]
+<mdl_model_w_10_10_6_1_1_velocity_output_2299.5.png, id=140, 462.528pt x 633.80
+79pt>
+File: mdl_model_w_10_10_6_1_1_velocity_output_2299.5.png Graphic file (type png
+)
+<use mdl_model_w_10_10_6_1_1_velocity_output_2299.5.png>
+Package pdftex.def Info: mdl_model_w_10_10_6_1_1_velocity_output_2299.5.png  us
+ed on input line 435.
+(pdftex.def)             Requested size: 398.33858pt x 545.87656pt.
+ [29] [30 <./mdl_model_w_10_10_6_1_1_velocity_output_2299.5.png>]
 Chapter 5.
-[27
+[31
 
 ]
 Chapter 6.
-(./thesis.bbl [28
+(./thesis.bbl [32
 
-] [29
+] [33
 
-{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
- [30] [31]) [32]
+] [34{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.
+enc}] [35]) [36]
 Appendix A.
-[33
+[37
 
 ]
 Appendix B.
-[34
+[38
 
 ] (./thesis.aux)
  ***********
@@ -394,18 +390,15 @@ L3 programming layer <2024-02-20>
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-
-LaTeX Warning: There were undefined references.
-
  ) 
 Here is how much of TeX's memory you used:
- 4376 strings out of 474116
- 75258 string characters out of 5743683
- 1938187 words of memory out of 5000000
- 26696 multiletter control sequences out of 15000+600000
+ 3888 strings out of 474116
+ 66046 string characters out of 5743683
+ 1941187 words of memory out of 5000000
+ 26237 multiletter control sequences out of 15000+600000
  565962 words of font info for 63 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 67i,11n,77p,1199b,307s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 67i,11n,77p,1368b,307s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb>
@@ -424,10 +417,10 @@ ve/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive
 024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/20
 24/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/202
 4/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb>
-Output written on thesis.pdf (39 pages, 2004556 bytes).
+Output written on thesis.pdf (43 pages, 2110198 bytes).
 PDF statistics:
- 237 PDF objects out of 1000 (max. 8388607)
- 145 compressed objects within 2 object streams
+ 254 PDF objects out of 1000 (max. 8388607)
+ 154 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 46 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 56 words of extra memory for PDF output out of 10000 (max. 10000000)
 

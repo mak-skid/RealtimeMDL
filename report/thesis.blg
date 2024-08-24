@@ -4,46 +4,47 @@ The top-level auxiliary file: thesis.aux
 The style file: acm.bst
 Database file #1: refs.bib
 Warning--empty booktitle in STARK
+Warning--empty booktitle in Kreps2011KafkaA
 Warning--empty booktitle in Sigurdsson2018RoadTC
-You've used 26 entries,
+You've used 30 entries,
             2253 wiz_defined-function locations,
-            698 strings with 10024 characters,
-and the built_in function-call counts, 10109 in all, are:
-= -- 902
-> -- 625
+            722 strings with 10968 characters,
+and the built_in function-call counts, 11708 in all, are:
+= -- 1050
+> -- 718
 < -- 0
-+ -- 255
-- -- 226
-* -- 876
-:= -- 1672
-add.period$ -- 76
-call.type$ -- 26
-change.case$ -- 186
++ -- 294
+- -- 260
+* -- 1000
+:= -- 1923
+add.period$ -- 87
+call.type$ -- 30
+change.case$ -- 215
 chr.to.int$ -- 0
-cite$ -- 28
-duplicate$ -- 320
-empty$ -- 742
-format.name$ -- 226
-if$ -- 2065
+cite$ -- 33
+duplicate$ -- 386
+empty$ -- 855
+format.name$ -- 260
+if$ -- 2404
 int.to.chr$ -- 0
-int.to.str$ -- 26
-missing$ -- 24
-newline$ -- 131
-num.names$ -- 56
-pop$ -- 196
+int.to.str$ -- 30
+missing$ -- 28
+newline$ -- 150
+num.names$ -- 64
+pop$ -- 229
 preamble$ -- 1
-purify$ -- 160
+purify$ -- 185
 quote$ -- 0
-skip$ -- 194
+skip$ -- 242
 stack$ -- 0
-substring$ -- 543
-swap$ -- 80
+substring$ -- 615
+swap$ -- 105
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 104
-warning$ -- 2
-while$ -- 79
-width$ -- 28
-write$ -- 260
-(There were 2 warnings)
+type$ -- 120
+warning$ -- 3
+while$ -- 90
+width$ -- 32
+write$ -- 299
+(There were 3 warnings)

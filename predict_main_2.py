@@ -1,5 +1,6 @@
 import os
 import pickle
+import time
 import keras
 from sedona.spark import *
 from pyspark.sql.types import StructType, StructField, IntegerType, LongType, DoubleType, StringType, TimestampType, DecimalType, ArrayType, FloatType
@@ -16,35 +17,13 @@ from us101dataset import US101Dataset
 class SecondWatermarkAggregator(RealTimePredictor):
     def __init__(self):
         super().__init__()
-        """
-        
-        self.bootstrap_servers = 'localhost:9092'    
-
-        self.start = 2229.5 # after spliting the test and train data 80%:20%
-        self.end = 2772 # max_elapsed_time=2772000 ms = 46.2 minutes if hour is 7-8am
-        self.predict_len = 1
-
-        self.timewindow = 0.5
-        self.num_section_splits = 9
-        self.num_lanes = 5
-        self.history_len = 20
-        self.num_skip = 10
-        self.max_dist = 2224.6633212502065
-        self.num_sections = self.num_section_splits + 1
-
-        with_ramp = False
-        self.with_ramp_sign = "w" if with_ramp else "wo"
-        self.num_features = 1
-
-        self.model = get_MDL_model(self.history_len, self.num_lanes, self.num_sections, self.num_features)
-        """
     
     def parse_df(self, df: DataFrame) -> DataFrame:
         key_schema = StructType([
             StructField("timewindow", 
                 StructType([
-                    StructField("start", TimestampType()),
-                    StructField("end", TimestampType())
+                    StructField("start", TimestampType(), False),
+                    StructField("end", TimestampType(), False)
                 ]))
             ])
         value_schema = ArrayType(ArrayType(ArrayType(IntegerType(), False), False), False)
@@ -54,7 +33,9 @@ class SecondWatermarkAggregator(RealTimePredictor):
                 F.from_json(F.col("key").cast("string"), schema=key_schema).alias("parsed_key"),
                 F.from_json(F.col("value").cast("string"), schema=value_schema).alias("3D_mat")
             ) \
-            .withColumn("timewindow", F.col("parsed_key.timewindow")) \
+            .withColumns({
+                "timewindow": F.col("parsed_key.timewindow")
+            }) \
             .drop("parsed_key")
 
     def to_4d_np(self, df: DataFrame) -> DataFrame:  
@@ -70,10 +51,16 @@ class SecondWatermarkAggregator(RealTimePredictor):
                 ).alias("timewindow")
             ) \
             .agg(
-                F.sort_array(F.collect_list(F.struct("timewindow", "3D_mat"))).alias("4D_mat")
+                F.sort_array(F.collect_list(F.struct("timewindow", "3D_mat"))).alias("4D_mat"),
             ) \
-            .withColumn("sorted_4D_mat", F.col("4D_mat.3D_mat")) \
-            .select(F.col("timewindow").alias("based_timewindow"), F.col("4D_mat.timewindow").alias("timewindows"), "sorted_4D_mat") # (history_len, num_lanes, num_sections, num_features)
+            .withColumns({
+                "sorted_4D_mat": F.col("4D_mat.3D_mat")
+            }) \
+            .select(
+                F.col("timewindow").alias("based_timewindow"),
+                F.col("4D_mat.timewindow").alias("timewindows"), 
+                F.col("sorted_4D_mat") # (history_len, num_lanes, num_sections, num_features)
+            )
     
     def real_time_prediction(self, df: DataFrame) -> DataFrame:
         def prediction(input):
@@ -92,8 +79,11 @@ class SecondWatermarkAggregator(RealTimePredictor):
         pred_udf = F.udf(prediction, ArrayType(ArrayType(IntegerType())))
 
         return df \
-            .withColumn("prediction", pred_udf(F.col("sorted_4D_mat"))) \
-            .select(F.col("based_timewindow"), F.col("prediction")) \
+            .withColumns({
+                "prediction": pred_udf(F.col("sorted_4D_mat")),
+                "Global_Time": F.unix_timestamp(F.to_utc_timestamp(F.col("based_timewindow.start"), 'America/Los_Angeles')) + 3600000
+            }) \
+            .select(F.col("based_timewindow"), F.col("Global_Time"), F.col("prediction")) \
         
     def init_job(self):
         config = SedonaContext.builder() \
@@ -120,30 +110,18 @@ class SecondWatermarkAggregator(RealTimePredictor):
         
         parsed_df = self.parse_df(df)
         test_df = self.to_4d_np(parsed_df)
-        #pred_df = self.check_shape(test_df)
         pred_df = self.real_time_prediction(test_df)
 
         query = pred_df \
             .writeStream \
             .outputMode("append") \
-            .format("console") \
-            .option("truncate", "false") \
+            .format("json") \
+            .option('path', 'realtime_pred_res') \
+            .option("checkpointLocation", "checkpoints/SecondWatermarkAggregator") \
+            .trigger(processingTime='1 minute') \
             .start()
 
         query.awaitTermination()
-
-        """
-        train_dataset = US101Dataset(
-            timewindow_agg_df, 
-            start, 
-            end, 
-            timewindow, 
-            num_section_splits, 
-            history_len, 
-            predict_len, 
-            num_skip=num_skip,
-            with_ramp=with_ramp
-            )
-        """
+        
 
 SecondWatermarkAggregator().init_job()

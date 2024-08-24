@@ -4,7 +4,8 @@
 \documentclass[11pt]{uonthesis}
 
 \usepackage[titletoc]{appendix}
-\usepackage{graphicx, multirow, multirow, subcaption, amsmath} % put additional packages here
+\usepackage{graphicx, multirow, multirow, subcaption, amsmath, array} % put additional packages here
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
 %\usepackage[backend=biber, sorting=nyt, style=numeric, firstinits=true]{biblatex}
 \bibliographystyle{acm} 
 %\addbibresource{refs.bib}
@@ -159,10 +160,10 @@ The Dataset that is used for this study is Next Generation Simulation (NGSIM) Da
         \hline
         Section & Lanes & Observations\\
         \hline
-        US-101 & 1-5 & 4802933\\
-        I-80 & 1-7 & 4566387\\ 
-        Lankersim & 1-4 plus 2 & 1607319\\
-        Peachtree & 1-4 plus 2 & 873887\\
+        US-101 & 1-5 & 4,802,933\\
+        I-80 & 1-7 & 4,566,387\\ 
+        Lankersim & 1-4 plus 2 & 1,607,319\\
+        Peachtree & 1-4 plus 2 & 873,887\\
         \hline
     \end{tabular}
 \caption{NGSIM Observed datapoints, all vehicle classes}
@@ -200,7 +201,7 @@ Each datapoint contains the following attributes:
     \item Time Headway - Time it takes for a vehicle to travel from the front center of the preceding vehicle to the front center of the subject vehicle in seconds
 \end{description}
 
-\section{Preprocessing}
+\section{Data Preprocessing}
 
 % MENTION NOISE OF THE DATA
 The NGSIM dataset is one of the most extensive and detailed vehicle trajectory datasets available, and it has become the de facto empirical microscopic traffic dataset\cite{COIFMAN2017362}, and it is widely used for the development and evaluation of traffic flow models. However, the dataset is not without its limitations. Coifmain et al. argue that the dataset is known to have two major issues about its accuracy according to their evaluation paper.
@@ -220,17 +221,17 @@ The NGSIM dataset is one of the most extensive and detailed vehicle trajectory d
 The first issue is that after accounting for vehicle length, trajectories often overrun those of proceeding vehicles seemingly resulting in "collisions of trajectories". Their analysis went on to discover the second issue: that the NGSIM acceleration often exhibits unrealistically large magnitudes and likewise that the NGSIM speeds exhibit unrealistic piecewise constant behavior, which means in the dataset some vehicles maintain zero acceleration for an unrealistically long time. As shown in Fig. 3.3, %DOUBLE CHECK THE FIGURE NUMBER ONE LAST TIME
 it appears as if at low speeds the NGSIM video image processing frequently linearly interpolates the trajectories between two points in space observed many seconds apart.
 
-In order to alleviate the impact of these errors in the dataset to the model training, we dropped the particularly problematic acceleration attribute and performed sub-sectioning and time binning of the data, creating an image-like input for the model. To achieve that, the study section needed to be split into a number of sub-sections along the length of the highway. Therefore, we gave each datapoint an additional attribute, which is distance from the start of the section. The Euclidean distance was calculated simply taking the Local X and Local Y coordinates of the datapoint, since the section stretches almost straight. The section was then divided into 10 sub-sections % NEEDS EDITS
-, each of which is roughly 200 feet in length. The distance attribute was then used to assign each datapoint to a sub-section, by adding the "Section ID" attribute.
+In order to alleviate the impact of these errors in the dataset to the model training, we dropped the particularly problematic acceleration attribute and performed sub-sectioning and time binning of the data, creating an image-like input for the model. To achieve that, the study section needed to be split into a number of sub-sections along the length of the highway. Therefore, we gave each datapoint an additional attribute, which is distance from the start of the section. The Euclidean distance was calculated simply taking the Local X and Local Y coordinates of the datapoint, since the section stretches almost straight. The section was then divided into 10 sub-sections, % NEEDS EDITS
+each of which is roughly 200 feet in length. The distance attribute was then used to assign each datapoint to a sub-section, by adding the "Section ID" attribute.
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=15cm]{{output1.png}}
-    \caption{Visualisation of vehicle speed, density, and acceleration in each road section}
+    \includegraphics[width=15cm]{{output1.png}} % CHANGE THIS FIGURE
+    \caption{Visualisation of vehicle speed and density in each road section}
 \end{figure}
 
 Then, the datapoints were aggregated using the "Section ID" attribute, and now the data at each timestamp is binned into 10 sub-sections and the average speed, density, and acceleration of the vehicles in each sub-section at each timestamp is calculated. In the beginning of the traffic observation, some parts of the study section are not filled with datapoints yet as seen in Fig. 3.4 % DOUBLE CHECK THE FIGURE NUMBER ONE LAST TIME
-, so we decided to drop the first 45 seconds of the data to remove such noise in the training data. Then, time series aggregation was performed to fill as many sub-sections as possible with non-zero density and speed values at each interval, as well as further filling null values with appropriate and plausible values. We found that for this particular dataset the timewindow of 0.5 seconds is most favourable since the aggregated values cover all grids and creates as many samples as possible for training. If we aggregated by a longer time window, the values would lose some magnitude of temporal features. For this study, zero values for density attribute and the maximum speed limit of 60 mph for speed attribute were simply used, although the average speed of vehicles in the proceeding and following grids can also be used. 
+, so we decided to drop the first 45 seconds of the data to remove such noise in the training data. Then, time series aggregation was performed to fill as many sub-sections as possible with non-zero density and speed values at each interval, as well as further filling null values with appropriate and plausible values. We found that for this particular dataset the timewindow of 0.5 seconds is most favourable since the aggregated values cover all grids and creates as many samples as possible for training. If we aggregated by a longer time window, the values would lose some magnitude of temporal features. For real-time prediction, the timewindow of 0.5 seconds was too short due to limited computational resource, and thus we used the timewindow length of 10 seconds. For this study, zero values for density attribute and the maximum speed limit of 60 mph for speed attribute were used to reduce as much computation as possible, although the average speed of vehicles in the proceeding and following grids can also be used. 
 
 To create the 3D tensors, the Spark dataframe was converted to RDDs, and the RDDs were grouped by key and then mapped to a key-value pair, where the key is the interval ID and the value is Row objects containing the speed, density, and acceleration values of each sub-section at each interval. The key-value pairs were then converted to a numpy array in a User Defined Function, and the returned numpy arrays were stacked to create the 4D tensor, with a shape of $R^{T{\times}M{\times}N{\times}L}$, where $T$, $M$, $N$, $L$ denotes the number of timewindows (intervals), the height of grid (lanes), the width of grid (sub-sections), the number of attributes, respecitively. % include psuedo code?
 
@@ -319,6 +320,7 @@ where $\hat{Y_t}$ is the predicted speed vector and $Y_t$ is the actual speed ve
     \caption{The structure of the orginal MDL model. From Lu et al. Note that the downsized model has only one stream of speed and thus no merging operation.}
 \end{figure}
 
+
 \section{Real-time streaming architecture}
 
 \begin{figure}[ht!]
@@ -348,36 +350,117 @@ Spark Structured Streaming\cite{10.1145/3183713.3190664}, an extension of Apache
 
 \section{Evaluation method}
 
-According to Li et al.\cite{li2024unifyinglaneleveltrafficprediction}, the lane-level traffic prediction model accuracy is evaluated typically using three key metrics: Root Mean Squared Error (RMSE), Mean Absolute Error (MAE), and Mean Absolute Percentage Error (MAPE). However, the researchers also emphasise the importance of considering the duration of its training when the model is to be used in real-time lane-level traffic prediction, where rapid response and real-time updates are essential. This paper focuses on the architecture of real-time inference, and thus instead of considering the training time, the model's inference time as well as data preprocessing time of the streaming architecture are evaluated. The formulas for the three metrics are as follows:
+According to Li et al.\cite{li2024unifyinglaneleveltrafficprediction}, the lane-level traffic prediction model accuracy is evaluated typically using three key metrics: Root Mean Squared Error (RMSE), Mean Absolute Error (MAE), and Mean Absolute Percentage Error (MAPE). However, the researchers also emphasise the importance of considering the duration of its training when the model is to be used in real-time lane-level traffic prediction, where rapid response and real-time updates are essential. This paper focuses on the architecture of real-time inference, and thus instead of considering the training time, the time taken for inference as well as data preprocessing within the streaming architecture is evaluated. The formulas for the three metrics are as follows:
 
 \[ RMSE = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(\hat{Y_i} - Y_i)^2} \]
 \[ MAE = \frac{1}{n}\sum_{i=1}^{n}|\hat{Y_i} - Y_i| \]
 \[ MAPE = \frac{1}{n}\sum_{i=1}^{n}\frac{|\hat{Y_i} - Y_i|}{Y_i} \] % MAYBE DROP MAPE SINCE IT SHOWS VERY HIGH VALUE, The MAPE is not suitable for the evaluation of the model since the denominator is the actual speed, which can be zero.
-\[ Inference (Preprocessing) Time = \frac{1}{n}\sum_{i=1}^{n}t_i \times 100\% \]
+\[ Inference Time = \frac{1}{n}\sum_{i=1}^{n}t_i \]
 where $\hat{Y_i}$ is the predicted speed, $Y_i$ is the actual speed during $i$-th time interval, $n$ is the total number of predicted samples, and $t_i$ is the inference / preprocessing time of the $i$th sample.
+
+However, there is one significant limitation of MAPE that is the metric can produce very high or even close to infinity values especially when the values to be evaluated contain zero or those of close to zero. Since the scale of actual values in the dataset is relatively in a small range of 0 to 60 mph, the MAPE metric is not particularly suitable for the evaluation of the model. Therefore, we calculated the Mean Arctangent Absolute Percentage Error (MAAPE) in addition to the three error ratio matrics above. The MAAPE metric was introduced by Kim et al.\cite{KIM2016669} as a more robust alternative to MAPE, which considers the error ratio as an angle instead of a slope unlike MAPE and is less sensitive to the scale of the actual values. The formula for MAAPE is as follows:
+\[ MAAPE = \frac{1}{n}\sum_{i=1}^{n} \arctan\left(\frac{|\hat{Y_i} - Y_i|}{Y_i}\right) \times 100\% \]
+
+% MAYBE ELABORATE MORE ON MAAPE
+
+We compared the original MDL model and the downsized version of the model, with different data preprocessing parameters such as the time series aggregation window length and the number of lanes considered, in terms of accuracy. We also compared the accuracy of non-real-time prediction with that of real-time prediction, considering the impact of datapoint losses during streaming. 
+
 
 \begin{table}[ht!]
     \centering
-    \begin{tabular}{ |c|c|c| }
+    \begin{tabular}{ |P{4cm}|P{3cm}|P{2cm}|P{2cm}|P{2cm}| }
         \hline
-        Models & Input Feature & Conv-LSTM layers number\\
+        Models & Input Feature & Conv-LSTM layers number & Timewindow & On-Off Ramp Included\\
         \hline
-        Original & speed, density & 2\\
-        Original (Real Time) & speed, density & 2\\
-        Downsized & speed & 1\\ 
-        Downsized (Real Time) & speed & 1\\
+        \multirow{4}{*}{Original MDL} & \multirow{4}{*}{speed, density} & \multirow{4}{*}{2} & 0.5 sec & Yes\\
+         & & & 0.5 sec & No\\
+         & & & 10 sec & Yes\\
+         & & & 10 sec & No\\
+        \hline
+        \multirow{4}{*}{Downsized MDL} & \multirow{4}{*}{speed} & \multirow{4}{*}{1} & 0.5 sec & Yes\\
+         & & & 0.5 sec & No\\
+         & & & 10 sec & Yes\\
+         & & & 10 sec & No\\ 
+        \hline
+        Downsized (Real Time) & speed & 1 & 10 sec & No\\
         \hline
     \end{tabular}
 \caption{List of models evaluated}
 \end{table}
 
-We compared the original MDL model and the downsized version of the model, in terms of accuracy and real-time inference time. We also compared the accuracy of non-real-time prediction with that of real-time prediction, considering the impact of datapoint losses during streaming. 
+\chapter{Results and Discussion}
 
-\chapter{Results}
+All experiments were conducted on a computer with an Intel Core i5 Quad-Core CPU at 2.3GHz, 16GB of RAM, and Intel Iris Plus Graphics 655 1536 MB GPU. The training and evaluation were performed using PySpark 3.5.1, TensorFlow 2.16.2, and Keras 3.4.1, and Kafka 3.8.0. The models were trained using the Adamax optimiser with a learning rate of 0.001, and the batch size was set to 16. The models have 3 filters in each ConvLSTM layer's convolution and 1 filter in the convolutional layer. Each model was trained for 50 epochs with the early stopping engaged.
 
-\chapter{Discussion, Limitations and Future Work}
+\section{Accuracy}
+The results for accuracy are shown in Table 4.1-4.2. % DOUBLE CHECK THE TABLE NUMBER ONE LAST TIME
+
+\begin{table}[ht!]
+    \centering
+    \begin{tabular}{ |c|c|c|c|c|c| }
+        \hline
+        Timewindow & On-Off Ramp Included & MAE & MAPE & MAAPE & RMSE\\
+        \hline
+        0.5 sec & Yes & 8.28 & $\infty$ & 35.19\% & 13.16\\
+        0.5 sec & No & 9.63 & $\infty$ & 41.32\% & 15.31\\
+        10 sec & Yes & 7.10 & \textbf{58.67\%} & \textbf{34.23\%} & 10.90\\
+        10 sec & No & 7.40 & 65.22\% & 37.91\% & 11.42\\
+        \hline
+    \end{tabular}
+\caption{Results of Original MDL models evaluated}
+\end{table}
+
+\begin{table}[ht!]
+    \centering
+    \begin{tabular}{ |c|c|c|c|c|c|c| }
+        \hline
+        Type & Timewindow & On-Off Ramp Included & MAE & MAPE & MAAPE & RMSE\\
+        \hline
+        \multirow[vpos]{4}{*}{Static} & 0.5 sec & Yes & 8.62 & $\infty$ & 36.52\% & 13.54\\
+        & 0.5 sec & No & 8.87 & $\infty$ & 40.25\% & 13.69\\
+        & 10 sec & Yes & 7.21 & 60.67\% & 35.07\% & 10.66\\
+        & 10 sec & No & \textbf{7.06} & 64.42\% & 36.99\% & \textbf{10.51}\\ 
+        \hline
+        Real Time & 10 sec & No & 9.21 & $\infty$ & 45.07\% & 13.42\\
+        \hline
+    \end{tabular}
+\caption{Results of Downsized MDL models evaluated}
+\end{table}
+
+From Table 4.1-4.2, we can see that the model that considers the on- and off-ramp sections performs better than the model that does not consider them. This could be due to one of the data preprocessing steps introduced to this study to make the matrix data learnable for the model. Since the vehicles travelling on the on- and off-ramp between the section 0-1 and the section 6-9 are not recorded in the dataset, we filled the grids with a null value with a constant value of 60 mph to make the matrix data learnable for the model. As we can see in Fig. 4.1, % CHECK THE FIGURE NUMBER ONE LAST TIME
+the error ratio of those grids is lower than the that of the other grids. The greater number of grids with a slim difference between the actual and predicted speed values results in better prediction accuracy.
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=14cm]{{mdl_model_w_10_10_6_1_1_velocity_output_2299.5.png}}
+    \caption{Comparison between the actual and predicted speed values of the downsized MDL model with the timewindow of 10 sec and the on- and off-ramp sections included}
+\end{figure}
+
+Also, the models with the longer length of time series aggregation window perform better than those with the shorter length. During the data preprocessing, we averaged aggregated values of the speed and density, which could mean the longer timewindow length resulted in the reduced intensity of the temporal features. The fewer number of outliers and the smaller range of values in the data could have made the model learn the data more effectively and thus predict the future state of the traffic more accurately. However, we have to consider the trade-off between the model accuracy and the timewindow length and how much extension of the timewindow length a real-world application of the model can torelate, as the longer timewindow length makes the model less real-time and less sensitive to granularity of the traffic state.   
+
+On the subject of comparison between the accuracy of original MDL model and the downsized MDL, we could not find any significant difference between the two models. The downsized model is computationally less expensive than the original model, which makes it more suitable for real-time prediction.
+
+% real time model performs worse than the static model, which is due to the loss of datapoints during streaming
+
+\section{Inference Time of Real-time Prediction}
+
+total inference time = 624.844 s
+total time studied = 543.0 s
+total samples = 54
+time for sample inference = 11.57s
+
+\chapter{Limitations and Future Work}
 % Reflection on the paper with the initial objectives, etc. (refer to the student handbook)
+% mention that the dataset's quality limitation and lack of smoothing of the data: use lane1speeddist.png
 % Mention that time series aggregation window length has to be further optimised by feature correlation analysis method
+% Mention that the model can be further optimised by hyperparameter tuning
+% Mention that the model does not consider the impact of weather conditions or road condition anomalies
+% Mention that the limitation of euclid calculation of distance from origin on bends or curves
+% Mention that the model does not consider the impact of the vehicle type
+% Mention that the architecture is not tested in remote cloud environment and the impact of the network latency is not considered
+% mention that more sophiticated handling of loss of datapoints during streaming is required
+% lack of further scalability testing of the architecture
+
 \chapter{Conclusion}
 
 

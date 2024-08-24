@@ -6,15 +6,15 @@ from matplotlib import pyplot as plt
 from matplotlib.colors import Normalize
 import numpy as np
 from sklearn.metrics import mean_squared_error
-from mdl.mdl_predict import mdl_predict
+from training.mdl_predict import mdl_predict
 from us101dataset import US101Dataset
-from mdl.mdl_model import get_MDL_model
+from training.mdl_model import get_MDL_model
 
 
 def createMDLModelAndTrain(
     train_dataset: US101Dataset,
     num_features: int = 1,
-    learning_rate: float = 0.0002,
+    learning_rate: float = 0.001, # 0.0002
     num_epochs: int = 500,
     batch_size: int = 16,
     num_skip: int = 20,
@@ -33,8 +33,8 @@ def createMDLModelAndTrain(
     model.compile(loss='mean_squared_error', optimizer=optimizer)
     model.summary()
     model_name = f'mdl_model_{with_ramp_sign}_{train_dataset.timewindow}_{num_sections}_{train_dataset.history_len}_{num_features}_{num_skip}'
-    csv_logger = keras.callbacks.CSVLogger(f"mdl/log/{model_name}.log")
-    early_stop = keras.callbacks.EarlyStopping(monitor='val_loss', patience=5)
+    csv_logger = keras.callbacks.CSVLogger(f"training/log/{model_name}.log")
+    early_stop = keras.callbacks.EarlyStopping(monitor='val_loss', patience=2)
 
     if not realtime_mode:
         test_ratio = 0.2
@@ -54,9 +54,9 @@ def createMDLModelAndTrain(
         x_acc_val = train_dataset.X_data[val_split:test_split, :, :, :, 2]
         x_acc_test = train_dataset.X_data[test_split:, :, :, :, 2]
 
-        y_train = np.reshape(train_dataset.Y_data[:val_split, :, :, :, 0], (val_split, predict_len, num_lanes*num_sections))
-        y_val = np.reshape(train_dataset.Y_data[val_split:test_split, :, :, :, 0], (test_split - val_split, predict_len, num_lanes*num_sections))
-        y_test = np.reshape(train_dataset.Y_data[test_split:, :, :, :, 0], (dataset_size - test_split, predict_len, num_lanes*num_sections))
+        y_vel_train = np.reshape(train_dataset.Y_data[:val_split, :, :, :, 0], (val_split, predict_len, num_lanes*num_sections))
+        y_vel_val = np.reshape(train_dataset.Y_data[val_split:test_split, :, :, :, 0], (test_split - val_split, predict_len, num_lanes*num_sections))
+        y_vel_test = np.reshape(train_dataset.Y_data[test_split:, :, :, :, 0], (dataset_size - test_split, predict_len, num_lanes*num_sections))
 
     else:
         validation_ratio: float = 0.125
@@ -69,15 +69,15 @@ def createMDLModelAndTrain(
         x_acc_train = train_dataset.X_data[:val_split, :, :, :, 2]
         x_acc_val = train_dataset.X_data[val_split:, :, :, :, 2]
         
-        y_val = np.reshape(train_dataset.Y_data[val_split:, :, :, :, 0], (dataset_size - val_split, predict_len, num_lanes*num_sections))
-        y_train = np.reshape(train_dataset.Y_data[:val_split, :, :, :, 0], (val_split, predict_len, num_lanes*num_sections))
+        y_vel_val = np.reshape(train_dataset.Y_data[val_split:, :, :, :, 0], (dataset_size - val_split, predict_len, num_lanes*num_sections))
+        y_vel_train = np.reshape(train_dataset.Y_data[:val_split, :, :, :, 0], (val_split, predict_len, num_lanes*num_sections))
 
     start = time.time()
-    train_history = model.fit(x_vel_train, y_train, epochs=num_epochs, batch_size=batch_size, verbose=2, validation_data=(x_vel_val, y_val), callbacks=[early_stop, csv_logger])
+    train_history = model.fit([x_vel_train, x_dens_train], y_vel_train, epochs=num_epochs, batch_size=batch_size, verbose=2, validation_data=([x_vel_val, x_dens_val], y_vel_val), callbacks=[early_stop, csv_logger])
     loss = train_history.history['loss']
     val_loss = train_history.history['val_loss']
     #model.save(f"mdl/models/{model_name}.keras", overwrite=True)
-    model.save_weights(f"mdl/models/{model_name}.weights.h5", overwrite=True)
+    model.save_weights(f"training/models/{model_name}.weights.h5", overwrite=True)
     end = time.time()
 
     print(f"Time taken to train: {end-start} seconds")
@@ -88,7 +88,7 @@ def createMDLModelAndTrain(
 
     if not realtime_mode:
         model = get_MDL_model(history_len, num_lanes, num_sections, num_features)
-        mdl_predict(model_name, model, x_vel_test, y_test, history_len, num_skip)
+        mdl_predict(model_name, model, [x_vel_test, x_dens_test], y_vel_test, history_len, num_skip, num_lanes, num_sections)
     
 
 class LossHistory(keras.callbacks.Callback):
