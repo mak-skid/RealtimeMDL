@@ -68,7 +68,7 @@ class SecondWatermarkAggregator(RealTimePredictor):
             #model = keras.saving.load_model(f"mdl/models/{model_name}.keras")
             self.model.load_weights(f"mdl/models/{model_name}.weights.h5")
 
-            if len(input) != self.history_len: # if there is not enough data to predict
+            if len(input) != self.history_len: # if there is not enough received data to predict
                 return np.zeros((self.num_lanes, self.num_sections), dtype=int).tolist()
             
             input_mat = np.reshape(np.array(input), (1, self.history_len, self.num_lanes, self.num_sections, self.num_features))
