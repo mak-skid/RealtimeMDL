@@ -1,18 +1,10 @@
-import os
-import pickle
-import time
-import keras
 from sedona.spark import *
-from pyspark.sql.types import StructType, StructField, IntegerType, LongType, DoubleType, StringType, TimestampType, DecimalType, ArrayType, FloatType
-from pyspark.ml.torch.distributor import TorchDistributor
-from mdl.mdl_model import get_MDL_model
+from pyspark.sql.types import StructType, StructField, IntegerType, TimestampType, ArrayType
 from realtime_predictor import RealTimePredictor
 from utils.datapreprocessing_utils import *
 from pyspark.sql import functions as F
-from pyspark.sql import Window
 from pyspark.sql import DataFrame
 
-from us101dataset import US101Dataset
 
 class SecondWatermarkAggregator(RealTimePredictor):
     def __init__(self):
@@ -66,7 +58,7 @@ class SecondWatermarkAggregator(RealTimePredictor):
         def prediction(input):
             model_name = f'mdl_model_{self.with_ramp_sign}_{self.timewindow}_{self.num_sections}_{self.history_len}_{self.num_features}_{self.num_skip}'
             #model = keras.saving.load_model(f"mdl/models/{model_name}.keras")
-            self.model.load_weights(f"mdl/models/{model_name}.weights.h5")
+            self.model.load_weights(f"training/models/{model_name}.weights.h5")
 
             if len(input) != self.history_len: # if there is not enough received data to predict
                 return np.zeros((self.num_lanes, self.num_sections), dtype=int).tolist()

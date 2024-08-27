@@ -19,13 +19,12 @@ for real-time analysis, try timewindow 10 sec, speed feature only, skip 1 histor
 
 write the abstract part by the next meeting 
 
-first batch spent 63979 milliseconds
-193770 milliseconds
-154688 milliseconds
-149528 milliseconds
-62879 milliseconds
+skip = 20sec_1: 159044 + 99319 + 97778 + 98032 + 97655 + 79762
+skip = 10sec_2: 160019 + 106916 + 96316 + 97978 + 7155
 
-total inference time = 624.844 s
-total time studied = 543.0 s
-total samples = 54
-time for sample inference = 11.57s
+in literature review, include macroscopic (explain what it is) as well as microscopic
+Create my own fig for Figure 3.6: The comparison between (a) RNN and (b) LSTM structures
+Figure 3.7: Inner structure of ConvLSTM.
+Figure 3.8: The structure of the orginal MDL model. From Lu et al (for this one, create my own or focus on differences between downsized model)
+Remove altogether Figure 3.10: Throughput result comparison and scalability of Spark Structured Streaming
+on the Yahoo! benchmark. From Armbrust et al.

@@ -29,7 +29,7 @@ def createMDLModelAndTrain(
     num_sections = train_dataset.num_sections
 
     optimizer = keras.optimizers.Adamax(learning_rate=learning_rate)
-    model = get_MDL_model(history_len, num_lanes, num_sections, num_features)
+    model = get_MDL_model(history_len, num_lanes, num_sections)
     model.compile(loss='mean_squared_error', optimizer=optimizer)
     model.summary()
     model_name = f'mdl_model_{with_ramp_sign}_{train_dataset.timewindow}_{num_sections}_{train_dataset.history_len}_{num_features}_{num_skip}'
@@ -73,7 +73,7 @@ def createMDLModelAndTrain(
         y_vel_train = np.reshape(train_dataset.Y_data[:val_split, :, :, :, 0], (val_split, predict_len, num_lanes*num_sections))
 
     start = time.time()
-    train_history = model.fit([x_vel_train, x_dens_train], y_vel_train, epochs=num_epochs, batch_size=batch_size, verbose=2, validation_data=([x_vel_val, x_dens_val], y_vel_val), callbacks=[early_stop, csv_logger])
+    train_history = model.fit(x_vel_train, y_vel_train, epochs=num_epochs, batch_size=batch_size, verbose=2, validation_data=(x_vel_val, y_vel_val), callbacks=[early_stop, csv_logger])
     loss = train_history.history['loss']
     val_loss = train_history.history['val_loss']
     #model.save(f"mdl/models/{model_name}.keras", overwrite=True)
@@ -87,8 +87,8 @@ def createMDLModelAndTrain(
     plt.show()
 
     if not realtime_mode:
-        model = get_MDL_model(history_len, num_lanes, num_sections, num_features)
-        mdl_predict(model_name, model, [x_vel_test, x_dens_test], y_vel_test, history_len, num_skip, num_lanes, num_sections)
+        model = get_MDL_model(history_len, num_lanes, num_sections)
+        mdl_predict(model_name, model, x_vel_test, y_vel_test, history_len, num_skip, num_lanes, num_sections)
     
 
 class LossHistory(keras.callbacks.Callback):

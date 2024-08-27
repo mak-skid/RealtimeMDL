@@ -1,4 +1,4 @@
-from mdl.mdl_model import get_MDL_model
+from training.mdl_model import get_MDL_model
 
 
 class RealTimePredictor:
@@ -21,4 +21,4 @@ class RealTimePredictor:
         self.with_ramp_sign = "w" if self.with_ramp else "wo"
         self.num_features = 1
 
-        self.model = get_MDL_model(self.history_len, self.num_lanes, self.num_sections, self.num_features)
+        self.model = get_MDL_model(self.history_len, self.num_lanes, self.num_sections)

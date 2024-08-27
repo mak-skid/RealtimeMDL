@@ -9,7 +9,7 @@ from sklearn.metrics import mean_squared_error
 from us101dataset import US101Dataset
 
 
-def get_MDL_model(history_len, num_lanes, num_sections, num_features):
+def get_MDL_model(history_len, num_lanes, num_sections):
     speed_input = Input(shape=(history_len, num_lanes, num_sections, 1)) # history, lanes, sections, features
     speed_input1 = BatchNormalization()(speed_input)
     layer1 = ConvLSTM2D(
@@ -32,7 +32,7 @@ def get_MDL_model(history_len, num_lanes, num_sections, num_features):
     flat1 = Flatten()(layer2)
 
     # UNCOMMENT THIS TO ADD DENSITY AND ACCELERATION AS INPUTS
-    
+    """
     dens_input = Input(shape=(history_len, num_lanes, num_sections, 1))
     dens_input1 = BatchNormalization()(dens_input)
     layer4 = ConvLSTM2D(
@@ -54,7 +54,7 @@ def get_MDL_model(history_len, num_lanes, num_sections, num_features):
         padding='same')(layer4)
     flat2 = Flatten()(layer6)
 
-    """
+    
     acc_input = Input(shape=(history_len, 5, 21, 1))
     acc_input1 = BatchNormalization()(acc_input)
     layer7 = ConvLSTM2D(
@@ -75,8 +75,8 @@ def get_MDL_model(history_len, num_lanes, num_sections, num_features):
         activation='relu',
         padding='same')(layer7)
     flat3 = Flatten()(layer8)
-    """
-    merged_output = keras.layers.concatenate([flat1, flat2])
     
-    out = Dense(num_lanes*num_sections)(merged_output) # lanes, sections, pred_len
-    return Model(inputs=[speed_input, dens_input], outputs=out)
+    merged_output = keras.layers.concatenate([flat1, flat2])
+    """
+    out = Dense(num_lanes*num_sections)(flat1) # lanes, sections, pred_len
+    return Model(inputs=[speed_input], outputs=out)

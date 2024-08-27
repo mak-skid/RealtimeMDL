@@ -35,11 +35,11 @@ with or without ramp: 2 variants
 """
 
 preprocessing_param = {
-    "timewindow": [0.5], #[0.5, 1, 3, 5], 
+    "timewindow": [10], #[0.5, 1, 3, 5], 
     "num_section_splits": [9], #[40, 60], 
-    "history_len": [120], #[20, 90, 120, 150],
+    "history_len": [6], #[20, 90, 120, 150],
     "with_ramp": [False], #[True, False],
-    "num_skip": 20 # 10
+    "num_skip": 2 # 10
     }
 
 # timewindow, history_len, numskip = 0.5s, 120 (60s), 20 (10s)
@@ -130,5 +130,5 @@ for timewindow in preprocessing_param["timewindow"]:
                         with_ramp=with_ramp
                         )
                     
-                createMDLModelAndTrain(train_dataset=train_dataset, num_features=2, num_skip=preprocessing_param['num_skip'], realtime_mode=realtime_mode)
-                createConvLSTMModelAndTrain(train_dataset=train_dataset, num_features=1, num_skip=preprocessing_param['num_skip'], realtime_mode=realtime_mode)
+                createMDLModelAndTrain(train_dataset=train_dataset, num_features=1, num_skip=preprocessing_param['num_skip'], realtime_mode=realtime_mode)
+                #createConvLSTMModelAndTrain(train_dataset=train_dataset, num_features=1, num_skip=preprocessing_param['num_skip'], realtime_mode=realtime_mode)

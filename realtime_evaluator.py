@@ -5,7 +5,7 @@ import numpy as np
 from sklearn.metrics import mean_squared_error, mean_absolute_error, mean_absolute_percentage_error
 
 act_f = open("act_val.json")
-pred_f = open("pred_val.json")
+pred_f = open("pred_val_10_2.json")
 
 act_data = json.load(act_f)
 pred_data = json.load(pred_f)

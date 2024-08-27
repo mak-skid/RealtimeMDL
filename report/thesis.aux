@@ -60,9 +60,11 @@
 \@writefile{lot}{\contentsline {table}{\numberline {3.1}{\ignorespaces NGSIM Observed datapoints, all vehicle classes}}{9}{}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces Vehicle speed visualisation of each vehicle in the farthest left (passing) lane (in mph)}}{10}{}\protected@file@percent }
 \citation{COIFMAN2017362}
+\citation{Thiemann_2008}
+\citation{MONTANINO201582}
 \@writefile{toc}{\contentsline {section}{\numberline {3.2}Data Preprocessing}{12}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces "Collisions of trajectories" errors. Orange areas are vehicles after taking their length into account. From Coifman et al.}}{12}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.3}{\ignorespaces Speed interpolation errors. (A) A typical frame from the NGSIM validation video for I-80 camera 6 at 490s. Traffic is flowing from left to right in this image. The NGSIM researchers superimposed a pink bounding box for each vehicle. A Detail of lane 3 (3rd lane from the left) from the validation video for three frames (B) 485s, (C) 490s, and (D) 497.5s. For each vehicle the rear bumper location in the NGSIM data set is shown on the left (corresponding to the upstream end of the bounding box) and is indexed by the vehicle ID, while the new rear bumper location calculated in our study is shown on the right. From Coifman et al.}}{13}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces "Collisions of trajectories" errors. Orange areas are vehicles after taking their length into account. From Coifman and Li.}}{12}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.3}{\ignorespaces Speed interpolation errors. (A) A typical frame from the NGSIM validation video for I-80 camera 6 at 490s. Traffic is flowing from left to right in this image. The NGSIM researchers superimposed a pink bounding box for each vehicle. A Detail of lane 3 (3rd lane from the left) from the validation video for three frames (B) 485s, (C) 490s, and (D) 497.5s. For each vehicle the rear bumper location in the NGSIM data set is shown on the left (corresponding to the upstream end of the bounding box) and is indexed by the vehicle ID, while the new rear bumper location calculated in our study is shown on the right. From Coifman and Li.}}{13}{}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {3.4}{\ignorespaces Visualisation of vehicle speed and density in each road section}}{15}{}\protected@file@percent }
 \citation{9284587}
 \@writefile{lof}{\contentsline {figure}{\numberline {3.5}{\ignorespaces Gantt chart-like representation of the transformation of the data from 3D to 5D tensor. Firstly, 3D matrices are stacked to create a 4D tensor, and the fixed number of 4D tensors are stacked to create a stack of past data and target data. Then, they will be again stacked to create a batch, resulting in 5D tensor.}}{16}{}\protected@file@percent }
@@ -85,7 +87,6 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.4.2}Spark Structured Streaming}{25}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {3.5}Evaluation method}{25}{}\protected@file@percent }
 \citation{KIM2016669}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.10}{\ignorespaces Throughput result comparison and scalability of Spark Structured Streaming on the Yahoo! benchmark. From Armbrust et al.}}{26}{}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {3.2}{\ignorespaces List of models evaluated}}{27}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {chapter}{\numberline {4}Results and Discussion}{28}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
@@ -93,13 +94,22 @@
 \@writefile{toc}{\contentsline {section}{\numberline {4.1}Accuracy}{28}{}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces Results of Original MDL models evaluated}}{28}{}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces Results of Downsized MDL models evaluated}}{29}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.2}Inference Time of Real-time Prediction}{29}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces Comparison between the actual and predicted speed values of the downsized MDL model with the timewindow of 10 sec and the on- and off-ramp sections included}}{30}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {5}Limitations and Future Work}{31}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.3}{\ignorespaces Comparison between the accuracy of static and real-time prediction with different "skip" parameters}}{30}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.2}Inference Time of Real-time Prediction}{30}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces Comparison between the actual and predicted speed values of the downsized MDL model with the timewindow of 10 sec and the on- and off-ramp sections included}}{31}{}\protected@file@percent }
+\citation{COIFMAN2017362}
+\citation{9284587}
+\citation{mic}
+\citation{miccomplexity}
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}Limitations and Future Work}{32}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {5.1}Further data preprocessing}{32}{}\protected@file@percent }
+\citation{9284587}
+\@writefile{toc}{\contentsline {section}{\numberline {5.2}Further model optimisation}{33}{}\protected@file@percent }
+\citation{WANG2023107044}
 \bibdata{refs.bib}
-\@writefile{toc}{\contentsline {chapter}{\numberline {6}Conclusion}{32}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}Conclusion}{35}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \bibcite{10.1007/978-981-16-4126-8_24}{1}
@@ -108,7 +118,7 @@
 \bibcite{10.1145/3397536.3422274}{4}
 \bibcite{COIFMAN2017362}{5}
 \bibcite{DAHIYA2022100066}{6}
-\@writefile{toc}{\contentsline {chapter}{References}{33}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{References}{36}{}\protected@file@percent }
 \bibcite{FAN2019298}{7}
 \bibcite{sedona}{8}
 \bibcite{gora2020microscopic}{9}
@@ -133,10 +143,10 @@
 \bibcite{10.1145/2820783.2820860}{28}
 \bibcite{Zhang20231124}{29}
 \bibcite{zheng2015trajectory}{30}
-\@writefile{toc}{\contentsline {chapter}{Appendix \numberline {A}Supplementary Materials I}{37}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{Appendix \numberline {A}Supplementary Materials I}{40}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {chapter}{Appendix \numberline {B}Supplementary Materials II}{38}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{Appendix \numberline {B}Supplementary Materials II}{41}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\gdef \@abspage@last{43}
+\gdef \@abspage@last{46}
