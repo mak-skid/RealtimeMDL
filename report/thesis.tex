@@ -268,10 +268,17 @@ $w_{hi}$, $w_{hf}$, $w_{ho}$ and $w_{xi}$, $w_{xf}$, $w_{xo}$ are the weight mat
 $w_{ci}$, $w_{cf}$, $w_{co}$ are the weight matrices for the cell state;
 $b_i$, $b_f$, $b_o$, $b_c$ are the bias terms for the input, forget, and output gates, and cell state, respectively.
 
-\begin{figure}[ht!]
+
+\begin{figure}[h]
     \centering
-    \includegraphics[width=14cm]{{lstmvsrnn.png}}
-    \caption{The comparison between (a) RNN and (b) LSTM structures. From Lu et al.}
+    \subcaptionbox{\label{i3}}{
+        \includegraphics[width=14cm]{rnn.png}
+    }
+    \subcaptionbox{\label{i4}}{
+        \includegraphics[width=14cm]{lstm.png}
+    }
+\caption{The comparison between (a) RNN and (b) LSTM structures.}
+\label{bb}
 \end{figure}
 
 The standard LSTM is suitable for 1D sequential data processing, and yet it is not capable of effectively capturing the contextual information of pixel data, thus it is not ideal for 2D and 3D signal processing tasks such as images and feature maps. Conv-LSTM extends the LSTM by adding convolutional operations to both the input-to-state and state-to-state transitions in the LSTM cell, which allows the model to learn spatial features as well as temporal features from the input data. The Conv-LSTM cell has the same structure as the LSTM cell, apart from the aforementioned modification to the LSTM cell. The mathmatical equations of the Conv-LSTM cell are summarised as follows according to \cite{9779153}:
@@ -285,7 +292,7 @@ where $*$ denotes the convolution operator. Note that $X_t$, $C_t$, $H_t$, $I_t$
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=14cm]{{convlstm.png}}
-    \caption{Inner structure of ConvLSTM. From Shi et al.}
+    \caption{Inner structure of a ConvLSTM cell}
 \end{figure}
 
 During convolution process in the MDL model described in the following section, the widely-used filter size of 3$\times$3 was also used for this study. In order to avoid the output feature map size reduction, often resulting in the loss of information on the edges of the input feature map, the zero-padding method in which it creates zero values around the input feature map before the process was applied.
@@ -370,21 +377,22 @@ We compared the original MDL model and the downsized version of the model, with 
 
 \begin{table}[ht!]
     \centering
-    \begin{tabular}{ |P{4cm}|P{3cm}|P{2cm}|P{2cm}|P{2cm}| }
+    \begin{tabular}{ |P{3cm}|P{2.5cm}|P{2cm}|P{2cm}|P{2cm}|P{1.5cm}| }
         \hline
-        Models & Input Feature & Conv-LSTM layers number & Timewindow & On-Off Ramp Included\\
+        Models & Input Feature & Conv-LSTM layers number & Timewindow & On-Off Ramp Included & Skip \\
         \hline
-        \multirow{4}{*}{Original MDL} & \multirow{4}{*}{speed, density} & \multirow{4}{*}{2} & 0.5 sec & Yes\\
-         & & & 0.5 sec & No\\
-         & & & 10 sec & Yes\\
-         & & & 10 sec & No\\
+        \multirow{4}{*}{Original MDL} & \multirow{4}{*}{speed, density} & \multirow{4}{*}{2} & 0.5 sec & Yes & 10 sec\\
+         & & & 0.5 sec & No & 10 sec\\
+         & & & 10 sec & Yes & 10 sec\\
+         & & & 10 sec & No & 10 sec\\
         \hline
-        \multirow{4}{*}{Downsized MDL} & \multirow{4}{*}{speed} & \multirow{4}{*}{1} & 0.5 sec & Yes\\
-         & & & 0.5 sec & No\\
-         & & & 10 sec & Yes\\
-         & & & 10 sec & No\\ 
+        \multirow{4}{*}{Downsized MDL} & \multirow{4}{*}{speed} & \multirow{4}{*}{1} & 0.5 sec & Yes & 10 sec\\
+         & & & 0.5 sec & No & 10 sec\\
+         & & & 10 sec & Yes & 10 sec\\
+         & & & 10 sec & No & 10 sec\\ 
         \hline
-        Downsized (Real-Time) & speed & 1 & 10 sec & No\\
+        Real-Time & speed & 1 & 10 sec & No & 10 sec\\
+        Real-Time & speed & 1 & 10 sec & No & 20 sec\\
         \hline
     \end{tabular}
 \caption{List of models evaluated}

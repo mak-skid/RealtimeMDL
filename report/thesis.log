@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.5.4)  29 AUG 2024 15:06
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.5.4)  29 AUG 2024 17:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -325,71 +325,109 @@ File: 3dto5d.png Graphic file (type png)
 Package pdftex.def Info: 3dto5d.png  used on input line 240.
 (pdftex.def)             Requested size: 398.33858pt x 205.07693pt.
  [15] [16]
-<lstmvsrnn.png, id=88, 823.075pt x 773.89125pt>
-File: lstmvsrnn.png Graphic file (type png)
-<use lstmvsrnn.png>
-Package pdftex.def Info: lstmvsrnn.png  used on input line 273.
-(pdftex.def)             Requested size: 398.33858pt x 374.53381pt.
-<convlstm.png, id=89, 552.0625pt x 379.4175pt>
+<rnn.png, id=88, 792.9625pt x 341.275pt>
+File: rnn.png Graphic file (type png)
+<use rnn.png>
+Package pdftex.def Info: rnn.png  used on input line 276.
+(pdftex.def)             Requested size: 398.33858pt x 171.43901pt.
+
+
+Package caption Warning: Cannot determine current font size.
+(caption)                Try setting it with `size=' explicitly on input line 2
+76.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: Cannot determine current font size.
+(caption)                Try setting it with `size=' explicitly on input line 2
+76.
+See the caption package documentation for explanation.
+
+<lstm.png, id=89, 958.58125pt x 418.56375pt>
+File: lstm.png Graphic file (type png)
+<use lstm.png>
+Package pdftex.def Info: lstm.png  used on input line 279.
+(pdftex.def)             Requested size: 398.33858pt x 173.93701pt.
+
+Package caption Warning: Cannot determine current font size.
+(caption)                Try setting it with `size=' explicitly on input line 2
+79.
+See the caption package documentation for explanation.
+
+
+Package caption Warning: Cannot determine current font size.
+(caption)                Try setting it with `size=' explicitly on input line 2
+79.
+See the caption package documentation for explanation.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<convlstm.png, id=90, 844.15375pt x 595.22375pt>
 File: convlstm.png Graphic file (type png)
 <use convlstm.png>
-Package pdftex.def Info: convlstm.png  used on input line 287.
-(pdftex.def)             Requested size: 398.33858pt x 273.77669pt.
- [17] [18]
-<MDL.png, id=98, 800.9925pt x 823.075pt>
+Package pdftex.def Info: convlstm.png  used on input line 294.
+(pdftex.def)             Requested size: 398.33858pt x 280.88142pt.
+[17] [18]
+<MDL.png, id=99, 800.9925pt x 823.075pt>
 File: MDL.png Graphic file (type png)
 <use MDL.png>
-Package pdftex.def Info: MDL.png  used on input line 317.
+Package pdftex.def Info: MDL.png  used on input line 324.
 (pdftex.def)             Requested size: 398.33858pt x 409.32608pt.
-<downsizedmdl.png, id=99, 542.025pt x 707.64375pt>
+<downsizedmdl.png, id=100, 542.025pt x 707.64375pt>
 File: downsizedmdl.png Graphic file (type png)
 <use downsizedmdl.png>
-Package pdftex.def Info: downsizedmdl.png  used on input line 323.
+Package pdftex.def Info: downsizedmdl.png  used on input line 330.
 (pdftex.def)             Requested size: 398.33858pt x 520.07413pt.
-<realtime_arch.png, id=100, 649.42625pt x 578.16pt>
+<realtime_arch.png, id=101, 649.42625pt x 578.16pt>
 File: realtime_arch.png Graphic file (type png)
 <use realtime_arch.png>
-Package pdftex.def Info: realtime_arch.png  used on input line 331.
+Package pdftex.def Info: realtime_arch.png  used on input line 338.
 (pdftex.def)             Requested size: 398.33858pt x 354.63556pt.
  [19] [20] [21] [22]
-Overfull \hbox (4.23206pt too wide) in paragraph at lines 375--375
+Overfull \hbox (4.23206pt too wide) in paragraph at lines 382--382
  []|\OT1/cmr/m/n/10.95 Timewindow| 
  []
 
-[23] [24 <./output1.png>] [25 <./3dto5d.png>] [26 <./lstmvsrnn.png>] [27 <./con
-vlstm.png>] [28 <./MDL.png>] [29 <./downsizedmdl.png>] [30 <./realtime_arch.png
->]
+
+Overfull \hbox (11.06573pt too wide) in paragraph at lines 380--398
+ [][] 
+ []
+
+[23] [24 <./output1.png>] [25 <./3dto5d.png>] [26 <./rnn.png> <./lstm.png>]
+[27 <./convlstm.png>] [28 <./MDL.png>] [29 <./downsizedmdl.png>] [30 <./realtim
+e_arch.png>]
 Chapter 4.
 [31
 
 ]
-<mdl_model_w_10_10_6_1_1_velocity_output_2299.5.png, id=148, 462.528pt x 633.80
+<mdl_model_w_10_10_6_1_1_velocity_output_2299.5.png, id=152, 462.528pt x 633.80
 79pt>
 File: mdl_model_w_10_10_6_1_1_velocity_output_2299.5.png Graphic file (type png
 )
 <use mdl_model_w_10_10_6_1_1_velocity_output_2299.5.png>
 Package pdftex.def Info: mdl_model_w_10_10_6_1_1_velocity_output_2299.5.png  us
-ed on input line 435.
+ed on input line 443.
 (pdftex.def)             Requested size: 398.33858pt x 545.87656pt.
 
-Overfull \hbox (10.38834pt too wide) in paragraph at lines 445--455
+Overfull \hbox (10.38834pt too wide) in paragraph at lines 453--463
  [][] 
  []
 
 [32] [33] [34 <./mdl_model_w_10_10_6_1_1_velocity_output_2299.5.png>]
 Chapter 5.
 
-LaTeX Warning: Citation `mic' on page 35 undefined on input line 483.
+LaTeX Warning: Citation `mic' on page 35 undefined on input line 491.
 
 
-LaTeX Warning: Citation `miccomplexity' on page 35 undefined on input line 484.
+LaTeX Warning: Citation `miccomplexity' on page 35 undefined on input line 492.
 
 
 [35
 
 ] [36]
 
-LaTeX Warning: Citation `WANG2023107044' on page 37 undefined on input line 492
+LaTeX Warning: Citation `WANG2023107044' on page 37 undefined on input line 500
 .
 
 [37] [38]
@@ -421,13 +459,13 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 3886 strings out of 474116
- 65998 string characters out of 5743683
- 1941187 words of memory out of 5000000
- 26236 multiletter control sequences out of 15000+600000
+ 3904 strings out of 474116
+ 66204 string characters out of 5743683
+ 1945187 words of memory out of 5000000
+ 26254 multiletter control sequences out of 15000+600000
  565794 words of font info for 62 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 67i,11n,77p,1837b,307s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 67i,11n,77p,1837b,493s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb>
@@ -445,10 +483,10 @@ ve/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive
 /2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2
 024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/20
 24/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb>
-Output written on thesis.pdf (50 pages, 2158759 bytes).
+Output written on thesis.pdf (50 pages, 2393108 bytes).
 PDF statistics:
- 271 PDF objects out of 1000 (max. 8388607)
+ 275 PDF objects out of 1000 (max. 8388607)
  166 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 56 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 61 words of extra memory for PDF output out of 10000 (max. 10000000)
 
