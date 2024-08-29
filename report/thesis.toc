@@ -11,20 +11,22 @@
 \contentsline {chapter}{\numberline {3}Methodology}{9}{}%
 \contentsline {section}{\numberline {3.1}Dataset details}{9}{}%
 \contentsline {section}{\numberline {3.2}Data Preprocessing}{12}{}%
-\contentsline {section}{\numberline {3.3}Model}{16}{}%
-\contentsline {subsection}{\numberline {3.3.1}Convolutional Long Short Term Memory Neural Network}{17}{}%
-\contentsline {subsection}{\numberline {3.3.2}Mixed Deep Learning Model}{20}{}%
-\contentsline {section}{\numberline {3.4}Real-time streaming architecture}{22}{}%
-\contentsline {subsection}{\numberline {3.4.1}Kafka}{24}{}%
-\contentsline {subsection}{\numberline {3.4.2}Spark Structured Streaming}{25}{}%
-\contentsline {section}{\numberline {3.5}Evaluation method}{25}{}%
-\contentsline {chapter}{\numberline {4}Results and Discussion}{28}{}%
-\contentsline {section}{\numberline {4.1}Accuracy}{28}{}%
-\contentsline {section}{\numberline {4.2}Inference Time of Real-time Prediction}{30}{}%
-\contentsline {chapter}{\numberline {5}Limitations and Future Work}{32}{}%
-\contentsline {section}{\numberline {5.1}Further data preprocessing}{32}{}%
-\contentsline {section}{\numberline {5.2}Further model optimisation}{33}{}%
-\contentsline {chapter}{\numberline {6}Conclusion}{35}{}%
-\contentsline {chapter}{References}{36}{}%
-\contentsline {chapter}{Appendix \numberline {A}Supplementary Materials I}{40}{}%
-\contentsline {chapter}{Appendix \numberline {B}Supplementary Materials II}{41}{}%
+\contentsline {section}{\numberline {3.3}Model}{15}{}%
+\contentsline {subsection}{\numberline {3.3.1}Convolutional Long Short Term Memory Neural Network}{15}{}%
+\contentsline {subsection}{\numberline {3.3.2}Mixed Deep Learning Model}{18}{}%
+\contentsline {section}{\numberline {3.4}Real-time streaming architecture}{19}{}%
+\contentsline {subsection}{\numberline {3.4.1}Kafka}{20}{}%
+\contentsline {subsection}{\numberline {3.4.2}Apache Spark and Spark Structured Streaming}{20}{}%
+\contentsline {subsection}{\numberline {3.4.3}Description of the proposed real-time streaming pipeline}{21}{}%
+\contentsline {section}{\numberline {3.5}Evaluation method}{21}{}%
+\contentsline {chapter}{\numberline {4}Results and Discussion}{31}{}%
+\contentsline {section}{\numberline {4.1}Accuracy}{31}{}%
+\contentsline {section}{\numberline {4.2}Inference Time of Real-time Prediction}{33}{}%
+\contentsline {chapter}{\numberline {5}Limitations and Future Work}{35}{}%
+\contentsline {section}{\numberline {5.1}Further data preprocessing}{35}{}%
+\contentsline {section}{\numberline {5.2}Further model optimisation}{36}{}%
+\contentsline {section}{\numberline {5.3}Further architectural optimisation and scalability testing}{37}{}%
+\contentsline {chapter}{\numberline {6}Conclusion}{39}{}%
+\contentsline {chapter}{References}{40}{}%
+\contentsline {chapter}{Appendix \numberline {A}Supplementary Materials I}{44}{}%
+\contentsline {chapter}{Appendix \numberline {B}Supplementary Materials II}{45}{}%

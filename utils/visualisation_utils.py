@@ -13,10 +13,10 @@ def us101_section_vis(df: DataFrame, num_section_split: int, timestamp: str, wit
 
     vel_matrix, dens_matrix, acc_matrix = create_np_matrices(df, num_lanes=len(lanes), num_sections=num_section_split+1, with_ramp=with_ramp)
 
-    fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(35, 10))
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(20, 10))
     im1 = ax1.imshow(vel_matrix, cmap='turbo_r', norm=Normalize(vmin=0, vmax=60))
-    im2 = ax2.imshow(dens_matrix, cmap='turbo', norm=Normalize(vmin=100, vmax=300))
-    im3 = ax3.imshow(acc_matrix, cmap='turbo_r', norm=Normalize(vmin=-3, vmax=3))
+    im2 = ax2.imshow(dens_matrix, cmap='turbo', norm=Normalize(vmin=0, vmax=150))
+    #im3 = ax3.imshow(acc_matrix, cmap='turbo_r', norm=Normalize(vmin=-3, vmax=3))
 
     # Show all ticks and label them with the respective list entries
     ax1.set_yticks(np.arange(len(lanes)), labels=lanes)
@@ -25,16 +25,15 @@ def us101_section_vis(df: DataFrame, num_section_split: int, timestamp: str, wit
     ax2.set_yticks(np.arange(len(lanes)), labels=lanes)
     ax2.set_xticks(np.arange(len(sections)), labels=sections)
 
-    ax3.set_yticks(np.arange(len(lanes)), labels=lanes)
-    ax3.set_xticks(np.arange(len(sections)), labels=sections)
+    #ax3.set_yticks(np.arange(len(lanes)), labels=lanes)
+    #ax3.set_xticks(np.arange(len(sections)), labels=sections)
 
     # Rotate the tick labels and set their alignment.
     plt.setp(ax1.get_yticklabels(), rotation=45, ha="right",
             rotation_mode="anchor")
     plt.setp(ax2.get_yticklabels(), rotation=45, ha="right",
             rotation_mode="anchor")        
-    plt.setp(ax3.get_yticklabels(), rotation=45, ha="right",
-            rotation_mode="anchor") 
+    #plt.setp(ax3.get_yticklabels(), rotation=45, ha="right", rotation_mode="anchor") 
 
     # Loop over data dimensions and create text annotations.
     for i in range(len(lanes)): # y axis
@@ -43,12 +42,11 @@ def us101_section_vis(df: DataFrame, num_section_split: int, timestamp: str, wit
                         ha="center", va="center", color="w")
             text = ax2.text(j, i, int(dens_matrix[i][j]),
                             ha="center", va="center", color="w")
-            text = ax3.text(j, i, acc_matrix[i][j],
-                            ha="center", va="center", color="w")
+            #text = ax3.text(j, i, acc_matrix[i][j], ha="center", va="center", color="w")
 
     ax1.set_title(f"Average Velocity (mph) by Section and Lane at t={timestamp}")
     ax2.set_title(f"Density by Section and Lane at t={timestamp}")
-    ax3.set_title(f"Average acceleration by Section and Lane at t={timestamp}")
+    #ax3.set_title(f"Average acceleration by Section and Lane at t={timestamp}")
 
     plt.subplots_adjust(hspace=0.4)
     plt.show()
