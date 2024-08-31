@@ -114,14 +114,6 @@
   author = {The Apache Software Foundation}
 }
 
-@inproceedings{seo2020evaluation,
-  author = {Seo, Toru and Tago, Yusuke and Shinkai, Norihito and Nakanishi, Masakazu and Tanabe, Jun and Ushirogochi, Daisuke and Kanamori, Shota and Abe, Atsushi and Kodama, Takashi and Yoshimura, Satoshi and others},
-  booktitle = {2020 International Symposium on Transportation Data and Modelling},
-  title = {Evaluation of large-scale complete vehicle trajectories dataset on two kilometers highway segment for one hour duration: Zen Traffic Data},
-  year = {2020},
-  keywords = {Vehicle trajectories, Benchmark dataset, Traffic flow theory, Image recognition}
-}
-
 @inproceedings{Sigurdsson2018RoadTC,
   author = {Thorsteinn Thorri Sigurdsson},
   title = {Road traffic congestion detection and tracking with Spark Streaming analytics},
@@ -460,7 +452,7 @@ url = {https://doi.org/10.1145/3183713.3190664},
 doi = {10.1145/3183713.3190664},
 abstract = {With the ubiquity of real-time data, organizations need streaming systems that are scalable, easy to use, and easy to integrate into business applications. Structured Streaming is a new high-level streaming API in Apache Spark based on our experience with Spark Streaming. Structured Streaming differs from other recent streaming APIs, such as Google Dataflow, in two main ways. First, it is a purely declarative API based on automatically incrementalizing a static relational query (expressed using SQL or DataFrames), in contrast to APIs that ask the user to build a DAG of physical operators. Second, Structured Streaming aims to support end-to-end real-time applications that integrate streaming with batch and interactive analysis. We found that this integration was often a key challenge in practice. Structured Streaming achieves high performance via Spark SQL's code generation engine and can outperform Apache Flink by up to 2x and Apache Kafka Streams by 90x. It also offers rich operational features such as rollbacks, code updates, and mixed streaming/batch execution. We describe the system's design and use cases from several hundred production deployments on Databricks, the largest of which process over 1 PB of data per month.},
 booktitle = {Proceedings of the 2018 International Conference on Management of Data},
-pages = {601–613},
+pages = {601-613},
 numpages = {13},
 keywords = {apache spark, programming models, stream processing},
 location = {Houston, TX, USA},
@@ -544,4 +536,49 @@ url = {https://www.sciencedirect.com/science/article/pii/S000145752300091X},
 author = {Junhua Wang and Ting Fu and Qiangqiang Shangguan},
 keywords = {Wide-area vehicle trajectory data, Traffic safety, Traffic efficiency, Connected and autonomous vehicle (CAV)},
 abstract = {Trajectory data of road users play a crucial role in transportation engineering and traffic safety research. Previous vehicle trajectory data, including naturalistic driving data, trajectory data captured by drones and traffic cameras, have greatly promoted the research of traffic safety, traffic simulation, and other transportation engineering fields. However, existing technologies in collecting trajectory data are limited their detection range. With the development of the sensing and tracking technologies, it is possible to track the trajectory information of road users at the wide-area level, i.e., the real-time trajectory data of all road users on the entire road. Recently, we published our data sharing platform, Tongji Road Trajectory Sharing (TJRD TS, available online at https://tjrdts.com) Platform, providing our open wide-area vehicle trajectory data for researchers, academics, and road traffic professionals. Advanced vehicle tracking and trajectory splicing technologies, such as millimeter wave radar and edge computing technology, were employed to obtain such wide-area vehicle trajectory data. In this short communication article, we brainstorm ideas of using wide-area vehicle trajectory data in traffic safety research, traffic efficiency research, and connected and autonomous vehicle (CAV) application. We hope this short communication and our published data sharing platform can serve as the steppingstone for those who are interested in road transportation engineering and road safety research using such wide-area vehicle trajectory data.}
+}
+
+@misc{ngsim,
+  author       = {U.S. Department of Transportation Federal Highway Administration},
+  title        = {Next Generation Simulation (NGSIM) Vehicle Trajectories and Supporting Data},
+  year         = {2016},
+  url          = {http://doi.org/10.21949/1504477},
+  doi          = {10.21949/1504477},
+  accessdate   = {2024-07-02},
+  publisher    = {ITS DataHub through Data.transportation.gov},
+}
+
+@inproceedings{highDdataset,
+               title={The highD Dataset: A Drone Dataset of Naturalistic Vehicle Trajectories on German Highways for Validation of Highly Automated Driving Systems},
+               author={Krajewski, Robert and Bock, Julian and Kloeker, Laurent and Eckstein, Lutz},
+               booktitle={2018 21st International Conference on Intelligent Transportation Systems (ITSC)},
+               pages={2118-2125},
+               year={2018},
+               doi={10.1109/ITSC.2018.8569552}
+}
+
+@inproceedings{seo2020evaluation,
+  author = {Seo, Toru and Tago, Yusuke and Shinkai, Norihito and Nakanishi, Masakazu and Tanabe, Jun and Ushirogochi, Daisuke and Kanamori, Shota and Abe, Atsushi and Kodama, Takashi and Yoshimura, Satoshi and others},
+  booktitle = {2020 International Symposium on Transportation Data and Modelling},
+  title = {Evaluation of large-scale complete vehicle trajectories dataset on two kilometers highway segment for one hour duration: Zen Traffic Data},
+  year = {2020},
+  keywords = {Vehicle trajectories, Benchmark dataset, Traffic flow theory, Image recognition}
+}
+
+@misc{zen,
+  author       = {Hanshin Exp. Co. Ltd.},
+  title        = {Zen Traffic Data},
+  year         = {2018},
+  accessdate   = {2024-07-02},
+  url         = {https://zen-traffic-data.net/english/},
+}
+
+@article{sttrafficnet,
+author = {Lu, Huakang and Huang, Dongmin and Song, Youyi and Jiang, Dazhi and Zhou, Teng and Qin, Jing},
+year = {2020},
+month = {09},
+pages = {},
+title = {ST-TrafficNet: A Spatial-Temporal Deep Learning Network for Traffic Forecasting},
+journal = {Electronics},
+doi = {10.3390/electronics9091474}
 }

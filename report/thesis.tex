@@ -28,6 +28,7 @@
 
 \begin{abstract}
 In the era of rapid urbanisation and the ever-increasing car ownership in the world, traffic congestions have been affecting the daily lives of major cities. Road traffic state prediction can alleviate this issue together with the development of other intelligent traffic systems and autonomous vehicles, and the prediction of lane-level traffic speeds plays a vital role for the design and implementation of these systems, aiding vehicles to make informed decisions for driving on the road. In order to bridge the gap between the ever-changing traffic state and the prediction model, real-time prediction of lane-level traffic speeds is essential. However, processing the massive volume of trajectory data of all vehicles on the road requires high computational power. With the help of scalable and low-latency big data processing of Apache Spark and Kafka, this paper proposes a real-time data processing and prediction method for lane-level traffic speed using a deep learning model called Mixed Deep Learning model. The model was trained on the Next Generation Simulation (NGSIM) dataset, which contains detailed vehicle trajectory data of a section of Highway US-101 in Los Angeles, California. In the proposed method, the data is streamed using a distributed streaming platform called Kafka into Apache Spark, a big data processing platform, in which the model was integrated and makes real-time prediction. The results of our experiments show that the model is able to predict the lane-level traffic speeds of several seconds ahead in real-time in our computational laboratory setting. The proposed method can be integrated into the existing systems and utilised to improve the efficiency of road traffic and relieve traffic congestions, leading to a positive impact on the environment and the society.
+% ADD KEYWORDS
 \end{abstract}
 
 \begin{acknowledgements}
@@ -53,7 +54,7 @@ Nowadays, urban transportation across the globe is facing unprecedented challeng
 Traffic data can be collected from various sources such as road sensors, GPS devices, and video cameras. The data collected from these sources can be used to construct vehicle trajectories, which are sequences of spatial datapoints that represent the movement of vehicles over time. Vehicle trajectory data can be used to analyse traffic patterns, predict traffic congestion, and simulate traffic flow. However, the analysis and exploitation of vehicle trajectory data poses several challenges, such as the large volume of data, the complexity of the data, and the need for real-time processing. In order to address these challenges, researchers have developed various methods for processing and analysing vehicle trajectory data, including traditional machine learning methods, and deep learning. 
 
 % Traffic speed prediction: macro-to-microscopic including city-level, regional-level, road-level, lane-level  
-When it comes to traffic state analysis, we have to consider the scope of the analysis. Traffic speed prediction can be performed at different levels of granularity, ranging from city-level to lane-level. City-level traffic speed prediction aims to predict the average speed of traffic in a city, while road-level traffic speed prediction aims to predict the average speed of traffic on a specific road. Lane-level traffic speed prediction aims to predict the speed of traffic in a specific lane of a road. Lane-level traffic state forecasting is becoming an important topic of Intelligent Vehicle Infrastrcute Cooperative Systems (IVICS) which is a new devepment of ITS, because the short-term traffic states of lanes in a road section differ in traffic speed, volume and occupancy\cite{GU20191}, and the optimised use of all lanes help mitigate traffic congestions. 
+When it comes to traffic state analysis, we have to consider the scope of the analysis. Traffic speed prediction can be performed at different levels of granularity, ranging from city-level to lane-level. City-level traffic speed prediction aims to predict the average speed of traffic in a city, while road-level traffic speed prediction aims to predict the average speed of traffic on a specific road. Lane-level traffic speed prediction aims to predict the speed of traffic in a specific lane of a road. Lane-level traffic state forecasting is becoming an important topic of Intelligent Vehicle Infrastrcute Cooperative Systems (IVICS) which is a new development of ITS, because the short-term traffic states of lanes in a road section differ in traffic speed, volume and occupancy\cite{GU20191}, and the optimised use of all lanes help mitigate traffic congestions. 
 
 However, Lane-level traffic speed prediction is particularly challenging because it requires the prediction of the speed of individual vehicles in a specific lane, which can be affected by a variety of factors such as the number of lanes, the presence of on and off ramps, and the behaviour of other vehicles.
 
@@ -61,38 +62,27 @@ In order to address these factors, in recent years, deep learning methods such a
 
 There is another challenge that will be introduced by large-scale traffic prediction; the constant stream of spatial trajectory data, typically generated by GPS, adds more complexity to trajectory data analysis and traffic prediction in terms of its scalability. Here, distributed computing comes into a play. One of the most popular approaches for vehicle trajectory analysis is the use of Apache Spark cluster computing system, and the previous works\cite{9077707}\cite{Sigurdsson2018RoadTC} have examined the applicability of the system to trajectory analysis.
 
+\section{Aims and Objectives}
 Extending the above ideas, this paper aims to provide a real-time prediction method of lane-level traffic speeds using a Mixed Deep Learning model, which was originally introduced by Lu et al.\cite{9284587}, with Apache Spark and Kafka. 
 
+
 \chapter{Literature Review}
+
 \section{Research Field Challenges}
-When performing vehicle trajectory analysis and simulation, researchers are required to address common challenges. The most relevant ones can fall into the following categories:
+When performing lane-level traffic state prediction, researchers are required to address common challenges. The most relevant ones can fall into the following categories:
 \\
-\noindent- Scarcity of complete vehicle trajectory datasets:
+\noindent- Scarcity of highly detailed, granular traffic datasets:
 
-The datasets are oftentimes difficult to collect because traffic flow is a wide-ranging spatiotemporal phenomenon, and it is very challenging to collect continuous data from such wide-ranging domain\cite{seo2020evaluation}. For example, usual loop detectors only collect data at a specific point, and combining data in other formats (data fusion) (i.e., Object tracking data from CCTV footage) can be a tough challenge.
+The datasets are oftentimes difficult to collect because traffic flow is a wide-ranging spatiotemporal phenomenon, and it is very challenging to collect continuous data from such wide-ranging domain\cite{seo2020evaluation}. For example, usual loop detectors only collect data at a specific point, and combining data in other formats (data fusion) (i.e., Object tracking data from CCTV footage) can be a tough challenge. Consequently, there are only a few datasets available that distinguish traffic between individual lanes, which makes it difficult to train and evaluate lane-level traffic prediction models. % add existing datasets
 \\
-\noident- Anomaly of urban traffic environment:
+\noident- Anomaly and complexity of urban traffic environment:
 
-Urban road environment has lots of variables such as not only traffic accidents, events, protests, weather, but also Vehicle to Infrastructure interaction, Vehicle to Vehicle interaction, multimodality, generalizability (robustness to real-world road environment), etc. and they make the task of vehicle trajectory analysis more complex. The effort applying modern deep learning methods such as Long Short Time Memory networks and Generative Adversarial Networks (GANs) \cite{rossi2021vehicle}, have been made to improve the simulation model accuracy. Especially in microscopic road traffic simulation of multi-lane dual carriageways, complexity of multi-lane, multi-class traffic introduces additional challenges due to the uncertainty in human behaviours, such as lane changing\cite{DAHIYA2022100066}.
-
-In order to account for the massive volume of trajectory data, one has to apply the technologies of distributed computing when performing microscopic traffic analysis and simulation. However, distributed environment makes the task more challenging due to \cite{yu2020dissecting}:
+Urban road environment has lots of variables such as not only traffic accidents, events, weather, but also Vehicle to Infrastructure interaction, Vehicle to Vehicle interaction, multimodality, generalizability (robustness to real-world road environment), etc. and they make the task of vehicle trajectory analysis more complex. The effort applying modern deep learning methods such as Long Short Time Memory networks and Generative Adversarial Networks (GANs)\cite{rossi2021vehicle}, have been made to improve the prediction model accuracy. Especially in microscopic road traffic analysis of multi-lane dual carriageways, complexity of multi-lane, multi-class traffic introduces additional challenges due to the uncertainty in human behaviours, such as lane changing\cite{DAHIYA2022100066}.
 \\
-\noindent- Workload balance:
+\noident- Scalability and real-time processing:
 
-A scalable simulator has to divide the workload into smaller chunks (partitioning) and distribute them across different machines within a cluster. Yet, whenever a vehicle in the simulator seeks to switch lanes or accelerate, it has to assess its distance from neighboring vehicles. An effective partitioning approach should consider the spatial closeness of vehicles and reduce the amount of data exchange across partitions.
-\\
-\noindent- Dynamic distribution:
+The real-time processing of vehicle trajectory data is a challenging task due to the large volume of data with high dimensionality generated by vehicles on the road. The data must be processed in real-time in order to provide accurate predictions of traffic speeds. The use of distributed computing systems can help to address this challenge by providing a scalable and low-latency platform for processing vehicle trajectory data in real-time. % add more references
 
-The spatial coordinates of moving vehicles changes over time, causing nearby vehicles to potentially distance themselves from each other. Simulators need to have appropriate mechanisms to address this dynamic distribution of vehicles. 
-
-\section{Survey Scope}
-IMCOMPLETE: NEEDS EDITS FROM THIS POINT UNTIL THE NEXT CHAPTER
-
-The purpose of this survey is to provide an overview and analysis of existing literature pertaining to large-scale vehicle trajectory analysis. It has multiple hurdles which are worth noting when it comes to this particular task. However, this paper does not go into details with data collection and generation of trajectory data, trajectory/traffic data simulation with deep learning methods. Instead, the underlying technologies of distributed, large-scale traffic trajectory analysis: big spatial data processing and simulation mainly with Apache Spark and Sedona spatial data pipeline are covered in this survey.
-
-\section{Search Methodology} 
-
-For writing this survey, my supervisor Rebecca Tickle introduced Zheng's survey\cite{zheng2015trajectory} as a starting point, the paper written by Yu et al.\cite{yu2020dissecting} as an example of a scientific paper working with trajectories and Spark, and the webpage of Apache Sedona\cite{sedona} as an introduction to spatial data proccessing. Starting with these papers, further literature review was conducted mostly with the forward-looking approach. In addition, using a research paper search engine such as Google Scholar and particularly Gora et al.'s STAR paper of microscopic traffic simulation models\cite{gora2020microscopic} advanced this survey.
 
 \section{Classification of Literature and Organisation} % 1-2 paragraphs
 \begin{table}[h]
@@ -123,34 +113,39 @@ The explored literature can be classified into three main categories: microscopi
 \section{Paper Summaries} % 1 paragraph for each paper
 Out of these 15 papers explored, the summaries of 10 papers are introduced in the section below. The following paper summaries are organised as the structure shown in (Table 1). 
 
-\subsection{Microscopic traffic data processing}
-Leveraging the efficiency of Apache Spark's parallel computing, Yu et al.\cite{10.1145/2820783.2820860} introduced GeoSpark, an in-memory cluster computing framework for processing large-scale spatial data, to account for the challenges of accommodating its ever-increasing size. The framework contains three layers: Apache Spark Layer, Spatial RDD (Resilient Distributed Datasets) Layer, and Spatial Query Processing Layer. The second layer extends the functionality of regular Apache Spark RDDs to support geometrical and spatial objects. The third layer efficiently executes spatial query processing algorithms, such as Join and KNN query. It also boosts spatial processing performance in each SRDD partition, by allowing users to create a spatial index. In the experiments, the researchers run the same queries twice on GeoSpark SRDDs and its Hadoop counterparts, Spatial Hadoop, and GeoSpark was proven to have better runtime performance than SpatialHadoop.
+\subsection{Suitable Datasets for lane-level traffic prediction}
+As explained in the previous section, the scarcity of datasets is one of the major challenges in the field of lane-level traffic prediction. However, apart from NGSIM dataset which is used in this study and is explained in details below in this paper, there are a few more works that have been done to collect lane-level traffic data which can be exploited for the task. 
 
-Furthering the approach of GeoSpark, Yu et al.\cite{yu2020dissecting} proposed a spatial-temporal partitioning approach, GeoSparkSim, to automatically repartition vehicles over time in order to address spatial proximity. It is built on top of GeoSpark, a Spark-based spatial data management system, and it allows data scientists to simulate, analyse and visualise large-scale urban traffic data. The execution time of GeoSparkSim is 1.2 times faster than SMARTS, which partitions data only once in the beginning, at a fixed simulation period and also outperforms the competitor in terms of a scalability measure. The tool is capable of simulating the movements of 200,000 vehicles on a very large road network, which includes 250,000 road crossings and 300,000 road sections. 
+HighD dataset\cite{highDdataset} is a comrehensive collection of real vehicle trajectories captured on German autobahn by using drone footage during 2017 and 2018. The dataset contains 16.5 hours of vehicle trajectories from six different locations, which translates to 110,000 vehicles. The trajectories were extracted from high resolution footage and with a state-of-the-art computer vision algorithm: U-Net Convolutional Neural Network architecture. This achieved the resulting mean positional errors of the vehicle midpoint in longitudinal and lateral directions are below 3 cm each compared to the manually annotated ground truth. The dataset is unique in that it contains a large number of vehicles and a high level of detail, including the vehicle type, the vehicle speed, and the vehicle acceleration. However, the work is focused to capture lane-changing behaviours and the dataset only contains a small portion of datapoints with traffic congestion, which makes it unsuitable for this particular study.
 
-Verónica et al.\cite{10.1007/978-981-16-4126-8_24} presented an architecture to implement and evaluate the GeoSparkSim simulation tool on different Cloud services, such as Google, AWS, Azure. The researchers used a Docker container for each tool which was used, including MongoDB and Jupyter-Notebook, and conducted two-stage evaluation. Each stage contains 26 simulations in different geograpic areas of Quito, Equador. The result shows the potentials of GeoSparkSim and an ideal computational environment, which was found to be a machine with at least a 146 GB storage and 8 GB in RAM. 
+Zen Traffic dataset\cite{zen} is a large-scale dataset of vehicle trajectories collected by Hanshin Expressway Co., Ltd. in Japan. The dataset consists of vehicle trajectories observed in five different sections of the Hanshin Expressway in Osaka, Japan, and each 2km-long section contained approximately 3,600 vehicles within the one-hour-long time frame, which makes it one of the most detailed and extensive vehicle trajectory datasets available. The data were extracted from video footage recorded on 38 cameras installed along the expressway by using a deep neural network. The dataset achieved a satisfactory level of accuracy with RMSE of 1.05m in terms of vehicle positions\cite{seo2020evaluation}. It also captured different traffic dynamics such as traffic build-ups and congestions. The dataset is publicly available for free of charge. However, for the simplicity of data preprocessing in this study we did not use this dataset as the observed sections contain curves.
 
-Anveshrithaa and Lavanya\cite{9077707} developed a real-time data stream processing model for forecasting vehicle traffic, using Apache Spark for parallel processing and Long Short-Term Memory (LSTM) networks to learn and train itself from traffic data. The two researchers integrated Apache Spark, a distributed streaming platform called Kafka, and the deep neural networks into a pipeline to analyse unstructured, real-time, streaming traffic data. The original data is fetched from an API and stored in MongoDB, a NoSQL database, along with the processed data. For evaluation of the model, five quantitative metrics including Root Mean Squared Error (RMSE) were used, and the model achieved a good performance with RMSE of 10.33. 
+PeMS dataset is a large-scale road traffic sensor dataset collected by the California Department of Transportation (Caltrans) and the University of California, Berkeley. The dataset contains real-time traffic data collected from over 39,000 sensors deployed on the California State Highway System. The data includes traffic flow, speed, and occupancy data of each lane collected at 30 seconds intervals, as well as incident records, lane closures, and so on. The dataset is different from the above two dataset in that it is collected by road sensors, and the sensors are relatively scattered across the road network as Fig 2.1 shows. Moreover, the dataset exhibits some degree of data missingness due to temporalily unoperational sensors. From these limitations, the extensive dataset is not particularly suitable for this particular study which aims to predict more detailed lane-level traffic state, although one may find its utility in their study.
 
-While combining Apache Spark and deep neural networks is feasible, it is not necessarily an optimal solution due to its architectural design which uses CPU and Java for its implementation, compared to the use of GPU parallelisation and a specific deep learning library optimised with C language. Huang et al.\cite{9075295} took a different approach of trajectory data processing, introducing a GPU parallelisation framework. The large-scale data was generated from an automatic vessel-tracking system installed on ships which travelled in three different water areas of China. The data was compressed using the Douglas-Peucker algorithm and visualised with kenel density estimation (KDE) algorithm. The proposed framework was evaluated with four different quality measures including compression ratio, rate of length loss, and speed-up ratio, and it was proven to dramatically accelerate the algorithms for trajectory compression and visualisation. The proposed method can also be applicable for vehicle trajectory data analysis.
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=14cm]{{pems.png}}
+    \caption{The distribution of PeMS sensors in California Bay Area. The sensors are relatively scattered across the road network. From Lu et al.\protect\cite{sttrafficnet}}
+\end{figure}
 
-Hao et al.'s QarSUMO\cite{10.1145/3397536.3422274} is a parallel, congestion-optimised traffic simulator bulit upon SUMO by partitioning road networks and distributing simulation tasks across multiple processes. Each process handles a segment of the network independently, synchronising at each timestep to exchange vehicle states. This design enhances scalability and reduces simulation time, making it suitable for larger and more complex traffic scenarios. The road networks of Doha's Corniche and Cologne and individual vehicle travel time were used to evaluate and compare the accuracy and the scalability of the model with SUMO model. The results show its improvement from SUMO's simulation efficiency while maintaining accuracy comparable to standard SUMO.
-
-\subsection{Macroscopic traffic data processing}
-Similarly to Anveshrithaa and Lavanya's work, Sigurdsson\cite{Sigurdsson2018RoadTC} developed a model to detect and track road traffic congestion in real-time, leveraging the distributed pipeline of Kafka and Apache Spark Structured Streaming. The author adopted different approaches using the connected components algorithm and existing graph processing algorithms such as hierarchical data clustering to the set task. The model was evaluated on manually labelled congestion pattern data. The results show that hierarchical data clustering method yields the best results with an accuracy of 94\% for queue detection and 93\% for shockwave detection. 
-
-Yang et al.\cite{Yang2019} proposed two real-time traffic congestion detection methods: a distributed density-based spatial clustering of applications with noise (DBSCAN), and distributed topology analysis. The former clusters spatial and temporal trajectory points to detect congestions, while the latter examines patterns and connectivity of vehicle movements. Taking advantage of Spark Streaming, the efficiency of two methods were evaluated with real datasets. The researchers concluded that while the accuracy is better with distributed DBSCAN method, distributed topology analysis is a better choice from the scalability aspects.
+\subsection{Statistical Approaches}
+\subsection{Machine Learning Approaches}
+\subsection{Deep Learning Approaches}
 
 Fan et al.\cite{FAN2019298} presented a method for estimating vehicle miles traveled (VMT) using extensive GPS data. The researchers developed a geo-computing framework based on Apache Spark to handle the large-scale processing of GPS waypoints and trajectories. They applied this framework to the dataset containing 19.8 million GPS trips in Maryland, using a scalable map-matching module that incorporates spatiotemporal and topologic road network data (to account for altitudes and an consequent increase in distance). For the evaluation of the estimates, the correlation between the derived and annual average daily traffic volumes was used to prove that the proposed framework can accurately and efficiently estimate VMT.
 
-Based on Apache Spark and Sedona, Zhang et al.\cite{Zhang20231124} proposed a framework which is capable of traffic speed estimation for statewide road network of California from GPS trajectory data. The Sedona's Spatial RDDs was utilised to take advantage of its high computing efficiency in map matching and waypoint gap filling. With the dataset containing 126 million trajectory points, the authors computed hourly speed estimates of nearly 600,000 segments, which represents 17.3\% of the total state network. The estimates were made with their hourly speed estimation module. For validation of the estimates, freeway detector data from Californian authority's Performance Measurement System (PeMS) were used. 46\% of the estimated segments had a speed difference of less than 5mph from the actual data. 
+\subsection{Reak-time traffic data processing}
+Anveshrithaa and Lavanya\cite{9077707} developed a real-time data stream processing model for forecasting vehicle traffic, using Apache Spark for parallel processing and Long Short-Term Memory (LSTM) networks to learn and train itself from traffic data. The two researchers integrated Apache Spark, a distributed streaming platform called Kafka, and the deep neural networks into a pipeline to analyse unstructured, real-time, streaming traffic data. The original data is fetched from an API and stored in MongoDB, a NoSQL database, along with the processed data. For evaluation of the model, five quantitative metrics including Root Mean Squared Error (RMSE) were used, and the model achieved a good performance with RMSE of 10.33.
 
+Similarly to Anveshrithaa and Lavanya's work, Sigurdsson\cite{Sigurdsson2018RoadTC} developed a model to detect and track road traffic congestion in real-time, leveraging the distributed pipeline of Kafka and Apache Spark Structured Streaming. The author adopted different approaches using the connected components algorithm and existing graph processing algorithms such as hierarchical data clustering to the set task. The model was evaluated on manually labelled congestion pattern data. The results show that hierarchical data clustering method yields the best results with an accuracy of 94\% for queue detection and 93\% for shockwave detection. % Mention that its macroscopic
+
+Yang et al.\cite{Yang2019} proposed two real-time traffic congestion detection methods: a distributed density-based spatial clustering of applications with noise (DBSCAN), and distributed topology analysis. The former clusters spatial and temporal trajectory points to detect congestions, while the latter examines patterns and connectivity of vehicle movements. Taking advantage of Spark Streaming, the efficiency of two methods were evaluated with real datasets. The researchers concluded that while the accuracy is better with distributed DBSCAN method, distributed topology analysis is a better choice from the scalability aspects. 
 
 \chapter{Methodology}
 % why i chose the technogoies or the approaches 
 \section{Dataset details}
 
-The Dataset that is used for this study is Next Generation Simulation (NGSIM) Dataset collected by the United States Department of Transportation (US DOT) Federal Highway Administration (FHWA). The dataset is divided into several files, each of which contains the trajectory data for a different section of highways, including Highway US-101 and Interstate 80. For this study we used the trajectory data of a southbound section of Highway US-101 in Los Angeles, California, since the most observations are on US-101.
+The Dataset that is used for this study is Next Generation Simulation (NGSIM) Dataset\cite{ngsim} collected by the United States Department of Transportation (US DOT) Federal Highway Administration (FHWA). The dataset is divided into several files, each of which contains the trajectory data for a different section of highways, including Highway US-101 and Interstate 80. For this study we used the trajectory data of a southbound section of Highway US-101 in Los Angeles, California, since the most observations are on US-101.
 
 \begin{table}[ht!]
     \centering
@@ -169,7 +164,7 @@ The Dataset that is used for this study is Next Generation Simulation (NGSIM) Da
 
 Researchers for the NGSIM program collected detailed vehicle trajectory data of the section on 15th June, 2005. The study section is approximately 640 meters (2,100 feet) in length and has five lanes and an auxiliary on- and off-ramp. The section stretches between the on-ramp at Ventura Boulvevard and the off-ramp at Cahuenga Boulevard. The Data was transcribed from video recordings of the eight synchronised cameras mounted from the top of a 36-story building adjecant to the freeway, using a customised software application developed for this project. The dataset contains the precise coordinates of each vehicle within the section at 0.1 second intervals, as well as the vehicle's speed, acceleration, and lane position.
 
-The NGSIM's US-101 dataset provides a total of 45 minutes of vehicle trajectory data from 7:50 to 8:35 AM, which translates to 4,802,933 datapoints of 2,847 vehicles. Within the duration, the building up of congestion, or the transition between uncongested and congested conditions, and full congestion can be observed, as Fig. 3.1 shows. % DOUBLE CHECK THE FIGURE NUMBER ONE LAST TIME
+The NGSIM's US-101 dataset provides a total of 45 minutes of vehicle trajectory data from 7:50 to 8:35 AM, which translates to 4,802,933 datapoints of 2,847 vehicles. Within the duration, the building up of congestion, or the transition between uncongested and congested conditions, and full congestion can be observed, as Fig. 3.1 shows. Each line in Fig 3.1 translates to a vehicle's spatio-temporal location within the study section and time frame, and the redder and more gradual the lines and their angles are, the more stationary the vehicles are.  % DOUBLE CHECK THE FIGURE NUMBER ONE LAST TIME
 
 \begin{figure}[h]
     \centering
@@ -199,6 +194,19 @@ Each datapoint contains the following attributes:
     \item Time Headway - Time it takes for a vehicle to travel from the front center of the preceding vehicle to the front center of the subject vehicle in seconds
 \end{description}
 
+\section{Underlying Data Processing Technologies}
+Before getting into explanation of the data preprocessing, we first explain the main underlying technologies used in this framework and their advantages: Apache Kafka, Spark, and Spark Structured Streaming.
+
+\subsection{Kafka}
+
+Apache Kafka\cite{Kreps2011KafkaA} was first introduced by engineers at LinkedIn. The system achieves a distributed scalable streaming platform offering high performance, low latency, and fault tolerance, which is suitable for dealing with real-time volume of data. It stores a stream of records or \textit{events} that contains key, value, and timestamp information which comes from arbitarily many processes called \textit{producers} to a \textit{topic}, which is the core unit for event organisation. Topics are divided into a number of partitions stored in multiple brokers, balancing load in each partition. The events from a topic can be read and processed by multiple \textit{subscriber} at the same time as multiple producers write events to a topic. Kafka stores topics in persistent storage unlike Spark designed to primaliry store data in RAM, so that data remains unaffected in case of a power outage. This architectural design ensures scalability and fault tolerance. 
+
+\subsection{Apache Spark and Spark Structured Streaming}
+
+Apache Spark is a distributed data processing engine, which utilises in-memory caching and optimised query execution to achieve high performance for batch processing, interactive queries, real-time analytics, machine learning, and graph processing. The queries are executed on \textit{Dataframes}, a Relational Database table-like abstraction over Resillient Distributed Datasets (RDDs), which are distributed collections of objects that can be stored in memory.
+
+Spark Structured Streaming\cite{10.1145/3183713.3190664}, an extension of Apache Spark built on top of its SQL engine, allow a micro-batch processing for incoming streams. This streaming process makes it suitable for real-time MDL model inference for which a batch of 4D tensor input is taken. In Spark Structured Streaming, every data item that is arriving on the stream can be considered as appending a new row to a \textit{input table}. A query on the input will generate the \textit{result table}, and with arrival of new rows, the result table gets updated incrementally. It allows time-window-based aggregation queries to be performed on the input table by watermarking, and handling late arrivals of input data is also supported, which makes it more resillient to a real-world setting. The result table can be written to various sinks such as Kafka, HDFS, and databases. Comparing to similar streaming data processing systems, Spark Structured Streaming throughput outperforms that of Apache Flink by up to two times, Apache Kafka Streams by 90 times, and it has linear scalability. Together with Kafka's persistent data storage, low-latency, and distributed scalable streaming, combining Kafka with Spark Structred Streaming's high computational throughput and flexible integration of a machine learning model can justify the architectural design decision. %GRAMATICAL ERROR?
+
 \section{Data Preprocessing}
 
 % MENTION NOISE OF THE DATA
@@ -207,13 +215,13 @@ The NGSIM dataset is one of the most extensive and detailed vehicle trajectory d
 \begin{figure}[ht!]
     \centering
     \includegraphics[]{{trajectorycollision.jpg}}
-    \caption{"Collisions of trajectories" errors. Orange areas are vehicles after taking their length into account. From Coifman and Li.}
+    \caption{"Collisions of trajectories" errors. Orange areas are vehicles after taking their length into account. From Coifman and Li.\protect\cite{COIFMAN2017362}}
 \end{figure}
 
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=12cm]{interpolation.jpg}
-    \caption{Speed interpolation errors. (A) A typical frame from the NGSIM validation video for I-80 camera 6 at 490s. Traffic is flowing from left to right in this image. The NGSIM researchers superimposed a pink bounding box for each vehicle. A Detail of lane 3 (3rd lane from the left) from the validation video for three frames (B) 485s, (C) 490s, and (D) 497.5s. For each vehicle the rear bumper location in the NGSIM data set is shown on the left (corresponding to the upstream end of the bounding box) and is indexed by the vehicle ID, while the new rear bumper location calculated in our study is shown on the right. From Coifman and Li.}
+    \caption{Speed interpolation errors. (A) A typical frame from the NGSIM validation video for I-80 camera 6 at 490s. Traffic is flowing from left to right in this image. The NGSIM researchers superimposed a pink bounding box for each vehicle. A Detail of lane 3 (3rd lane from the left) from the validation video for three frames (B) 485s, (C) 490s, and (D) 497.5s. For each vehicle the rear bumper location in the NGSIM data set is shown on the left (corresponding to the upstream end of the bounding box) and is indexed by the vehicle ID, while the new rear bumper location calculated in our study is shown on the right. From Coifman and Li.\protect\cite{COIFMAN2017362}}
 \end{figure}
 
 The first issue is that after accounting for vehicle length, trajectories often overrun those of proceeding vehicles seemingly resulting in "collisions of trajectories", first discovered by Thiemann et al.\cite{Thiemann_2008} The analysis of Coifman and Li. continues to address the second issue; Montanimo and Punzo\cite{MONTANINO201582} identified that the NGSIM acceleration often exhibits unrealistically large magnitudes on the order of 10 $ft/s^2$ and likewise that the NGSIM speeds exhibit unrealistic piecewise constant behavior. In other words, some vehicles in the dataset maintain zero acceleration for an unrealistically long time. As shown in Fig. 3.3, %DOUBLE CHECK THE FIGURE NUMBER ONE LAST TIME
@@ -224,16 +232,17 @@ each of which is roughly 200 feet in length. The distance attribute was then use
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=15cm]{{output1.png}} % CHANGE THIS FIGURE
-    \caption{Visualisation of vehicle speed and density in each road section}
+    \includegraphics[width=10cm]{{output1.png}} % CHANGE THIS FIGURE
+    \caption{Visualisation of average vehicle speed and density in each road section. The grids with the a missing value were filled with maximum speed limit of 60 mph for speed attribute and zero values for density attribute, since the tracked vehicles do not infiltrate the whole section until 45 seconds in.}
+\label{fig:output1}
 \end{figure}
 
-Then, the datapoints were aggregated using the "Section ID" attribute, and now the data at each timestamp is binned into 10 sub-sections and the average speed, density, and acceleration of the vehicles in each sub-section at each timestamp is calculated. In the beginning of the traffic observation, some parts of the study section are not filled with datapoints yet as seen in Fig. 3.4 % DOUBLE CHECK THE FIGURE NUMBER ONE LAST TIME
-, so we decided to drop the first 45 seconds of the data to remove such noise in the training data. Then, time series aggregation was performed to fill as many sub-sections as possible with non-zero density and speed values at each interval, as well as further filling null values with appropriate and plausible values. We found that for this particular dataset the timewindow of 0.5 seconds is most favourable since the aggregated values cover all grids and creates as many samples as possible for training. If we aggregated by a longer time window, the values would lose some magnitude of temporal features. For real-time prediction, the timewindow of 0.5 seconds was too short due to limited computational resource, and thus we used the timewindow length of 10 seconds. For this study, zero values for density attribute and the maximum speed limit of 60 mph for speed attribute were used to reduce as much computation as possible, although the average speed of vehicles in the proceeding and following grids can also be used. 
+Then, the datapoints were aggregated using the "Section ID" attribute, and now the data at each timestamp is binned into 10 sub-sections and the average speed, density, and acceleration of the vehicles in each sub-section at each timestamp is calculated. In the beginning of the traffic observation, some parts of the study section are not filled with datapoints yet as seen in Fig. 3.4\ref{fig:output1}% DOUBLE CHECK THE FIGURE NUMBER ONE LAST TIME
+, so we decided to drop the first 45 seconds of the data to remove such noise in the training data. Then, time series aggregation was performed to fill as many sub-sections as possible with non-zero density and speed values at each interval. We found that for this particular dataset the timewindow of 0.5 seconds is most favourable since the aggregated values cover all grids and creates as many samples as possible for training. If we aggregated by a longer time window, the values would lose some magnitude of temporal features. For real-time prediction, the timewindow of 0.5 seconds was too short due to limited computational resource, and thus we used the timewindow length of 10 seconds. In addition, we performed a further data manipulation in which we filled null values with appropriate and plausible values. For this study, zero values for density attribute and the maximum speed limit of 60 mph for speed attribute were used to reduce as much computation as possible, although the average speed of vehicles in the proceeding and following grids can also be used. 
 
-To create the 3D tensors, the Spark dataframe was converted to RDDs, and the RDDs were grouped by key and then mapped to a key-value pair, where the key is the interval ID and the value is Row objects containing the speed, density, and acceleration values of each sub-section at each interval. The key-value pairs were then converted to a numpy array in a User Defined Function, and the returned numpy arrays were stacked to create the 4D tensor, with a shape of $R^{T{\times}M{\times}N{\times}L}$, where $T$, $M$, $N$, $L$ denotes the number of timewindows (intervals), the height of grid (lanes), the width of grid (sub-sections), the number of attributes, respecitively. % include psuedo code?
+To create the 3D tensors, the Spark dataframes were converted to RDDs, and the RDDs were grouped by key and then mapped to a key-value pair, where the key is the interval ID and the value is Row objects containing the speed, density, and acceleration values of each sub-section at each interval. The key-value pairs were then converted to a numpy array in a User Defined Function, and the returned numpy arrays were stacked to create the 4D tensor, with a shape of $R^{T{\times}M{\times}N{\times}L}$, where $T$, $M$, $N$, $L$ denotes the number of timewindows (intervals), the height of grid (lanes), the width of grid (sub-sections), the number of attributes, respecitively. % include psuedo code?
 
-Training a model to forecast the state of traffic of the future requires the past data as well as target data. Therefore, we have to provide another dimension to the tensor, creating a stack of 4D tensors of the fixed length of intervals, which results in a 5D tensor with a shape of $R^{s{\times}p{\times}M{\times}N{\times}L}$, where $s$, $p$, $M$, $N$, $L$ denotes the number of samples, the number of timewindows to look back or the prediction target timewindows, the height of grid (lanes), the width of grid (sub-sections), the number of attributes, respecitively. Furthermore, in order to provide the model an extra time for inference, the prediction target data were offset by a fixed number of intervals, which is the skip parameter. This operation was performed sliding the "window" by the time series aggregation interval, and the resulting 5D tensor was then split into training and test datasets. % include psuedo code?
+Training a model to forecast the state of traffic of the future requires the past data as well as target data. Therefore, we have to provide another dimension to the tensor, creating a stack of 4D tensors of the fixed length of intervals, which results in a 5D tensor with a shape of $R^{s{\times}p{\times}M{\times}N{\times}L}$, where $s$, $p$, $M$, $N$, $L$ denotes the number of samples, the number of timewindows to look back or the prediction target timewindows, the height of grid (lanes), the width of grid (sub-sections), the number of attributes, respecitively. Furthermore, in order to provide the model an extra time for inference, the prediction target data were offset by a fixed number of intervals, which is the \textit{skip} parameter. This operation was performed sliding the "window" by the time series aggregation interval, and the resulting 5D tensor was then split into training and test datasets. % include psuedo code?
 
 \begin{figure}[ht!]
     \centering
@@ -243,7 +252,7 @@ Training a model to forecast the state of traffic of the future requires the pas
 
 \section{Model}
 
-The model used in this study is a Mixed Deep Learning (MDL) model, which consists of a sequence of deep learning layers which includes a Convolutional Neural Network (CNN) and a Convolutional long short term memory neural network (Conv-LSTM), which is a combination of a Convolutional Neural Network (CNN) and a Long Short-Term Memory (LSTM) network. The model was originally introduced by Lu et al.\cite{9284587} for the prediction of lane-level traffic speeds. For lane-level traffic state prediction, it is important to make the model capture the variable traffic state over time as well as behaviours of surrounding vehicles. The model is designed to effectively capture these spatial and temporal dependencies in vehicle trajectory data, and it has been shown to outperform other models such as the LSTM and the Conv-LSTM in terms of prediction accuracy. In this secftion, we first introduce the underlying ideas of MDL, which are the standard LSTM and the Conv-LSTM, then move on to the description of the Mixed Deep Learning model.
+The model used in this study is a Mixed Deep Learning (MDL) model, which consists of a sequence of deep learning layers which includes a Convolutional Neural Network (CNN) and a Convolutional long short term memory neural network (Conv-LSTM), which is a combination of a Convolutional Neural Network (CNN) and a Long Short-Term Memory (LSTM) network. The model was originally introduced by Lu et al.\cite{9284587} for the prediction of lane-level traffic speeds. For lane-level traffic state prediction, it is important to make the model capture the variable traffic state over time as well as behaviours of surrounding vehicles. The model is designed to effectively capture these spatial and temporal dependencies in vehicle trajectory data, and it has been shown to outperform other models such as the LSTM and the Conv-LSTM in terms of prediction accuracy. In this section, we first introduce the underlying ideas of MDL, which are the standard LSTM and the Conv-LSTM, then move on to the description of the Mixed Deep Learning model.
 
 \subsection{Convolutional Long Short Term Memory Neural Network}
 Conv-LSTM, which MDL is based on, is a type of neural network that combines the spatial processing capabilities of CNN with the temporal processing capabilities of an LSTM to handle spatio-temporal data. Conv-LSTM was first proposed by Shi et al \cite{NIPS2015_07563a3f}. In short, the idea is to add Convolutional operations to an LSTM cell. This section first introduces the LSTM, then extend it into Conv-LSTM.
@@ -269,7 +278,7 @@ $w_{ci}$, $w_{cf}$, $w_{co}$ are the weight matrices for the cell state;
 $b_i$, $b_f$, $b_o$, $b_c$ are the bias terms for the input, forget, and output gates, and cell state, respectively.
 
 
-\begin{figure}[h]
+\begin{figure}[ht!]
     \centering
     \subcaptionbox{\label{i3}}{
         \includegraphics[width=14cm]{rnn.png}
@@ -299,11 +308,12 @@ During convolution process in the MDL model described in the following section, 
 
 One Conv-LSTM layer can process an input tensor $X = (X_1, X_2,..., X_T)$ into an input tensor $H = (H_1, H_2,..., H_T)$, where $T$ donates the number of the timestamps. Therefore, each Conv-LSTM layer can be defined as a mapping function $F^{CL}: R^{T{\times}M{\times}N{\times}L} \rightarrow R^{T{\times}M{\times}N{\times}L^{\prime}}$, where $L$ refers to the length of one input feature vector in each grid and $L^{\prime}$ refers to the length of the output feature vector in each grid. %PARAPHRASE THIS PARAGRAPH
 
+
 \subsection{Mixed Deep Learning Model}
 
-Mixed Deep Learning (MDL) model was proposed by by Lu et al.\cite{9284587} to forecast the traffic speeds of lane sections. The structure of the MDL model is shown in Fig. 3.6. The model simplifies the study area of the road as $m{\times}n$ grids, where $m$ is the number of lanes and $n$ is the number of the road sections at one road section. Each grid represents the area of a road section and a $l{\times}w$ matrix stores values for a spatio-temporal variable such as traffic speed and vehicle density. Looking at the third to fifth dimensions of the aforementioned 5D tensor and taking each attribute (speed and vehicle density) from the aforementioned tensor, we can translate the third to fifth dimensions of the original tensor into a tensor of ${V_t}$ and ${D_t}$ with dimention of $M{\times}N{\times}1$, which contains each attribute variables during the time series aggregation interval $t$. The prediction target vector $Y_t$ contains traffic speed of all sections during the timewindow $T_h$ and length of the $Y_t$ is $T_h{\times}M{\times}N$, where $T_h$ is the forecast horizon with an offset of the "skip" parameter. % POSSIBLY MATHMATICALLY INPRECISENESS
+Mixed Deep Learning (MDL) model was proposed by by Lu et al.\cite{9284587} to forecast the traffic speeds of lane sections. The structure of the MDL model is shown in Fig. 3.6. The model simplifies the study area of the road as $m{\times}n$ grids, where $m$ is the number of lanes and $n$ is the number of the road sections at one road section. Each grid represents the area of a road section and a $l{\times}w$ matrix stores values for a spatio-temporal variable such as traffic speed and vehicle density. Looking at the third to fifth dimensions of the aforementioned 5D tensor and taking each attribute (speed and vehicle density) from the aforementioned tensor, we can translate the third to fifth dimensions of the original tensor into a tensor of ${V_t}$ and ${D_t}$ with dimention of $M{\times}N{\times}1$, which contains each attribute variables during the time series aggregation interval $t$. The prediction target vector $Y_t$ contains traffic speed of all sections during the timewindow $T_h$ and length of the $Y_t$ is $T_h{\times}M{\times}N$, where $T_h$ is the forecast horizon with an offset of the skip parameter. % POSSIBLY MATHMATICALLY INPRECISENESS
 
-Since it is imporant to speed up training and inference time especially when real-time inference is in mind, we attempted to downsize the model as well as reduce the number of attributes to be fed into the architecture, which differs from the original MDL model. The original MDL architecture, where the two kinds of variables (historical travel speed and vehicle density) are fed into two sperarate architectures of stacked Conv-LSTM and CNN layers, was also tested. Here, let $L_s$ and $L_q$ be the numbers of the stacked Conv-LSTM layers in the architectures for speed and vehicle density, the downsized model's $L_s$ is $1$, whereas the original model's $L_s$ and $L_q$ are $2$. Note that the downsized model has only one stream (architecture). $T_b$ represents the input historical timewindow of speed variable, and also vehicle density variable for the original MDL model. The architecture for the spatio-temporal variable for the speed attribute can be generalised and formulated as follows:
+Since it is important to speed up training and inference time especially when real-time inference is in mind, we attempted to downsize the model as well as reduce the number of attributes to be fed into the architecture, which differs from the original MDL model. The original MDL architecture, where the two kinds of variables (historical travel speed and vehicle density) are fed into two sperarate architectures of stacked Conv-LSTM and CNN layers, was also tested for static prediction. Here, let $L_s$ and $L_q$ be the numbers of the stacked Conv-LSTM layers in the architectures for speed and vehicle density, the downsized model's $L_s$ is $1$, whereas the original model's $L_s$ and $L_q$ are $2$. Note that the downsized model has only one stream (architecture). $T_b$ represents the input historical timewindow of speed variable, and also vehicle density variable for the original MDL model. The architecture for the spatio-temporal variable for the speed attribute can be generalised and formulated as follows:
 \[ (U^{L_s}_{t-T_b}, U^{L_s}_{t-T_b+1},..., U^{L_s}_{t-1}) = F^{CL}_{L_s}...F^{CL}_{l}...F^{CL}_{1} (V_{t-T_b}, V_{t-T_b+1},..., V_{t-1}) \]
 \[ \hat{Y^s_{t}} = {\sigma}_r (W_s\ast{U^{L_s}_{t-1}} + b_s) \]
 The original MDL model considers an additional spatio-temporal variable which is the vehicle density attribute, adding the following architecture to the model in parallel:
@@ -322,7 +332,7 @@ where $\hat{Y_t}$ is the predicted speed vector and $Y_t$ is the actual speed ve
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=14cm]{{MDL.png}}
-    \caption{The structure of the orginal MDL model. From Lu et al.}
+    \caption{The structure of the orginal MDL model. From Lu et al.\protect\cite{9284587}}
 \end{figure}
 
 \begin{figure}[ht!]
@@ -330,6 +340,7 @@ where $\hat{Y_t}$ is the predicted speed vector and $Y_t$ is the actual speed ve
     \includegraphics[width=14cm]{{downsizedmdl.png}}
     \caption{The structure of the downsized MDL model used for real-time prediction. Note that the downsized model has only one stream of processing: speed, and thus no merging operation.}
 \end{figure}
+
 
 \section{Real-time streaming architecture}
 
@@ -340,19 +351,7 @@ where $\hat{Y_t}$ is the predicted speed vector and $Y_t$ is the actual speed ve
 \end{figure}
 
 In this section, we describe the architecture of the real-time prediction data pipeline. Fig. 3.10 represents the architecture. % DOUBLE CHECK THE FIGURE NUMBER ONE LAST TIME
-The pipeline consists of three main components: the data ingestion component, the Kafka streaming component, and the Spark Structured Streaming component. We first explain these underlying technologies used in this framework.
-
-\subsection{Kafka}
-
-Apache Kafka\cite{Kreps2011KafkaA} was first introduced by engineers at LinkedIn. The system achieves a distributed scalable streaming platform offering high performance, low latency, and fault tolerance, which is suitable for dealing with real-time volume of data. It stores a stream of records or \textit{events} that contains key, value, and timestamp information which comes from arbitarily many processes called \textit{producers} to a \textit{topic}, which is the core unit for event organisation. Topics are divided into a number of partitions stored in multiple brokers, balancing load in each partition. The events from a topic can be read and processed by multiple \textit{subscriber} at the same time as multiple producers write events to a topic. Kafka stores topics in persistent storage unlike Spark designed to primaliry store data in RAM, so that data remains unaffected in case of a power outage. This architectural design ensures scalability and fault tolerance. 
-
-\subsection{Apache Spark and Spark Structured Streaming}
-
-Apache Spark is a distributed data processing engine, which utilises in-memory caching and optimised query execution to achieve high performance for batch processing, interactive queries, real-time analytics, machine learning, and graph processing. The queries are executed on \textit{Dataframes}, a Relational Database table-like abstraction over Resillient Distributed Datasets (RDDs), which are distributed collections of objects that can be stored in memory.
-
-Spark Structured Streaming\cite{10.1145/3183713.3190664}, an extension of Apache Spark built on top of its SQL engine, allow a micro-batch processing for incoming streams. This streaming process makes it suitable for real-time MDL model inference for which a batch of 4D tensor input is taken. In Spark Structured Streaming, every data item that is arriving on the stream can be considered as appending a new row to a \textit{input table}. A query on the input will generate the \textit{result table}, and with arrival of new rows, the result table gets updated incrementally. It allows time-window-based aggregation queries to be performed on the input table by watermarking, and handling late arrivals of input data is also supported, which makes it more resillient to a real-world setting. The result table can be written to various sinks such as Kafka, HDFS, and databases. Comparing to similar streaming data processing systems, Spark Structured Streaming throughput outperforms that of Apache Flink by up to two times, Apache Kafka Streams by 90 times, and it has linear scalability. Together with Kafka's persistent data storage, low-latency, and distributed scalable streaming, combining Kafka with Spark Structred Streaming's high computational throughput and flexible integration of a machine learning model can justify the architectural design decision. %GRAMATICAL ERROR?
-
-\subsection{Description of the proposed real-time streaming pipeline}
+The pipeline consists of three main components: the data ingestion component, the Kafka streaming component, and the Spark Structured Streaming component.
 
 In this study, we reprecated an API by defining a function in which the 20 percent of the total datapoints reserved for testing are converted to JSON strings and ingested chunk by chunk to Kafka server every 0.1 second, which is the same as the original data collection interval. The chunk of datapoints stored in a Kafka topic are then streamed to the Spark Structured Streaming component, where the data is preprocessed and aggregated by the time series aggregation interval $t$. This operation allows Spark to further create a 3D matrix with dimension of $R^{M{\times}N{\times}L}$, which was already explained in the preprocessing section above. Note that since Spark Strcutured Streaming does not support RDD conversion, the matrix creation is performed within the Spark DataFrame API, without converting to RDDs, which is a key difference from the preprocessing process in the training section. 
 
@@ -365,15 +364,26 @@ According to the literature survey of Li et al.\cite{li2024unifyinglaneleveltraf
 \[ MAPE = \frac{1}{n}\sum_{i=1}^{n}\frac{|\hat{Y_i} - Y_i|}{Y_i} \times 100\% \]
 \[ RMSE = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(\hat{Y_i} - Y_i)^2} \]
 \[ Inference Time = \frac{1}{n}\sum_{i=1}^{n}t_i \]
-where $\hat{Y_i}$ is the predicted speed, $Y_i$ is the actual speed during $i$-th time interval, $n$ is the total number of predicted samples, and $t_i$ is the inference / preprocessing time of the $i$th sample.
+where $\hat{Y_i}$ is the predicted speed, $Y_i$ is the actual speed during $i$-th time interval, $n$ is the total number of predicted samples, and $t_i$ is the preprocessing and inference time of the $i$th sample.
 
 However, there is one significant limitation of MAPE that is the metric can produce very high or even close to infinity values especially when the values to be evaluated contain zeros or values close to zeros. Since the scale of actual values in the dataset is relatively in a small range of 0 to 60 mph, the MAPE metric is not particularly suitable for the evaluation of the model. Therefore, we calculated the Mean Arctangent Absolute Percentage Error (MAAPE) in addition to the three error ratio matrics mentioned above. The MAAPE metric was introduced by Kim et al.\cite{KIM2016669} as a more robust alternative to MAPE, which considers the error ratio as an angle instead of a slope unlike MAPE and is less sensitive to the scale of the actual values. The formula for MAAPE is as follows:
 \[ MAAPE = \frac{1}{n}\sum_{i=1}^{n} \arctan\left(\frac{|\hat{Y_i} - Y_i|}{Y_i}\right) \times 100\% \]
 
 % MAYBE ELABORATE MORE ON MAAPE
 
-We compared the original MDL model and the downsized version of the model, with different data preprocessing parameters such as the time series aggregation window length and the number of lanes considered, in terms of accuracy. We also compared the accuracy of non-real-time prediction with that of real-time prediction, considering the impact of datapoint losses during streaming. 
-
+% Difference in Accuracy between the original and downsized model -> does downsizing the model affect the accuracy?
+% Difference in Accuracy between different timewindow lengths and number of lanes considered -> does the aggregation window length and the number of lanes considered affect the accuracy?
+% Difference in Accuracy between static and real-time prediction -> does the streaming architecture and datapoint loss affect the accuracy?
+% Inference time of the real-time prediction -> how long does it take to predict the traffic speed in real-time? and how long should the skip parameter be set to to achieve real-time inference?
+% Difference in Accuracy between different skip parameters in real-time prediction -> does the skip parameter affect the accuracy?
+In the experiments, we evaluated the two models from the five different perspectives with the following objectives:
+\begin{itemize}
+    \item Difference in accuracy between the original MDL model and the downsized version of the model, to check if downsizing the model affects the accuracy.
+    \item Difference in accuracy of the models with different data preprocessing parameters such as the time series aggregation window length and the number of lanes considered, to investigate how the aggregation window length and including on- and off-ramp in the input data affect the accuracy.
+    \item Difference in accuracy of non-real-time prediction with that of real-time prediction, considering the impact of datapoint losses during streaming
+    \item Inference time of the real-time predictions, to prove the feasibility of the real-time prediction and to determine how long the skip parameter should be set to achieve real-time inference.
+    \item Difference in accuracy between the models with different skip parameters in real-time prediction, to investigate how the skip parameter affects the accuracy.
+\end{itemize} Table 3.2 summarises all models evaluated in this study. Non-real-time (Static) prediction models are evaluated using 20 percent of the total datapoints reserved for testing, comparing the predicted values and the ground truth values all at once at the end of model training. Real-time prediction model and the architecture are evaluated using the streaming architecture described in the previous section; a small chunk of datapoints from the reserved 20 percent test data was ingested to the Kafka server every 0.1 second, and we collected the predicted values from the Kafka server and compared the predicted values with the ground truth values at the end of the streaming. The inference time was calculated by measuring the total time from the time when the last chunk of data of the first sample was ingested to the Kafka server to the time when the model produced the predicted values of the last sample, and then dividing the total time by the number of samples obtained.
 
 \begin{table}[ht!]
     \centering
@@ -381,61 +391,52 @@ We compared the original MDL model and the downsized version of the model, with 
         \hline
         Models & Input Feature & Conv-LSTM layers number & Timewindow & On-Off Ramp Included & Skip \\
         \hline
-        \multirow{4}{*}{Original MDL} & \multirow{4}{*}{speed, density} & \multirow{4}{*}{2} & 0.5 sec & Yes & 10 sec\\
+        \multirow{4}{*}{\shortstack[1]{Original MDL\\(Static)}} & \multirow{4}{*}{speed, density} & \multirow{4}{*}{2} & 0.5 sec & Yes & 10 sec\\
          & & & 0.5 sec & No & 10 sec\\
          & & & 10 sec & Yes & 10 sec\\
          & & & 10 sec & No & 10 sec\\
         \hline
-        \multirow{4}{*}{Downsized MDL} & \multirow{4}{*}{speed} & \multirow{4}{*}{1} & 0.5 sec & Yes & 10 sec\\
+        \multirow{4}{*}{\shortstack[1]{Downsized MDL\\(Static)}} & \multirow{4}{*}{speed} & \multirow{4}{*}{1} & 0.5 sec & Yes & 10 sec\\
          & & & 0.5 sec & No & 10 sec\\
          & & & 10 sec & Yes & 10 sec\\
          & & & 10 sec & No & 10 sec\\ 
         \hline
-        Real-Time & speed & 1 & 10 sec & No & 10 sec\\
-        Real-Time & speed & 1 & 10 sec & No & 20 sec\\
+        \multirow{2}{*}{\shortstack[1]{Downsized MDL\\(Real-time)}} & \multirow{2}{*}{speed} & \multirow{2}{*}{1} & 10 sec & No & 10 sec\\
+        & & & 10 sec & No & 20 sec\\
         \hline
     \end{tabular}
 \caption{List of models evaluated}
 \end{table}
 
+
 \chapter{Results and Discussion}
 
-All experiments were conducted on a computer with an Intel Core i5 Quad-Core CPU at 2.3GHz and 16GB of RAM. A GPU is not used in this study. The training and evaluation were performed using PySpark 3.5.1, TensorFlow 2.16.2, and Keras 3.4.1, and Kafka 3.8.0. The models were trained using the Adamax optimiser with a learning rate of 0.001, and the batch size was set to 16. The models have 3 filters in each ConvLSTM layer's convolution and 1 filter in the convolutional layer. Each model was trained for 50 epochs with the early stopping engaged.
+All experiments were conducted on a computer with an Intel Core i5 Quad-Core CPU at 2.3GHz and 16GB of RAM. A GPU is not used in this study. The training and evaluation were performed using PySpark 3.5.1, Kafka 3.8.0, Keras 3.4.1 and TensorFlow 2.16.2 as its backend. The models were trained using the Adamax optimiser with a learning rate of 0.001, and the batch size was set to 16. The models have 3 filters in each ConvLSTM layer's convolution and 1 filter in the convolutional layer. Each model was trained for 50 epochs with the early stopping engaged.
 
 \section{Accuracy}
-The results for accuracy are shown in Table 4.1-4.2. % DOUBLE CHECK THE TABLE NUMBER ONE LAST TIME
-
-\begin{table}[ht!]
-    \centering
-    \begin{tabular}{ |c|c|c|c|c|c| }
-        \hline
-        Timewindow & On-Off Ramp Included & MAE & MAPE & MAAPE & RMSE\\
-        \hline
-        0.5 sec & Yes & 8.28 & $\infty$ & 35.19\% & 13.16\\
-        0.5 sec & No & 9.63 & $\infty$ & 41.32\% & 15.31\\
-        10 sec & Yes & 7.10 & \textbf{58.67\%} & \textbf{34.23\%} & 10.90\\
-        10 sec & No & 7.40 & 65.22\% & 37.91\% & 11.42\\
-        \hline
-    \end{tabular}
-\caption{Results of Original MDL models evaluated}
-\end{table}
+The results for accuracy are shown in Table 4.1. % DOUBLE CHECK THE TABLE NUMBER ONE LAST TIME
 
 \begin{table}[ht!]
     \centering
     \begin{tabular}{ |c|c|c|c|c|c|c| }
         \hline
-        Type & Timewindow & On-Off Ramp Included & MAE & MAPE & MAAPE & RMSE\\
+        Model & Timewindow & On-Off Ramp Included & MAE & MAPE & MAAPE & RMSE\\
         \hline
-        \multirow[vpos]{4}{*}{Static} & 0.5 sec & Yes & 8.62 & $\infty$ & 36.52\% & 13.54\\
+        \multirow[vpos]{4}{*}{Original} & 0.5 sec & Yes & 8.28 & $\infty$ & 35.19\% & 13.16\\
+        & 0.5 sec & No & 9.63 & $\infty$ & 41.32\% & 15.31\\
+        & 10 sec & Yes & 7.10 & \textbf{58.67\%} & \textbf{34.23\%} & 10.90\\
+        & 10 sec & No & 7.40 & 65.22\% & 37.91\% & 11.42\\
+        \hline
+        \multirow[vpos]{4}{*}{Downsized} & 0.5 sec & Yes & 8.62 & $\infty$ & 36.52\% & 13.54\\
         & 0.5 sec & No & 8.87 & $\infty$ & 40.25\% & 13.69\\
         & 10 sec & Yes & 7.21 & 60.67\% & 35.07\% & 10.66\\
         & 10 sec & No & \textbf{7.06} & 64.42\% & 36.99\% & \textbf{10.51}\\
         \hline
     \end{tabular}
-\caption{Results of Downsized MDL models evaluated}
+\caption{Results of original and downsized MDL models evaluated for static prediction. The best result of each category is highlighted in bold.}
 \end{table}
 
-From Table 4.1-4.2, we can see that the model that considers the on- and off-ramp sections performs better than the model that does not consider them. This could be due to one of the data preprocessing steps introduced to this study to make the matrix data learnable for the model. Since the vehicles travelling on the on- and off-ramp between the section 0-1 and the section 6-9 are not recorded in the dataset, we filled the grids with a null value with a constant value of 60 mph to make the matrix data learnable for the model. As we can see in Fig. 4.1, % CHECK THE FIGURE NUMBER ONE LAST TIME
+In Table 4.1, we can see that the model that considers the on- and off-ramp sections performs better than the model that does not consider them. This could be due to one of the data preprocessing steps introduced to this study to make the matrix data learnable for the model. Since the vehicles travelling on the on- and off-ramp between the section 0-1 and the section 6-9 are not recorded in the dataset, we filled the grids with a null value with a constant value of 60 mph to make the matrix data learnable for the model. As we can see in Fig. 4.1, % CHECK THE FIGURE NUMBER ONE LAST TIME
 the error ratio of those grids is lower than the that of the other grids. The greater number of grids with a slim difference between the actual and predicted speed values results in better prediction accuracy.
 
 \begin{figure}[ht!]
@@ -460,14 +461,14 @@ On the subject of comparison between the accuracy of original MDL model and the 
         & 10 sec & 20 sec & 8.72 & $\infty$ & 44.13\% & 12.77 & 12.43 sec\\
         \hline
     \end{tabular}
-\caption{Comparison between the accuracy of static and real-time prediction with different "skip" parameters}
+\caption{Comparison between the accuracy of static and real-time prediction with different skip parameters. The best result of each category is highlighted in bold.}
 \end{table}
 
-Comparing the accuracy of results produced from the static and the real-time prediction, we can see that real-time prediction with skip parameter of 10 seconds performs worse than the static prediction by 8\% in terms of MAAPE. This is due to the architectural design of handling the late arrival of the preprocessed data to the model within the proposed framework. Each chunk of historical data has to be in a complete shape before it is fed into the model, which means the model has to wait for the data to arrive to perform prediction. In order to remove this latency affecting the streaming, we decided to make the system escape the datapoints that are not in a complete shape at the time of prediction by returning zero values, which is effectively the loss of datapoints. Over the course of the studied time, we received 6 lost datapoints out of the total number of received datapoints of 47 for real-time prediction with 10 seconds skipping. For the 20 seconds skipping result, the lost datapoints were 4 out of 46, and thus the accuracy was better than that of 10 seconds skipping, although a longer skipping time typically leads to poorer accuracy. We can also derive the phenomenon from the infinite MAPE of real-time model in Table 4.2. % DOUBLE CHECK THE TABLE NUMBER ONE LAST TIME
+Comparing the accuracy of results produced from the static and the real-time prediction, we can see that real-time prediction with skip parameter of 10 seconds performs worse than the static prediction by 8\% in terms of MAAPE. This is due to the architectural design of handling the late arrival of the preprocessed data to the model within the proposed framework. Each chunk of historical data has to be in a complete shape before it is fed into the model, which means the model has to wait for the data to arrive to perform prediction. In order to remove this latency affecting the streaming, we decided to make the system escape the datapoints that are not in a complete shape at the time of prediction by returning zero values, which is effectively the loss of datapoints. Over the course of the studied time, we received 6 lost datapoints out of the total number of received datapoints of 47 for real-time prediction with 10 seconds skipping. For the 20 seconds skipping result, the lost datapoints were 4 out of 46, and thus the accuracy was better than that of 10 seconds skipping, although a longer skipping time, which means that the model predicts the traffic state of more distant future, is likely to lead to poorer accuracy. We can also derive the phenomenon of data loss from the infinite MAPE of real-time model in Table 4.1. % DOUBLE CHECK THE TABLE NUMBER ONE LAST TIME
 
 \section{Inference Time of Real-time Prediction}
 
-The total time length of studied data is 543.0 seconds and we collected the total number of samples of 47 for the real-time prediction experiment. The total inference time of the studied data was 564.84 seconds, and therefore the average data preprocessing and inference time per sample was 12.02 seconds. The "skip" parameter was set to 10 seconds, which means the real-time inference was lagging by 2.02 seconds per sample on average. This result indicates that the current data pipeline with skip paramter of 10 seconds cannot handle the prediction in real-time. However, by extending the skip parameter to 20 seconds, the real-time prediction was able to achieve the average inference time of 12.43 seconds per sample, which means the model was able to predict the traffic state of 2.43 seconds ahead of the current time. The result shows that the current architecture is neither satisfactory nor stable enough, yet it is still capable of predicting the traffic state in real-time under certain conditions. % MAYBE TRY MULTIPLE TIMES AND TAKE THE AVERAGE?
+The total time length of studied data is 543.0 seconds and we collected the total number of samples of 47 for the real-time prediction experiment. The total inference time of the studied data was 564.84 seconds, and therefore the average data preprocessing and inference time per sample was 12.02 seconds. The skip parameter was set to 10 seconds, which means the real-time inference was lagging by 2.02 seconds per sample on average. This result indicates that the current data pipeline with skip paramter of 10 seconds cannot handle the prediction in real-time. However, by extending the skip parameter to 20 seconds, the real-time prediction was able to achieve the average inference time of 12.43 seconds per sample, which means the model was able to predict the traffic state of 7.57 seconds ahead of the current time. The result shows that the current architecture is neither satisfactory nor stable enough, yet it is still capable of predicting the traffic state in real-time under certain conditions. % MAYBE TRY MULTIPLE TIMES AND TAKE THE AVERAGE?
 
 \chapter{Limitations and Future Work}
 % Reflection on the paper with the initial objectives, etc. (refer to the student handbook)
