@@ -400,7 +400,7 @@ keywords = {Traffic flow theory, Highway traffic, Microscopic models, Congested 
 abstract = {A clear understanding of car following behavior and microscopic relationships is critical for advancing traffic flow theory. Without empirical microscopic data, plausible but incorrect hypotheses perpetuate in the vacuum. The Next Generation Simulation (NGSIM) project was undertaken to collect such data and the NGSIM data set has become the de facto standard, underlying the vast majority of empirically based advances of the past decade. But there has been a growing minority of researchers who have found unrealistic relationships in the NGSIM data. To date, the critical findings have almost exclusively come from the existing NGSIM database itself. Unfortunately, as this paper shows, the NGSIM errors are beyond anything that could be corrected strictly through cleaning or interpolation of the reported NGSIM data. This paper takes the deepest evaluation yet of the NGSIM data. This research manually re-extracts the vehicle trajectories from a portion of the original NGSIM video to explicitly quantify NGSIM errors, e.g., piecewise constant speeds punctuated by brief periods of large acceleration exhibited by the NGSIM data were not evident in the newly extracted trajectories. This point is particularly troublesome for applications that rely on acceleration, e.g., most car following models. The magnitude of errors exhibit a dependency on speed, location and vehicle length. Examples are shown where a real vehicle stopped but the NGSIM trajectory does not and then overruns the location of the real leader. Needless to say, the re-extracted trajectories showed much cleaner speed-spacing relationships than the corresponding raw NGSIM trajectories. Finally, this work tracked the original NGSIM vehicles seen in one camera and added another 236 vehicles (11%) visible before/after the period of NGSIM tracking. As of publication, the manually re-extracted data from this paper will be released to the research community.}
 }
 
-@inproceedings{NIPS2015_07563a3f,
+@inproceedings{convlstm,
  author = {SHI, Xingjian and Chen, Zhourong and Wang, Hao and Yeung, Dit-Yan and Wong, Wai-kin and WOO, Wang-chun},
  booktitle = {Advances in Neural Information Processing Systems},
  editor = {C. Cortes and N. Lawrence and D. Lee and M. Sugiyama and R. Garnett},
@@ -582,3 +582,206 @@ title = {ST-TrafficNet: A Spatial-Temporal Deep Learning Network for Traffic For
 journal = {Electronics},
 doi = {10.3390/electronics9091474}
 }
+
+@article{karima,
+title = "Combining Kohonen maps with Arima time series models to forecast traffic flow",
+abstract = "A hybrid method of short-term traffic forecasting is introduced; the KARIMA method. The technique uses a Kohonen self-organizing map as an initial classifier; each class has an individually tuned ARIMA model associated with it. Using a Kohonen map which is hexagonal in layout eases the problem of defining the classes. The explicit separation of the tasks of classification and functional approximation greatly improves forecasting performance compared to either a single ARIMA model or a backpropagation neural network. The model is demonstrated by producing forecasts of traffic flow, at horizons of half an hour and an hour, for a French motorway. Performance is similar to that exhibited by other layered models, but the number of classes needed is much smaller (typically between two and four). Because the number of classes is small, it is concluded that the algorithm could be easily retrained in order to track long-term changes in traffic flow and should also prove to be readily transferrable.",
+keywords = "IR-20473, METIS-124034",
+author = "{van der Voort}, {Mascha C.} and Mark Dougherty and M.S. Dougherty and Susan Watson",
+year = "1996",
+doi = "10.1016/S0968-090X(97)82903-8",
+language = "Undefined",
+volume = "4",
+pages = "307--318",
+journal = "Transportation research. Part C: Emerging technologies",
+issn = "0968-090X",
+publisher = "Elsevier",
+number = "5",
+}
+
+@article{arimax,
+author = {Williams, Billy},
+year = {2001},
+month = {01},
+pages = {194-200},
+title = {Multivariate Vehicular Traffic Flow Prediction: Evaluation of ARIMAX Modeling},
+volume = {1776},
+journal = {Transportation Research Record},
+doi = {10.3141/1776-25}
+}
+
+@article{starima,
+title = {Space-time modeling of traffic flow},
+journal = {Computers & Geosciences},
+volume = {31},
+number = {2},
+pages = {119-133},
+year = {2005},
+note = {Geospatial Research in Europe: AGILE 2003},
+issn = {0098-3004},
+doi = {https://doi.org/10.1016/j.cageo.2004.05.012},
+url = {https://www.sciencedirect.com/science/article/pii/S0098300404001888},
+author = {Yiannis Kamarianakis and Poulicos Prastacos},
+keywords = {ARIMA, Time series, Network},
+abstract = {This paper discusses the application of space-time autoregressive integrated moving average (STARIMA) methodology for representing traffic flow patterns. Traffic flow data are in the form of spatial time series and are collected at specific locations at constant intervals of time. Important spatial characteristics of the space–time process are incorporated in the STARIMA model through the use of weighting matrices estimated on the basis of the distances among the various locations where data are collected. These matrices distinguish the space–time approach from the vector autoregressive moving average (VARMA) methodology and enable the model builders to control the number of the parameters that have to be estimated. The proposed models can be used for short-term forecasting of space–time stationary traffic-flow processes and for assessing the impact of traffic-flow changes on other parts of the network. The three-stage iterative space–time model building procedure is illustrated using 7.5min average traffic flow data for a set of 25 loop-detectors located at roads that direct to the centre of the city of Athens, Greece. Data for two months with different traffic-flow characteristics are modelled in order to determine the stability of the parameter estimation.}
+}
+
+@article{kalman,
+author = {Xie, Yuanchang and Zhang, Yunlong and Zhirui, Ye},
+year = {2007},
+month = {07},
+pages = {326-334},
+title = {Short-Term Traffic Volume Forecasting Using Kalman Filter with Discrete Wavelet Decomposition},
+volume = {22},
+journal = {Comp.-Aided Civil and Infrastruct. Engineering},
+doi = {10.1111/j.1467-8667.2007.00489.x}
+}
+
+@ARTICLE{traffictheory,
+  author={Li, Li and Chen, Xiqun and Li, Zhiheng and Zhang, Lei},
+  journal={IEEE Transactions on Intelligent Transportation Systems}, 
+  title={Freeway Travel-Time Estimation Based on Temporal-Spatial Queueing Model}, 
+  year={2013},
+  volume={14},
+  number={3},
+  pages={1536-1541},
+  keywords={Vehicles;Detectors;Estimation;Interpolation;Trajectory;Roads;Time series analysis;Speed interpolation;temporal–spatial queueing;time headway;travel-time estimation},
+  doi={10.1109/TITS.2013.2256132}}
+
+@ARTICLE{xgboost,
+  author={Lu, Wenqi and Rui, Yikang and Yi, Ziwei and Ran, Bin and Gu, Yuanli},
+  journal={IEEE Access}, 
+  title={A Hybrid Model for Lane-Level Traffic Flow Forecasting Based on Complete Ensemble Empirical Mode Decomposition and Extreme Gradient Boosting}, 
+  year={2020},
+  volume={8},
+  number={},
+  pages={42042-42054},
+  keywords={Predictive models;Forecasting;Roads;Data models;Empirical mode decomposition;Boosting;Adaptation models;Data mining;lane-level traffic flow;short-term prediction;hybrid model;extreme gradient boosting;complete ensemble empirical mode decomposition;urban expressways},
+  doi={10.1109/ACCESS.2020.2977219}}
+
+@article{knn,
+title = {Short-term traffic forecasting: An adaptive ST-KNN model that considers spatial heterogeneity},
+journal = {Computers, Environment and Urban Systems},
+volume = {71},
+pages = {186-198},
+year = {2018},
+issn = {0198-9715},
+doi = {https://doi.org/10.1016/j.compenvurbsys.2018.05.009},
+url = {https://www.sciencedirect.com/science/article/pii/S0198971518300140},
+author = {Shifen Cheng and Feng Lu and Peng Peng and Sheng Wu},
+keywords = {Short-term traffic forecasting, Adaptive spatiotemporal k-nearest neighbor model, Spatial heterogeneity, Traffic patterns},
+abstract = {Accurate and robust short-term traffic forecasting is a critical issue in intelligent transportation systems and real-time traffic-related applications. Existing short-term traffic forecasting approaches adopt fixed model structures and assume traffic correlations between adjacent road segments within assigned time periods. Due to the inherent spatial heterogeneity of city traffic, it is difficult for these approaches to obtain stable and satisfying results. To overcome the problems of fixed model structures and quantitatively unclear spatiotemporal dependency relationships, this paper proposes an adaptive spatiotemporal k-nearest neighbor model (adaptive-STKNN) for short-term traffic forecasting. It comprehensively considers the spatial heterogeneity of city traffic based on adaptive spatial neighbors, time windows, spatiotemporal weights and other parameters. First, for each road segment, we determine the sizes of spatial neighbors and the lengths of time windows for traffic influence using cross-correlation and autocorrelation functions, respectively. Second, adaptive spatiotemporal weights are introduced into the distance functions to optimize the candidate neighbor search mechanism. Next, we establish adaptive spatiotemporal parameters to reflect continuous changes in traffic conditions, including the number of candidate neighbors and the weight allocation parameter in the predictive function. Finally, we evaluate the adaptive-STKNN model using two vehicular speed datasets collected on expressways in California, U.S.A., and on city roads in Beijing, China. Four traditional prediction models are compared with the adaptive-STKNN model in terms of forecasting accuracy and generalization ability. The results demonstrate that the adaptive-STKNN model outperforms those models during all time periods and especially the peak period. In addition, the results also show the generalization ability of the adaptive-STKNN model.}
+}
+
+@ARTICLE{svr,
+  author={Chun-Hsin Wu and Jan-Ming Ho and Lee, D.T.},
+  journal={IEEE Transactions on Intelligent Transportation Systems}, 
+  title={Travel-time prediction with support vector regression}, 
+  year={2004},
+  volume={5},
+  number={4},
+  pages={276-281},
+  keywords={Intelligent transportation systems;Time measurement;Machine intelligence;Information systems;Prediction methods;Road transportation;Support vector machines;Training data;Time series analysis;Performance analysis;Intelligent transportation systems (ITSs);support vector machines;support vector regression (SVR);time series analysis;travel-time prediction},
+  doi={10.1109/TITS.2004.837813}}
+
+@article{gdl,
+author = {Zhang, Yang and Cheng, T. and Ren, Yibin},
+year = {2019},
+month = {05},
+pages = {877-896},
+title = {A graph deep learning method for short-term traffic forecasting on large road networks},
+volume = {34},
+journal = {Computer-Aided Civil and Infrastructure Engineering},
+doi = {10.1111/mice.12450}
+}
+
+@article{ma2015lstm,
+title = {Long short-term memory neural network for traffic speed prediction using remote microwave sensor data},
+journal = {Transportation Research Part C: Emerging Technologies},
+volume = {54},
+pages = {187-197},
+year = {2015},
+issn = {0968-090X},
+doi = {https://doi.org/10.1016/j.trc.2015.03.014},
+url = {https://www.sciencedirect.com/science/article/pii/S0968090X15000935},
+author = {Xiaolei Ma and Zhimin Tao and Yinhai Wang and Haiyang Yu and Yunpeng Wang},
+keywords = {Neural networks, Long short-term neural network, Traffic speed prediction, Remote microwave detector data},
+abstract = {Neural networks have been extensively applied to short-term traffic prediction in the past years. This study proposes a novel architecture of neural networks, Long Short-Term Neural Network (LSTM NN), to capture nonlinear traffic dynamic in an effective manner. The LSTM NN can overcome the issue of back-propagated error decay through memory blocks, and thus exhibits the superior capability for time series prediction with long temporal dependency. In addition, the LSTM NN can automatically determine the optimal time lags. To validate the effectiveness of LSTM NN, travel speed data from traffic microwave detectors in Beijing are used for model training and testing. A comparison with different topologies of dynamic neural networks as well as other prevailing parametric and nonparametric algorithms suggests that LSTM NN can achieve the best prediction performance in terms of both accuracy and stability.}
+}
+
+@INPROCEEDINGS{ruigru,
+  author={Fu, Rui and Zhang, Zuo and Li, Li},
+  booktitle={2016 31st Youth Academic Annual Conference of Chinese Association of Automation (YAC)}, 
+  title={Using LSTM and GRU neural network methods for traffic flow prediction}, 
+  year={2016},
+  volume={},
+  number={},
+  pages={324-328},
+  keywords={Decision support systems;Economic indicators;Predictive models;Integrated circuits;Conferences;traffic flow prediction;LSTM;GRU;ARIMA},
+  doi={10.1109/YAC.2016.7804912}}
+
+@misc{macnnimage,
+      title={Learning Traffic as Images: A Deep Convolutional Neural Network for Large-Scale Transportation Network Speed Prediction}, 
+      author={Xiaolei Ma and Zhuang Dai and Zhengbing He and Jihui Na and Yong Wang and Yunpeng Wang},
+      year={2017},
+      eprint={1701.04245},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/1701.04245}, 
+}
+
+@ARTICLE{cnnzhang,
+  author={Zhang, Junbo and Zheng, Yu and Sun, Junkai and Qi, Dekang},
+  journal={IEEE Transactions on Knowledge and Data Engineering}, 
+  title={Flow Prediction in Spatio-Temporal Networks Based on Multitask Deep Learning}, 
+  year={2020},
+  volume={32},
+  number={3},
+  pages={468-478},
+  keywords={Correlation;Predictive models;Urban areas;Matrix converters;Sparse matrices;Deep learning;Deep learning;spatio-temporal data;urban computing},
+  doi={10.1109/TKDE.2019.2891537}}
+
+@article{FCL,
+   title={Short-term forecasting of passenger demand under on-demand ride services: A spatio-temporal deep learning approach},
+   volume={85},
+   ISSN={0968-090X},
+   url={http://dx.doi.org/10.1016/j.trc.2017.10.016},
+   DOI={10.1016/j.trc.2017.10.016},
+   journal={Transportation Research Part C: Emerging Technologies},
+   publisher={Elsevier BV},
+   author={Ke, Jintao and Zheng, Hongyu and Yang, Hai and Chen, Xiqun (Michael)},
+   year={2017},
+   pages={591-608} }
+
+@INPROCEEDINGS{gcn1,
+  author={Wang, Lingyun and Shen, Guojiang and Yu, Kaifeng and Ji, Zhanhao and Kong, Xiangjie},
+  booktitle={2021 IEEE 23rd Int Conf on High Performance Computing & Communications; 7th Int Conf on Data Science & Systems; 19th Int Conf on Smart City; 7th Int Conf on Dependability in Sensor, Cloud & Big Data Systems & Application (HPCC/DSS/SmartCity/DependSys)}, 
+  title={Lane-Level Traffic Flow Prediction Based on Dynamic Graph Generation}, 
+  year={2021},
+  volume={},
+  number={},
+  pages={1802-1809},
+  keywords={Codecs;Convolution;Smart cities;Roads;Road side unit;Transfer learning;Data integration;lane-level traffic flow prediction;temporal-spatial correlation;graph convolution neural network;attention mechanism},
+  doi={10.1109/HPCC-DSS-SmartCity-DependSys53884.2021.00265}}
+
+@article{gcn2,
+author = {Li, Bao and Yang, Quan and Chen, Jianjiang and Yu, Dongjin and Wang, Dongjing and Wan, Feng},
+year = {2023},
+month = {03},
+pages = {1-14},
+title = {A Dynamic Spatio-Temporal Deep Learning Model for Lane-Level Traffic Prediction},
+volume = {2023},
+journal = {Journal of Advanced Transportation},
+doi = {10.1155/2023/3208535}
+}
+
+@INPROCEEDINGS{agafonov,
+  author={Agafonov, Anton},
+  booktitle={2020 10th International Conference on Information Science and Technology (ICIST)}, 
+  title={Traffic Flow Prediction Using Graph Convolution Neural Networks}, 
+  year={2020},
+  volume={},
+  number={},
+  pages={91-95},
+  keywords={Convolution;Neural networks;Time series analysis;Roads;Matrix decomposition;Correlation;Laplace equations;traffic prediction;graph neural network;convolutional neural network;intelligent transportation system},
+  doi={10.1109/ICIST49303.2020.9201971}}

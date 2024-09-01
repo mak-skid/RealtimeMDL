@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.5.4)  31 AUG 2024 21:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.5.4)  1 SEP 2024 22:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -276,181 +276,250 @@ LaTeX Warning: Citation `highDdataset' on page 5 undefined on input line 120.
 
 LaTeX Warning: Citation `zen' on page 5 undefined on input line 122.
 
-[5] [6] [7]
+[5]
+<pems.png, id=41, 321.24014pt x 200.9106pt>
+File: pems.png Graphic file (type png)
+<use pems.png>
+Package pdftex.def Info: pems.png  used on input line 128.
+(pdftex.def)             Requested size: 398.33858pt x 249.14494pt.
+
+
+LaTeX Warning: Citation `sttrafficnet' on page 6 undefined on input line 129.
+
+
+LaTeX Warning: Citation `sttrafficnet' on page 6 undefined on input line 129.
+
+
+LaTeX Warning: Citation `kalman' on page 6 undefined on input line 134.
+
+
+LaTeX Warning: Citation `traffictheory' on page 6 undefined on input line 134.
+
+
+LaTeX Warning: Citation `karima' on page 6 undefined on input line 134.
+
+
+LaTeX Warning: Citation `arimax' on page 6 undefined on input line 134.
+
+
+LaTeX Warning: Citation `starima' on page 6 undefined on input line 134.
+
+
+LaTeX Warning: Citation `gdl' on page 6 undefined on input line 134.
+
+[6 <./pems.png>]
+
+LaTeX Warning: Citation `svr' on page 7 undefined on input line 136.
+
+
+LaTeX Warning: Citation `xgboost' on page 7 undefined on input line 136.
+
+
+LaTeX Warning: Citation `knn' on page 7 undefined on input line 136.
+
+
+LaTeX Warning: Citation `ma2015lstm' on page 7 undefined on input line 140.
+
+
+LaTeX Warning: Citation `rui2017gru' on page 7 undefined on input line 140.
+
+
+LaTeX Warning: Citation `macnnimage' on page 7 undefined on input line 142.
+
+
+LaTeX Warning: Citation `cnnzhang' on page 7 undefined on input line 142.
+
+
+LaTeX Warning: Citation `convlstm' on page 7 undefined on input line 142.
+
+
+LaTeX Warning: Citation `FCL' on page 7 undefined on input line 142.
+
+
+LaTeX Warning: Citation `gcn1' on page 7 undefined on input line 144.
+
+
+LaTeX Warning: Citation `gcn2' on page 7 undefined on input line 144.
+
+[7] [8] [9]
 Chapter 3.
 
-LaTeX Warning: Citation `ngsim' on page 8 undefined on input line 144.
+LaTeX Warning: Citation `ngsim' on page 10 undefined on input line 159.
 
-[8
+[10
 
 ]
-<lane1.png, id=51, 412.6617pt x 328.8285pt>
+<lane1.png, id=60, 412.6617pt x 328.8285pt>
 File: lane1.png Graphic file (type png)
 <use lane1.png>
-Package pdftex.def Info: lane1.png  used on input line 167.
+Package pdftex.def Info: lane1.png  used on input line 182.
 (pdftex.def)             Requested size: 412.66068pt x 328.8277pt.
- [9 <./lane1.png>] [10] [11]
-<trajectorycollision.jpg, id=64, 421.62318pt x 313.50726pt>
+ [11 <./lane1.png>] [12] [13]
+<trajectorycollision.jpg, id=72, 421.62318pt x 313.50726pt>
 File: trajectorycollision.jpg Graphic file (type jpg)
 <use trajectorycollision.jpg>
-Package pdftex.def Info: trajectorycollision.jpg  used on input line 213.
+Package pdftex.def Info: trajectorycollision.jpg  used on input line 228.
 (pdftex.def)             Requested size: 421.62215pt x 313.50648pt.
-<interpolation.jpg, id=65, 457.28363pt x 496.29663pt>
+<interpolation.jpg, id=73, 457.28363pt x 496.29663pt>
 File: interpolation.jpg Graphic file (type jpg)
 <use interpolation.jpg>
-Package pdftex.def Info: interpolation.jpg  used on input line 219.
+Package pdftex.def Info: interpolation.jpg  used on input line 234.
 (pdftex.def)             Requested size: 341.43306pt x 370.5631pt.
 
 
-LaTeX Warning: Citation `Thiemann_2008' on page 12 undefined on input line 223.
+LaTeX Warning: Citation `Thiemann_2008' on page 14 undefined on input line 238.
 
 
 
-LaTeX Warning: Citation `MONTANINO201582' on page 12 undefined on input line 22
-3.
+LaTeX Warning: Citation `MONTANINO201582' on page 14 undefined on input line 23
+8.
 
-[12]
-<output1.png, id=71, 443.0151pt x 604.8999pt>
+[14]
+<output1.png, id=80, 443.0151pt x 604.8999pt>
 File: output1.png Graphic file (type png)
 <use output1.png>
-Package pdftex.def Info: output1.png  used on input line 231.
+Package pdftex.def Info: output1.png  used on input line 246.
 (pdftex.def)             Requested size: 284.52756pt x 388.50989pt.
- [13 <./trajectorycollision.jpg>] [14 <./interpolation.jpg>] [15 <./output1.png
+ [15 <./trajectorycollision.jpg>] [16 <./interpolation.jpg>] [17 <./output1.png
 >]
-<3dto5d.png, id=83, 1048.91875pt x 540.0175pt>
+<3dto5d.png, id=91, 1048.91875pt x 540.0175pt>
 File: 3dto5d.png Graphic file (type png)
 <use 3dto5d.png>
-Package pdftex.def Info: 3dto5d.png  used on input line 245.
+Package pdftex.def Info: 3dto5d.png  used on input line 260.
 (pdftex.def)             Requested size: 398.33858pt x 205.07693pt.
- [16] [17 <./3dto5d.png>]
-<rnn.png, id=93, 792.9625pt x 341.275pt>
+ [18]
+
+LaTeX Warning: Citation `convlstm' on page 19 undefined on input line 269.
+
+[19 <./3dto5d.png>]
+<rnn.png, id=101, 792.9625pt x 341.275pt>
 File: rnn.png Graphic file (type png)
 <use rnn.png>
-Package pdftex.def Info: rnn.png  used on input line 281.
+Package pdftex.def Info: rnn.png  used on input line 296.
 (pdftex.def)             Requested size: 398.33858pt x 171.43901pt.
 
 
 Package caption Warning: Cannot determine current font size.
 (caption)                Try setting it with `size=' explicitly on input line 2
-81.
+96.
 See the caption package documentation for explanation.
 
 
 Package caption Warning: Cannot determine current font size.
 (caption)                Try setting it with `size=' explicitly on input line 2
-81.
+96.
 See the caption package documentation for explanation.
 
-<lstm.png, id=94, 958.58125pt x 418.56375pt>
+<lstm.png, id=102, 958.58125pt x 418.56375pt>
 File: lstm.png Graphic file (type png)
 <use lstm.png>
-Package pdftex.def Info: lstm.png  used on input line 284.
+Package pdftex.def Info: lstm.png  used on input line 299.
 (pdftex.def)             Requested size: 398.33858pt x 173.93701pt.
 
 Package caption Warning: Cannot determine current font size.
 (caption)                Try setting it with `size=' explicitly on input line 2
-84.
+99.
 See the caption package documentation for explanation.
 
 
 Package caption Warning: Cannot determine current font size.
 (caption)                Try setting it with `size=' explicitly on input line 2
-84.
+99.
 See the caption package documentation for explanation.
 
-[18] [19 <./rnn.png> <./lstm.png>]
-<convlstm.png, id=104, 844.15375pt x 595.22375pt>
+[20] [21 <./rnn.png> <./lstm.png>]
+<convlstm.png, id=113, 844.15375pt x 595.22375pt>
 File: convlstm.png Graphic file (type png)
 <use convlstm.png>
-Package pdftex.def Info: convlstm.png  used on input line 299.
+Package pdftex.def Info: convlstm.png  used on input line 314.
 (pdftex.def)             Requested size: 398.33858pt x 280.88142pt.
- [20 <./convlstm.png>] [21]
-<MDL.png, id=115, 800.9925pt x 823.075pt>
+ [22 <./convlstm.png>] [23]
+<MDL.png, id=123, 800.9925pt x 823.075pt>
 File: MDL.png Graphic file (type png)
 <use MDL.png>
-Package pdftex.def Info: MDL.png  used on input line 330.
+Package pdftex.def Info: MDL.png  used on input line 345.
 (pdftex.def)             Requested size: 398.33858pt x 409.32608pt.
-<downsizedmdl.png, id=116, 542.025pt x 707.64375pt>
+<downsizedmdl.png, id=124, 542.025pt x 707.64375pt>
 File: downsizedmdl.png Graphic file (type png)
 <use downsizedmdl.png>
-Package pdftex.def Info: downsizedmdl.png  used on input line 336.
+Package pdftex.def Info: downsizedmdl.png  used on input line 351.
 (pdftex.def)             Requested size: 398.33858pt x 520.07413pt.
-<realtime_arch.png, id=117, 649.42625pt x 578.16pt>
+<realtime_arch.png, id=125, 649.42625pt x 578.16pt>
 File: realtime_arch.png Graphic file (type png)
 <use realtime_arch.png>
-Package pdftex.def Info: realtime_arch.png  used on input line 345.
+Package pdftex.def Info: realtime_arch.png  used on input line 360.
 (pdftex.def)             Requested size: 398.33858pt x 354.63556pt.
- [22] [23 <./MDL.png>]
+ [24] [25 <./MDL.png>]
 
-LaTeX Warning: Text page 24 contains only floats.
+LaTeX Warning: Text page 26 contains only floats.
 
 
 Overfull \vbox (5.74821pt too high) has occurred while \output is active []
 
 
-[24 <./downsizedmdl.png>] [25 <./realtime_arch.png>] [26]
-Overfull \hbox (4.23206pt too wide) in paragraph at lines 388--388
+[26 <./downsizedmdl.png>] [27 <./realtime_arch.png>] [28]
+Overfull \hbox (4.23206pt too wide) in paragraph at lines 403--403
  []|\OT1/cmr/m/n/10.95 Timewindow| 
  []
 
 
-Overfull \hbox (11.06573pt too wide) in paragraph at lines 386--404
+Overfull \hbox (11.06573pt too wide) in paragraph at lines 401--419
  [][] 
  []
 
-[27] [28]
+[29] [30]
 Chapter 4.
 
-Overfull \hbox (13.5614pt too wide) in paragraph at lines 417--432
+Overfull \hbox (13.5614pt too wide) in paragraph at lines 432--447
  [][] 
  []
 
-[29
+[31
 
 ]
-<mdl_model_w_10_10_6_1_1_velocity_output_2299.5.png, id=146, 462.528pt x 633.80
+<mdl_model_w_10_10_6_1_1_velocity_output_2299.5.png, id=154, 462.528pt x 633.80
 79pt>
 File: mdl_model_w_10_10_6_1_1_velocity_output_2299.5.png Graphic file (type png
 )
 <use mdl_model_w_10_10_6_1_1_velocity_output_2299.5.png>
 Package pdftex.def Info: mdl_model_w_10_10_6_1_1_velocity_output_2299.5.png  us
-ed on input line 440.
+ed on input line 455.
 (pdftex.def)             Requested size: 398.33858pt x 545.87656pt.
 
-Overfull \hbox (10.38834pt too wide) in paragraph at lines 450--460
+Overfull \hbox (10.38834pt too wide) in paragraph at lines 465--475
  [][] 
  []
 
-[30] [31] [32 <./mdl_model_w_10_10_6_1_1_velocity_output_2299.5.png>]
+[32] [33] [34 <./mdl_model_w_10_10_6_1_1_velocity_output_2299.5.png>]
 Chapter 5.
 
-LaTeX Warning: Citation `mic' on page 33 undefined on input line 488.
+LaTeX Warning: Citation `mic' on page 35 undefined on input line 503.
 
 
-LaTeX Warning: Citation `miccomplexity' on page 33 undefined on input line 489.
+LaTeX Warning: Citation `miccomplexity' on page 35 undefined on input line 504.
 
 
-[33
+[35
 
-] [34]
+] [36]
 
-LaTeX Warning: Citation `WANG2023107044' on page 35 undefined on input line 497
+LaTeX Warning: Citation `WANG2023107044' on page 37 undefined on input line 512
 .
 
-[35] [36]
+[37] [38]
 Chapter 6.
-(./thesis.bbl [37
+(./thesis.bbl [39
 
-] [38
+] [40
 
-] [39{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.
-enc}] [40]) [41]
+] [41{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.
+enc}] [42]) [43]
 Appendix A.
-[42
+[44
 
 ]
 Appendix B.
-[43
+[45
 
 ] (./thesis.aux)
  ***********
@@ -469,10 +538,10 @@ LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 3908 strings out of 474116
- 66279 string characters out of 5743683
+ 3916 strings out of 474116
+ 66405 string characters out of 5743683
  1942187 words of memory out of 5000000
- 26258 multiletter control sequences out of 15000+600000
+ 26266 multiletter control sequences out of 15000+600000
  565794 words of font info for 62 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  67i,15n,77p,1837b,493s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -493,10 +562,10 @@ ve/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive
 /2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2
 024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/20
 24/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb>
-Output written on thesis.pdf (48 pages, 2392515 bytes).
+Output written on thesis.pdf (50 pages, 4698913 bytes).
 PDF statistics:
- 268 PDF objects out of 1000 (max. 8388607)
- 161 compressed objects within 2 object streams
+ 277 PDF objects out of 1000 (max. 8388607)
+ 166 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 61 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 66 words of extra memory for PDF output out of 10000 (max. 10000000)
 
