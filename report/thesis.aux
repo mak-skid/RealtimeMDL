@@ -1,11 +1,27 @@
 \relax 
 \bibstyle{unsrt}
+\citation{congestion1}
+\citation{congestion2}
+\citation{ITS}
+\citation{adas}
+\citation{ngsim}
+\citation{Zhang20231124}
+\citation{trafficpattern}
+\citation{GOMES2023200268}
+\citation{macnnimage}
+\citation{Zhou_Wang_Xie_Chen_Liu_2020}
+\citation{Sigurdsson2018RoadTC}
+\citation{gcn1}
+\citation{gcn}
 \citation{GU20191}
 \@writefile{toc}{\contentsline {chapter}{\numberline {1}Introduction}{1}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{toc}{\contentsline {section}{\numberline {1.1}Introduction and Motivation}{1}{}\protected@file@percent }
 \citation{li2024unifyinglaneleveltrafficprediction}
+\citation{9077707}
+\citation{Sigurdsson2018RoadTC}
+\citation{Yang2019}
 \@writefile{toc}{\contentsline {section}{\numberline {1.2}Aims and Objectives}{3}{}\protected@file@percent }
 \citation{seo2020evaluation}
 \citation{rossi2021vehicle}
@@ -16,7 +32,7 @@
 \@writefile{toc}{\contentsline {section}{\numberline {2.1}Research Field Challenges}{4}{}\protected@file@percent }
 \citation{highDdataset}
 \citation{seo2020evaluation}
-\@writefile{toc}{\contentsline {section}{\numberline {2.2}Suitable Datasets for lane-level traffic prediction}{5}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.2}Suitable Datasets for Lane-level Traffic Prediction}{5}{}\protected@file@percent }
 \citation{sttrafficnet}
 \citation{sttrafficnet}
 \citation{kalman}
@@ -32,7 +48,9 @@
 \citation{ma2015lstm}
 \citation{rui2017gru}
 \@writefile{lof}{\contentsline {figure}{\numberline {2.1}{\ignorespaces The distribution of PeMS sensors in California Bay Area. The sensors are relatively scattered across the road network. From Lu et al. \cite {sttrafficnet}}}{7}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.4}Deep Learning Approaches}{7}{}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:pems}{{2.1}{7}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.4}Deep Learning Approach}{7}{}\protected@file@percent }
 \citation{macnnimage}
 \citation{cnnzhang}
 \citation{convlstm}
@@ -44,14 +62,16 @@
 \citation{9077707}
 \citation{Sigurdsson2018RoadTC}
 \citation{Yang2019}
-\@writefile{toc}{\contentsline {section}{\numberline {2.5}Real-time traffic data processing}{8}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.5}Real-time Traffic Data Processing}{8}{}\protected@file@percent }
 \citation{ngsim}
 \@writefile{toc}{\contentsline {chapter}{\numberline {3}Methodology}{10}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {3.1}Dataset details}{10}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.1}Dataset Details}{10}{}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {3.1}{\ignorespaces NGSIM Observed datapoints, all vehicle classes}}{10}{}\protected@file@percent }
+\newlabel{table:ngsim}{{3.1}{10}{}{}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces Vehicle speed visualisation of each vehicle in the farthest left (passing) lane (in mph)}}{11}{}\protected@file@percent }
+\newlabel{fig:lane1}{{3.1}{11}{}{}{}}
 \citation{Kreps2011KafkaA}
 \citation{10.1145/3183713.3190664}
 \@writefile{toc}{\contentsline {section}{\numberline {3.2}Underlying Data Processing Technologies}{13}{}\protected@file@percent }
@@ -65,45 +85,55 @@
 \citation{Thiemann_2008}
 \citation{MONTANINO201582}
 \@writefile{toc}{\contentsline {section}{\numberline {3.3}Data Preprocessing}{14}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces "Collisions of trajectories" errors. Orange areas are vehicles after taking their length into account. From Coifman and Li. \cite {COIFMAN2017362}}}{15}{}\protected@file@percent }
+\newlabel{data_preprocessing}{{3.3}{14}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces ``Collisions of trajectories" errors. Orange areas are vehicles after taking their length into account. From Coifman and Li. \cite {COIFMAN2017362}}}{15}{}\protected@file@percent }
+\newlabel{fig:collision}{{3.2}{15}{}{}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {3.3}{\ignorespaces Speed interpolation errors. (A) A typical frame from the NGSIM validation video for I-80 camera 6 at 490s. Traffic is flowing from left to right in this image. The NGSIM researchers superimposed a pink bounding box for each vehicle. A Detail of lane 3 (3rd lane from the left) from the validation video for three frames (B) 485s, (C) 490s, and (D) 497.5s. For each vehicle the rear bumper location in the NGSIM data set is shown on the left (corresponding to the upstream end of the bounding box) and is indexed by the vehicle ID, while the new rear bumper location calculated in our study is shown on the right. From Coifman and Li. \cite {COIFMAN2017362}}}{16}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.4}{\ignorespaces Visualisation of average vehicle speed and density in each road section. The grids with the a missing value were filled with maximum speed limit of 60 mph for speed attribute and zero values for density attribute, since the tracked vehicles do not infiltrate the whole section until 45 seconds in.}}{17}{}\protected@file@percent }
-\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:interpolation}{{3.3}{16}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.4}{\ignorespaces Visualisation of average vehicle speed and density in each road section. At the start of their data collection, vehicles already in-frame are considered invalid observations. In our study, the values in the grid with these invalid observations were replaced with the default values of 60 mph for speed attribute and a zero value for density attribute.}}{17}{}\protected@file@percent }
 \newlabel{fig:output1}{{3.4}{17}{}{}{}}
 \citation{9284587}
 \@writefile{toc}{\contentsline {section}{\numberline {3.4}Model}{18}{}\protected@file@percent }
 \citation{convlstm}
-\citation{lstm}
 \@writefile{lof}{\contentsline {figure}{\numberline {3.5}{\ignorespaces Gantt chart-like representation of the transformation of the data from 3D to 5D tensor. Firstly, 3D matrices are stacked to create a 4D tensor, and the fixed number of 4D tensors are stacked to create a stack of past data and target data. Then, they will be again stacked to create a batch, resulting in 5D tensor.}}{19}{}\protected@file@percent }
+\newlabel{fig:3dto5d}{{3.5}{19}{}{}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.4.1}Convolutional Long Short Term Memory Neural Network}{19}{}\protected@file@percent }
+\citation{lstm}
 \citation{9779153}
 \newlabel{i3}{{3.6a}{21}{}{}{}}
 \newlabel{sub@i3}{{a}{21}{}{}{}}
 \newlabel{i4}{{3.6b}{21}{}{}{}}
 \newlabel{sub@i4}{{b}{21}{}{}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {3.6}{\ignorespaces The comparison between (a) RNN and (b) LSTM structures.}}{21}{}\protected@file@percent }
-\newlabel{bb}{{3.6}{21}{}{}{}}
+\newlabel{fig:rnnvslstm}{{3.6}{21}{}{}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {3.7}{\ignorespaces Inner structure of a ConvLSTM cell}}{22}{}\protected@file@percent }
 \citation{9284587}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.4.2}Mixed Deep Learning Model}{23}{}\protected@file@percent }
 \citation{9284587}
 \citation{9284587}
-\@writefile{toc}{\contentsline {section}{\numberline {3.5}Real-time streaming architecture}{24}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.5}Real-time Streaming Architecture}{24}{}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {3.8}{\ignorespaces The structure of the orginal MDL model. From Lu et al. \cite {9284587}}}{25}{}\protected@file@percent }
+\newlabel{fig:mdl}{{3.8}{25}{}{}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {3.9}{\ignorespaces The structure of the downsized MDL model used for real-time prediction. Note that the downsized model has only one stream of processing: speed, and thus no merging operation.}}{26}{}\protected@file@percent }
+\newlabel{fig:downsizedmdl}{{3.9}{26}{}{}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {3.10}{\ignorespaces The proposed architecture of real-time prediction data pipeline.}}{27}{}\protected@file@percent }
+\newlabel{fig:realtime_arch}{{3.10}{27}{}{}{}}
 \citation{li2024unifyinglaneleveltrafficprediction}
 \citation{KIM2016669}
-\@writefile{toc}{\contentsline {section}{\numberline {3.6}Evaluation method}{28}{}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3.2}{\ignorespaces List of models evaluated}}{30}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.6}Evaluation Method}{28}{}\protected@file@percent }
+\newlabel{table:models}{{\caption@xref {table:models}{ on input line 398}}{30}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3.2}{\ignorespaces List of evaluated models}}{30}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {chapter}{\numberline {4}Results and Discussion}{31}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {4.1}Accuracy}{31}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.1}Original vs Downsized Models}{31}{}\protected@file@percent }
+\newlabel{table:originalvsdownsized}{{\caption@xref {table:originalvsdownsized}{ on input line 429}}{31}{}{}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces Results of original and downsized MDL models evaluated for static prediction. The best result of each category is highlighted in bold.}}{31}{}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces Comparison between the accuracy of static and real-time prediction with different skip parameters. The best result of each category is highlighted in bold.}}{32}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.2}Inference Time of Real-time Prediction}{33}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces Comparison between the actual and predicted speed values of the downsized MDL model with the timewindow of 10 sec and the on- and off-ramp sections included}}{34}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.2}Real-time Prediction}{32}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces Comparison between the actual and predicted speed values of the downsized MDL model with the timewindow of 10 sec and the on- and off-ramp sections included}}{33}{}\protected@file@percent }
+\newlabel{fig:mdl_model_w_10_10_6_1_1_velocity_output_2299.5}{{4.1}{33}{}{}{}}
+\newlabel{table:realtime}{{\caption@xref {table:realtime}{ on input line 464}}{33}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces Comparison between the accuracy of donwsized models with different skip parameters in different prediction mode.}}{33}{}\protected@file@percent }
 \citation{COIFMAN2017362}
 \citation{9284587}
 \citation{mic}
@@ -111,78 +141,73 @@
 \@writefile{toc}{\contentsline {chapter}{\numberline {5}Limitations and Future Work}{35}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {5.1}Further data preprocessing}{35}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.1}Further Data Preprocessing}{35}{}\protected@file@percent }
 \citation{9284587}
-\@writefile{toc}{\contentsline {section}{\numberline {5.2}Further model optimisation}{36}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.2}Further Model Optimisation}{36}{}\protected@file@percent }
 \citation{WANG2023107044}
-\@writefile{toc}{\contentsline {section}{\numberline {5.3}Further architectural optimisation and scalability testing}{37}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.3}Further Architectural Optimisation and Scalability Testing}{37}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {chapter}{\numberline {6}Conclusion}{39}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \bibdata{refs.bib}
-\bibcite{GU20191}{1}
-\bibcite{li2024unifyinglaneleveltrafficprediction}{2}
-\bibcite{9077707}{3}
-\bibcite{Sigurdsson2018RoadTC}{4}
-\bibcite{9284587}{5}
-\bibcite{seo2020evaluation}{6}
-\bibcite{rossi2021vehicle}{7}
-\bibcite{DAHIYA2022100066}{8}
+\bibcite{congestion1}{1}
+\bibcite{congestion2}{2}
+\bibcite{ITS}{3}
+\bibcite{adas}{4}
+\bibcite{ngsim}{5}
+\bibcite{Zhang20231124}{6}
+\bibcite{trafficpattern}{7}
+\bibcite{GOMES2023200268}{8}
+\bibcite{macnnimage}{9}
 \@writefile{toc}{\contentsline {chapter}{References}{41}{}\protected@file@percent }
-\bibcite{10.1145/2820783.2820860}{9}
-\bibcite{yu2020dissecting}{10}
-\bibcite{10.1007/978-981-16-4126-8_24}{11}
-\bibcite{9075295}{12}
-\bibcite{8569938}{13}
-\bibcite{10.1145/3397536.3422274}{14}
-\bibcite{gora2020microscopic}{15}
+\bibcite{Zhou_Wang_Xie_Chen_Liu_2020}{10}
+\bibcite{Sigurdsson2018RoadTC}{11}
+\bibcite{gcn1}{12}
+\bibcite{GU20191}{13}
+\bibcite{li2024unifyinglaneleveltrafficprediction}{14}
+\bibcite{9077707}{15}
 \bibcite{Yang2019}{16}
-\bibcite{FAN2019298}{17}
-\bibcite{Zhang20231124}{18}
-\bibcite{STARK}{19}
-\bibcite{10356753}{20}
-\bibcite{LI2020225}{21}
-\bibcite{highDdataset}{22}
-\bibcite{zen}{23}
-\bibcite{sttrafficnet}{24}
-\bibcite{kalman}{25}
-\bibcite{traffictheory}{26}
-\bibcite{karima}{27}
-\bibcite{arimax}{28}
-\bibcite{starima}{29}
-\bibcite{gdl}{30}
-\bibcite{svr}{31}
-\bibcite{xgboost}{32}
-\bibcite{knn}{33}
-\bibcite{ma2015lstm}{34}
-\bibcite{rui2017gru}{35}
-\bibcite{macnnimage}{36}
-\bibcite{cnnzhang}{37}
-\bibcite{convlstm}{38}
-\bibcite{FCL}{39}
-\bibcite{gcn1}{40}
-\bibcite{gcn2}{41}
-\bibcite{agafonov}{42}
-\bibcite{ngsim}{43}
-\bibcite{Kreps2011KafkaA}{44}
-\bibcite{10.1145/3183713.3190664}{45}
-\bibcite{COIFMAN2017362}{46}
-\bibcite{Thiemann_2008}{47}
-\bibcite{MONTANINO201582}{48}
-\bibcite{lstm}{49}
-\bibcite{9779153}{50}
-\bibcite{KIM2016669}{51}
-\bibcite{mic}{52}
-\bibcite{miccomplexity}{53}
-\bibcite{WANG2023107044}{54}
-\@writefile{toc}{\contentsline {chapter}{Appendix \numberline {A}Supplementary Materials I}{48}{}\protected@file@percent }
+\bibcite{seo2020evaluation}{17}
+\bibcite{rossi2021vehicle}{18}
+\bibcite{DAHIYA2022100066}{19}
+\bibcite{highDdataset}{20}
+\bibcite{sttrafficnet}{21}
+\bibcite{kalman}{22}
+\bibcite{traffictheory}{23}
+\bibcite{karima}{24}
+\bibcite{arimax}{25}
+\bibcite{starima}{26}
+\bibcite{gdl}{27}
+\bibcite{svr}{28}
+\bibcite{xgboost}{29}
+\bibcite{knn}{30}
+\bibcite{ma2015lstm}{31}
+\bibcite{rui2017gru}{32}
+\bibcite{cnnzhang}{33}
+\bibcite{convlstm}{34}
+\bibcite{FCL}{35}
+\bibcite{gcn2}{36}
+\bibcite{agafonov}{37}
+\bibcite{Kreps2011KafkaA}{38}
+\bibcite{10.1145/3183713.3190664}{39}
+\bibcite{COIFMAN2017362}{40}
+\bibcite{Thiemann_2008}{41}
+\bibcite{MONTANINO201582}{42}
+\bibcite{9284587}{43}
+\bibcite{lstm}{44}
+\bibcite{9779153}{45}
+\bibcite{KIM2016669}{46}
+\bibcite{mic}{47}
+\bibcite{miccomplexity}{48}
+\bibcite{WANG2023107044}{49}
+\@writefile{toc}{\contentsline {chapter}{Appendix \numberline {A}Supplementary Materials I}{47}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Algorithm to convert a RDD to a 3D Tensor}}{48}{}\protected@file@percent }
-\newlabel{alg:rddto3d}{{1}{48}{}{}{}}
-\@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces Algorithm to a 5D input tensor offsetting with skip parameter}}{49}{}\protected@file@percent }
-\newlabel{alg:offset4d}{{2}{49}{}{}{}}
-\@writefile{toc}{\contentsline {chapter}{Appendix \numberline {B}Supplementary Materials II}{50}{}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Algorithm to convert a RDD to a 3D Tensor}}{47}{}\protected@file@percent }
+\newlabel{alg:rddto3d}{{1}{47}{}{}{}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces Algorithm to a 5D input tensor offsetting with skip parameter}}{48}{}\protected@file@percent }
+\newlabel{alg:offset4d}{{2}{48}{}{}{}}
+\@writefile{toc}{\contentsline {chapter}{Appendix \numberline {B}Supplementary Materials II}{49}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\gdef \@abspage@last{54}
+\gdef \@abspage@last{53}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.5.4)  3 SEP 2024 01:19
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.5.4)  3 SEP 2024 22:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -273,6 +273,9 @@ Chapter 1.
 LaTeX Font Warning: Font shape `OT1/cmr/bx/sc' undefined
 (Font)              using `OT1/cmr/bx/n' instead on input line 47.
 
+
+LaTeX Warning: Citation `gcn' on page 1 undefined on input line 56.
+
 [1
 
 ] [2] [3]
@@ -293,92 +296,92 @@ Chapter 3.
 <images/lane1.png, id=60, 412.6617pt x 328.8285pt>
 File: images/lane1.png Graphic file (type png)
 <use images/lane1.png>
-Package pdftex.def Info: images/lane1.png  used on input line 148.
+Package pdftex.def Info: images/lane1.png  used on input line 150.
 (pdftex.def)             Requested size: 412.66068pt x 328.8277pt.
  [11 <./images/lane1.png>] [12] [13]
 <images/trajectorycollision.jpg, id=73, 421.62318pt x 313.50726pt>
 File: images/trajectorycollision.jpg Graphic file (type jpg)
 <use images/trajectorycollision.jpg>
-Package pdftex.def Info: images/trajectorycollision.jpg  used on input line 194
+Package pdftex.def Info: images/trajectorycollision.jpg  used on input line 198
 .
 (pdftex.def)             Requested size: 421.62215pt x 313.50648pt.
 <images/interpolation.jpg, id=74, 457.28363pt x 496.29663pt>
 File: images/interpolation.jpg Graphic file (type jpg)
 <use images/interpolation.jpg>
-Package pdftex.def Info: images/interpolation.jpg  used on input line 200.
+Package pdftex.def Info: images/interpolation.jpg  used on input line 205.
 (pdftex.def)             Requested size: 341.43306pt x 370.5631pt.
  [14]
 <images/output1.png, id=79, 443.0151pt x 604.8999pt>
 File: images/output1.png Graphic file (type png)
 <use images/output1.png>
-Package pdftex.def Info: images/output1.png  used on input line 212.
+Package pdftex.def Info: images/output1.png  used on input line 218.
 (pdftex.def)             Requested size: 284.52756pt x 388.50989pt.
  [15 <./images/trajectorycollision.jpg>] [16 <./images/interpolation.jpg>] [17 
 <./images/output1.png>]
 <images/3dto5d.png, id=91, 1048.91875pt x 540.0175pt>
 File: images/3dto5d.png Graphic file (type png)
 <use images/3dto5d.png>
-Package pdftex.def Info: images/3dto5d.png  used on input line 226.
+Package pdftex.def Info: images/3dto5d.png  used on input line 232.
 (pdftex.def)             Requested size: 398.33858pt x 205.07693pt.
  [18]
 [19 <./images/3dto5d.png>]
 <images/rnn.png, id=101, 792.9625pt x 341.275pt>
 File: images/rnn.png Graphic file (type png)
 <use images/rnn.png>
-Package pdftex.def Info: images/rnn.png  used on input line 262.
+Package pdftex.def Info: images/rnn.png  used on input line 269.
 (pdftex.def)             Requested size: 398.33858pt x 171.43901pt.
 
 
 Package caption Warning: Cannot determine current font size.
 (caption)                Try setting it with `size=' explicitly on input line 2
-62.
+69.
 See the caption package documentation for explanation.
 
 
 Package caption Warning: Cannot determine current font size.
 (caption)                Try setting it with `size=' explicitly on input line 2
-62.
+69.
 See the caption package documentation for explanation.
 
 <images/lstm.png, id=102, 958.58125pt x 418.56375pt>
 File: images/lstm.png Graphic file (type png)
 <use images/lstm.png>
-Package pdftex.def Info: images/lstm.png  used on input line 265.
+Package pdftex.def Info: images/lstm.png  used on input line 272.
 (pdftex.def)             Requested size: 398.33858pt x 173.93701pt.
 
 Package caption Warning: Cannot determine current font size.
 (caption)                Try setting it with `size=' explicitly on input line 2
-65.
+72.
 See the caption package documentation for explanation.
 
 
 Package caption Warning: Cannot determine current font size.
 (caption)                Try setting it with `size=' explicitly on input line 2
-65.
+72.
 See the caption package documentation for explanation.
 
 [20] [21 <./images/rnn.png> <./images/lstm.png>]
 <images/convlstm.png, id=112, 844.15375pt x 595.22375pt>
 File: images/convlstm.png Graphic file (type png)
 <use images/convlstm.png>
-Package pdftex.def Info: images/convlstm.png  used on input line 280.
+Package pdftex.def Info: images/convlstm.png  used on input line 287.
 (pdftex.def)             Requested size: 398.33858pt x 280.88142pt.
  [22 <./images/convlstm.png>]
 [23]
 <images/MDL.png, id=122, 800.9925pt x 823.075pt>
 File: images/MDL.png Graphic file (type png)
 <use images/MDL.png>
-Package pdftex.def Info: images/MDL.png  used on input line 311.
+Package pdftex.def Info: images/MDL.png  used on input line 320.
 (pdftex.def)             Requested size: 398.33858pt x 409.32608pt.
 <images/downsizedmdl.png, id=123, 542.025pt x 707.64375pt>
 File: images/downsizedmdl.png Graphic file (type png)
 <use images/downsizedmdl.png>
-Package pdftex.def Info: images/downsizedmdl.png  used on input line 317.
+Package pdftex.def Info: images/downsizedmdl.png  used on input line 327.
 (pdftex.def)             Requested size: 398.33858pt x 520.07413pt.
 <images/realtime_arch.png, id=124, 649.42625pt x 578.16pt>
 File: images/realtime_arch.png Graphic file (type png)
 <use images/realtime_arch.png>
-Package pdftex.def Info: images/realtime_arch.png  used on input line 326.
+Package pdftex.def Info: images/realtime_arch.png  used on input line 337.
 (pdftex.def)             Requested size: 398.33858pt x 354.63556pt.
  [24] [25 <./images/MDL.png>]
 
@@ -389,19 +392,36 @@ Overfull \vbox (5.74821pt too high) has occurred while \output is active []
 
 
 [26 <./images/downsizedmdl.png>] [27 <./images/realtime_arch.png>] [28]
-Overfull \hbox (4.23206pt too wide) in paragraph at lines 371--371
+
+Package caption Warning: \label without proper reference on input line 398.
+See the caption package documentation for explanation.
+
+
+LaTeX Warning: Reference `table:models' on page 29 undefined on input line 376.
+
+
+[29]
+Overfull \hbox (4.23206pt too wide) in paragraph at lines 382--382
  []|\OT1/cmr/m/n/10.95 Timewindow| 
  []
 
 
-Overfull \hbox (11.06573pt too wide) in paragraph at lines 369--387
+Overfull \hbox (11.06573pt too wide) in paragraph at lines 380--399
  [][] 
  []
 
-[29] [30]
+[30]
 Chapter 4.
 
-Overfull \hbox (13.5614pt too wide) in paragraph at lines 400--415
+Package caption Warning: \label without proper reference on input line 429.
+See the caption package documentation for explanation.
+
+
+LaTeX Warning: Reference `table:originalvsdownsized' on page 31 undefined on in
+put line 410.
+
+
+Overfull \hbox (13.5614pt too wide) in paragraph at lines 414--430
  [][] 
  []
 
@@ -414,14 +434,26 @@ File: images/mdl_model_w_10_10_6_1_1_velocity_output_2299.5.png Graphic file (t
 ype png)
 <use images/mdl_model_w_10_10_6_1_1_velocity_output_2299.5.png>
 Package pdftex.def Info: images/mdl_model_w_10_10_6_1_1_velocity_output_2299.5.
-png  used on input line 423.
-(pdftex.def)             Requested size: 398.33858pt x 545.87656pt.
+png  used on input line 442.
+(pdftex.def)             Requested size: 284.52756pt x 389.91045pt.
 
-Overfull \hbox (10.38834pt too wide) in paragraph at lines 433--443
+Overfull \hbox (10.38834pt too wide) in paragraph at lines 454--465
  [][] 
  []
 
-[32] [33] [34 <./images/mdl_model_w_10_10_6_1_1_velocity_output_2299.5.png>]
+
+Package caption Warning: \label without proper reference on input line 464.
+See the caption package documentation for explanation.
+
+
+LaTeX Warning: Reference `table:realtime' on page 32 undefined on input line 46
+9.
+
+[32]
+
+LaTeX Warning: Text page 33 contains only floats.
+
+[33 <./images/mdl_model_w_10_10_6_1_1_velocity_output_2299.5.png>] [34]
 Chapter 5.
 [35
 
@@ -429,15 +461,21 @@ Chapter 5.
 Chapter 6.
 [39
 
-] (./thesis.bbl [40] [41
+] (./thesis.bbl [40]
+Underfull \hbox (badness 3312) in paragraph at lines 25--30
+[]\OT1/cmr/m/n/10.95 Jaswanth Nidama-nuri, Chin-mayi Nib-hanupudi, Rolf Ass-fal
+g, and Hrishikesh
+ []
 
-] [42] [43] [44] [45] [46]) [47]
+[41
+
+] [42] [43] [44] [45]) [46]
 Appendix A.
-[48
+[47
 
-] [49]
+] [48]
 Appendix B.
-[50
+[49
 
 ] (./thesis.aux)
  ***********
@@ -448,12 +486,15 @@ L3 programming layer <2024-02-20>
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
+
+LaTeX Warning: There were undefined references.
+
  ) 
 Here is how much of TeX's memory you used:
- 4623 strings out of 474116
- 78190 string characters out of 5743683
- 1942187 words of memory out of 5000000
- 26953 multiletter control sequences out of 15000+600000
+ 4630 strings out of 474116
+ 78357 string characters out of 5743683
+ 1943187 words of memory out of 5000000
+ 26960 multiletter control sequences out of 15000+600000
  566817 words of font info for 66 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  67i,15n,77p,1837b,495s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -475,10 +516,10 @@ e/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2
 4/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2024/
 texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2024/te
 xmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on thesis.pdf (54 pages, 4718885 bytes).
+Output written on thesis.pdf (53 pages, 4719667 bytes).
 PDF statistics:
- 293 PDF objects out of 1000 (max. 8388607)
- 176 compressed objects within 2 object streams
+ 290 PDF objects out of 1000 (max. 8388607)
+ 174 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  66 words of extra memory for PDF output out of 10000 (max. 10000000)
 
