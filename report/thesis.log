@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.5.4)  1 SEP 2024 22:09
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.5.4)  3 SEP 2024 01:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -173,42 +173,78 @@ Package: array 2023/10/16 v2.5g Tabular extension package (FMi)
 \backup@length=\skip56
 \ar@cellbox=\box54
 )
-(/usr/local/texlive/2024/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
-File: l3backend-pdftex.def 2024-02-20 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count283
-\l__pdf_internal_box=\box55
+(/usr/local/texlive/2024/texmf-dist/tex/latex/algorithms/algorithm.sty
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+
+(/usr/local/texlive/2024/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count283
+\float@exts=\toks24
+\float@box=\box55
+\@float@everytoks=\toks25
+\@floatcapt=\box56
 )
-(./thesis.aux)
+(/usr/local/texlive/2024/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2022/04/13 v1.1d Standard LaTeX ifthen package (DPC)
+)
+\@float@every@algorithm=\toks26
+\c@algorithm=\count284
+)
+(/usr/local/texlive/2024/texmf-dist/tex/latex/algorithmicx/algpseudocode.sty
+Package: algpseudocode 
+
+(/usr/local/texlive/2024/texmf-dist/tex/latex/algorithmicx/algorithmicx.sty
+Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
+
+Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
+\c@ALG@line=\count285
+\c@ALG@rem=\count286
+\c@ALG@nested=\count287
+\ALG@tlm=\skip57
+\ALG@thistlm=\skip58
+\c@ALG@Lnr=\count288
+\c@ALG@blocknr=\count289
+\c@ALG@storecount=\count290
+\c@ALG@tmpcounter=\count291
+\ALG@tmplength=\skip59
+)
+Document Style - pseudocode environments for use with the `algorithmicx' style
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2024-02-20 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count292
+\l__pdf_internal_box=\box57
+) (./thesis.aux)
 \openout1 = `thesis.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
 
 (/usr/local/texlive/2024/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count284
+\scratchcounter=\count293
 \scratchdimen=\dimen163
-\scratchbox=\box56
-\nofMPsegments=\count285
-\nofMParguments=\count286
-\everyMPshowfont=\toks24
-\MPscratchCnt=\count287
+\scratchbox=\box58
+\nofMPsegments=\count294
+\nofMParguments=\count295
+\everyMPshowfont=\toks27
+\MPscratchCnt=\count296
 \MPscratchDim=\dimen164
-\MPnumerator=\count288
-\makeMPintoPDFobject=\count289
-\everyMPtoPDFconversion=\toks25
+\MPnumerator=\count297
+\makeMPintoPDFobject=\count298
+\everyMPtoPDFconversion=\toks28
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -219,6 +255,7 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: float package is loaded.
 Package caption Info: End \AtBeginDocument code.
 
 [1
@@ -230,226 +267,120 @@ Package caption Info: End \AtBeginDocument code.
 
  [2
 
-] [3] [4] [5]
+] [3] [4]
 Chapter 1.
 
 LaTeX Font Warning: Font shape `OT1/cmr/bx/sc' undefined
-(Font)              using `OT1/cmr/bx/n' instead on input line 48.
+(Font)              using `OT1/cmr/bx/n' instead on input line 47.
 
 [1
 
-] [2]
+] [2] [3]
 Chapter 2.
-! Undefined control sequence.
-<recently read> \noident 
-                         
-l.79 \noident
-             - Anomaly and complexity of urban traffic environment:
-? 
-! Undefined control sequence.
-<recently read> \noident 
-                         
-l.83 \noident
-             - Scalability and real-time processing:
-? 
-[3
+[4
 
-]
-Overfull \hbox (23.51207pt too wide) in paragraph at lines 94--94
-[]|\OT1/cmr/m/n/10.95 Microscopic|  
- []
-
-
-Overfull \hbox (1.88998pt too wide) in paragraph at lines 102--102
-[]|\OT1/cmr/m/n/10.95 Macroscopic| 
- []
-
-
-Overfull \hbox (26.4625pt too wide) in paragraph at lines 104--104
-[]|\OT1/cmr/m/n/10.95 Combined|  
- []
-
-[4]
-
-LaTeX Warning: Citation `highDdataset' on page 5 undefined on input line 120.
-
-
-LaTeX Warning: Citation `zen' on page 5 undefined on input line 122.
-
-[5]
-<pems.png, id=41, 321.24014pt x 200.9106pt>
-File: pems.png Graphic file (type png)
-<use pems.png>
-Package pdftex.def Info: pems.png  used on input line 128.
+] [5]
+<images/pems.png, id=41, 321.24014pt x 200.9106pt>
+File: images/pems.png Graphic file (type png)
+<use images/pems.png>
+Package pdftex.def Info: images/pems.png  used on input line 95.
 (pdftex.def)             Requested size: 398.33858pt x 249.14494pt.
-
-
-LaTeX Warning: Citation `sttrafficnet' on page 6 undefined on input line 129.
-
-
-LaTeX Warning: Citation `sttrafficnet' on page 6 undefined on input line 129.
-
-
-LaTeX Warning: Citation `kalman' on page 6 undefined on input line 134.
-
-
-LaTeX Warning: Citation `traffictheory' on page 6 undefined on input line 134.
-
-
-LaTeX Warning: Citation `karima' on page 6 undefined on input line 134.
-
-
-LaTeX Warning: Citation `arimax' on page 6 undefined on input line 134.
-
-
-LaTeX Warning: Citation `starima' on page 6 undefined on input line 134.
-
-
-LaTeX Warning: Citation `gdl' on page 6 undefined on input line 134.
-
-[6 <./pems.png>]
-
-LaTeX Warning: Citation `svr' on page 7 undefined on input line 136.
-
-
-LaTeX Warning: Citation `xgboost' on page 7 undefined on input line 136.
-
-
-LaTeX Warning: Citation `knn' on page 7 undefined on input line 136.
-
-
-LaTeX Warning: Citation `ma2015lstm' on page 7 undefined on input line 140.
-
-
-LaTeX Warning: Citation `rui2017gru' on page 7 undefined on input line 140.
-
-
-LaTeX Warning: Citation `macnnimage' on page 7 undefined on input line 142.
-
-
-LaTeX Warning: Citation `cnnzhang' on page 7 undefined on input line 142.
-
-
-LaTeX Warning: Citation `convlstm' on page 7 undefined on input line 142.
-
-
-LaTeX Warning: Citation `FCL' on page 7 undefined on input line 142.
-
-
-LaTeX Warning: Citation `gcn1' on page 7 undefined on input line 144.
-
-
-LaTeX Warning: Citation `gcn2' on page 7 undefined on input line 144.
-
-[7] [8] [9]
+ [6] [7 <./images/pems.png>] [8] [9]
 Chapter 3.
-
-LaTeX Warning: Citation `ngsim' on page 10 undefined on input line 159.
-
 [10
 
 ]
-<lane1.png, id=60, 412.6617pt x 328.8285pt>
-File: lane1.png Graphic file (type png)
-<use lane1.png>
-Package pdftex.def Info: lane1.png  used on input line 182.
+<images/lane1.png, id=60, 412.6617pt x 328.8285pt>
+File: images/lane1.png Graphic file (type png)
+<use images/lane1.png>
+Package pdftex.def Info: images/lane1.png  used on input line 148.
 (pdftex.def)             Requested size: 412.66068pt x 328.8277pt.
- [11 <./lane1.png>] [12] [13]
-<trajectorycollision.jpg, id=72, 421.62318pt x 313.50726pt>
-File: trajectorycollision.jpg Graphic file (type jpg)
-<use trajectorycollision.jpg>
-Package pdftex.def Info: trajectorycollision.jpg  used on input line 228.
+ [11 <./images/lane1.png>] [12] [13]
+<images/trajectorycollision.jpg, id=73, 421.62318pt x 313.50726pt>
+File: images/trajectorycollision.jpg Graphic file (type jpg)
+<use images/trajectorycollision.jpg>
+Package pdftex.def Info: images/trajectorycollision.jpg  used on input line 194
+.
 (pdftex.def)             Requested size: 421.62215pt x 313.50648pt.
-<interpolation.jpg, id=73, 457.28363pt x 496.29663pt>
-File: interpolation.jpg Graphic file (type jpg)
-<use interpolation.jpg>
-Package pdftex.def Info: interpolation.jpg  used on input line 234.
+<images/interpolation.jpg, id=74, 457.28363pt x 496.29663pt>
+File: images/interpolation.jpg Graphic file (type jpg)
+<use images/interpolation.jpg>
+Package pdftex.def Info: images/interpolation.jpg  used on input line 200.
 (pdftex.def)             Requested size: 341.43306pt x 370.5631pt.
-
-
-LaTeX Warning: Citation `Thiemann_2008' on page 14 undefined on input line 238.
-
-
-
-LaTeX Warning: Citation `MONTANINO201582' on page 14 undefined on input line 23
-8.
-
-[14]
-<output1.png, id=80, 443.0151pt x 604.8999pt>
-File: output1.png Graphic file (type png)
-<use output1.png>
-Package pdftex.def Info: output1.png  used on input line 246.
+ [14]
+<images/output1.png, id=79, 443.0151pt x 604.8999pt>
+File: images/output1.png Graphic file (type png)
+<use images/output1.png>
+Package pdftex.def Info: images/output1.png  used on input line 212.
 (pdftex.def)             Requested size: 284.52756pt x 388.50989pt.
- [15 <./trajectorycollision.jpg>] [16 <./interpolation.jpg>] [17 <./output1.png
->]
-<3dto5d.png, id=91, 1048.91875pt x 540.0175pt>
-File: 3dto5d.png Graphic file (type png)
-<use 3dto5d.png>
-Package pdftex.def Info: 3dto5d.png  used on input line 260.
+ [15 <./images/trajectorycollision.jpg>] [16 <./images/interpolation.jpg>] [17 
+<./images/output1.png>]
+<images/3dto5d.png, id=91, 1048.91875pt x 540.0175pt>
+File: images/3dto5d.png Graphic file (type png)
+<use images/3dto5d.png>
+Package pdftex.def Info: images/3dto5d.png  used on input line 226.
 (pdftex.def)             Requested size: 398.33858pt x 205.07693pt.
  [18]
-
-LaTeX Warning: Citation `convlstm' on page 19 undefined on input line 269.
-
-[19 <./3dto5d.png>]
-<rnn.png, id=101, 792.9625pt x 341.275pt>
-File: rnn.png Graphic file (type png)
-<use rnn.png>
-Package pdftex.def Info: rnn.png  used on input line 296.
+[19 <./images/3dto5d.png>]
+<images/rnn.png, id=101, 792.9625pt x 341.275pt>
+File: images/rnn.png Graphic file (type png)
+<use images/rnn.png>
+Package pdftex.def Info: images/rnn.png  used on input line 262.
 (pdftex.def)             Requested size: 398.33858pt x 171.43901pt.
 
 
 Package caption Warning: Cannot determine current font size.
 (caption)                Try setting it with `size=' explicitly on input line 2
-96.
+62.
 See the caption package documentation for explanation.
 
 
 Package caption Warning: Cannot determine current font size.
 (caption)                Try setting it with `size=' explicitly on input line 2
-96.
+62.
 See the caption package documentation for explanation.
 
-<lstm.png, id=102, 958.58125pt x 418.56375pt>
-File: lstm.png Graphic file (type png)
-<use lstm.png>
-Package pdftex.def Info: lstm.png  used on input line 299.
+<images/lstm.png, id=102, 958.58125pt x 418.56375pt>
+File: images/lstm.png Graphic file (type png)
+<use images/lstm.png>
+Package pdftex.def Info: images/lstm.png  used on input line 265.
 (pdftex.def)             Requested size: 398.33858pt x 173.93701pt.
 
 Package caption Warning: Cannot determine current font size.
 (caption)                Try setting it with `size=' explicitly on input line 2
-99.
+65.
 See the caption package documentation for explanation.
 
 
 Package caption Warning: Cannot determine current font size.
 (caption)                Try setting it with `size=' explicitly on input line 2
-99.
+65.
 See the caption package documentation for explanation.
 
-[20] [21 <./rnn.png> <./lstm.png>]
-<convlstm.png, id=113, 844.15375pt x 595.22375pt>
-File: convlstm.png Graphic file (type png)
-<use convlstm.png>
-Package pdftex.def Info: convlstm.png  used on input line 314.
+[20] [21 <./images/rnn.png> <./images/lstm.png>]
+<images/convlstm.png, id=112, 844.15375pt x 595.22375pt>
+File: images/convlstm.png Graphic file (type png)
+<use images/convlstm.png>
+Package pdftex.def Info: images/convlstm.png  used on input line 280.
 (pdftex.def)             Requested size: 398.33858pt x 280.88142pt.
- [22 <./convlstm.png>] [23]
-<MDL.png, id=123, 800.9925pt x 823.075pt>
-File: MDL.png Graphic file (type png)
-<use MDL.png>
-Package pdftex.def Info: MDL.png  used on input line 345.
+ [22 <./images/convlstm.png>]
+[23]
+<images/MDL.png, id=122, 800.9925pt x 823.075pt>
+File: images/MDL.png Graphic file (type png)
+<use images/MDL.png>
+Package pdftex.def Info: images/MDL.png  used on input line 311.
 (pdftex.def)             Requested size: 398.33858pt x 409.32608pt.
-<downsizedmdl.png, id=124, 542.025pt x 707.64375pt>
-File: downsizedmdl.png Graphic file (type png)
-<use downsizedmdl.png>
-Package pdftex.def Info: downsizedmdl.png  used on input line 351.
+<images/downsizedmdl.png, id=123, 542.025pt x 707.64375pt>
+File: images/downsizedmdl.png Graphic file (type png)
+<use images/downsizedmdl.png>
+Package pdftex.def Info: images/downsizedmdl.png  used on input line 317.
 (pdftex.def)             Requested size: 398.33858pt x 520.07413pt.
-<realtime_arch.png, id=125, 649.42625pt x 578.16pt>
-File: realtime_arch.png Graphic file (type png)
-<use realtime_arch.png>
-Package pdftex.def Info: realtime_arch.png  used on input line 360.
+<images/realtime_arch.png, id=124, 649.42625pt x 578.16pt>
+File: images/realtime_arch.png Graphic file (type png)
+<use images/realtime_arch.png>
+Package pdftex.def Info: images/realtime_arch.png  used on input line 326.
 (pdftex.def)             Requested size: 398.33858pt x 354.63556pt.
- [24] [25 <./MDL.png>]
+ [24] [25 <./images/MDL.png>]
 
 LaTeX Warning: Text page 26 contains only floats.
 
@@ -457,69 +388,56 @@ LaTeX Warning: Text page 26 contains only floats.
 Overfull \vbox (5.74821pt too high) has occurred while \output is active []
 
 
-[26 <./downsizedmdl.png>] [27 <./realtime_arch.png>] [28]
-Overfull \hbox (4.23206pt too wide) in paragraph at lines 403--403
+[26 <./images/downsizedmdl.png>] [27 <./images/realtime_arch.png>] [28]
+Overfull \hbox (4.23206pt too wide) in paragraph at lines 371--371
  []|\OT1/cmr/m/n/10.95 Timewindow| 
  []
 
 
-Overfull \hbox (11.06573pt too wide) in paragraph at lines 401--419
+Overfull \hbox (11.06573pt too wide) in paragraph at lines 369--387
  [][] 
  []
 
 [29] [30]
 Chapter 4.
 
-Overfull \hbox (13.5614pt too wide) in paragraph at lines 432--447
+Overfull \hbox (13.5614pt too wide) in paragraph at lines 400--415
  [][] 
  []
 
 [31
 
 ]
-<mdl_model_w_10_10_6_1_1_velocity_output_2299.5.png, id=154, 462.528pt x 633.80
-79pt>
-File: mdl_model_w_10_10_6_1_1_velocity_output_2299.5.png Graphic file (type png
-)
-<use mdl_model_w_10_10_6_1_1_velocity_output_2299.5.png>
-Package pdftex.def Info: mdl_model_w_10_10_6_1_1_velocity_output_2299.5.png  us
-ed on input line 455.
+<images/mdl_model_w_10_10_6_1_1_velocity_output_2299.5.png, id=153, 462.528pt x
+ 633.8079pt>
+File: images/mdl_model_w_10_10_6_1_1_velocity_output_2299.5.png Graphic file (t
+ype png)
+<use images/mdl_model_w_10_10_6_1_1_velocity_output_2299.5.png>
+Package pdftex.def Info: images/mdl_model_w_10_10_6_1_1_velocity_output_2299.5.
+png  used on input line 423.
 (pdftex.def)             Requested size: 398.33858pt x 545.87656pt.
 
-Overfull \hbox (10.38834pt too wide) in paragraph at lines 465--475
+Overfull \hbox (10.38834pt too wide) in paragraph at lines 433--443
  [][] 
  []
 
-[32] [33] [34 <./mdl_model_w_10_10_6_1_1_velocity_output_2299.5.png>]
+[32] [33] [34 <./images/mdl_model_w_10_10_6_1_1_velocity_output_2299.5.png>]
 Chapter 5.
-
-LaTeX Warning: Citation `mic' on page 35 undefined on input line 503.
-
-
-LaTeX Warning: Citation `miccomplexity' on page 35 undefined on input line 504.
-
-
 [35
 
-] [36]
-
-LaTeX Warning: Citation `WANG2023107044' on page 37 undefined on input line 512
-.
-
-[37] [38]
+] [36] [37] [38]
 Chapter 6.
-(./thesis.bbl [39
+[39
 
-] [40
+] (./thesis.bbl [40] [41
 
-] [41{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.
-enc}] [42]) [43]
+] [42] [43] [44] [45] [46]) [47]
 Appendix A.
-[44
+[48
 
-]
+] [49]
 Appendix B.
-[45
+[50
 
 ] (./thesis.aux)
  ***********
@@ -530,21 +448,15 @@ L3 programming layer <2024-02-20>
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
  ) 
 Here is how much of TeX's memory you used:
- 3916 strings out of 474116
- 66405 string characters out of 5743683
+ 4623 strings out of 474116
+ 78190 string characters out of 5743683
  1942187 words of memory out of 5000000
- 26266 multiletter control sequences out of 15000+600000
- 565794 words of font info for 62 fonts, out of 8000000 for 9000
+ 26953 multiletter control sequences out of 15000+600000
+ 566817 words of font info for 66 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 67i,15n,77p,1837b,493s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 67i,15n,77p,1837b,495s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb>
@@ -555,17 +467,18 @@ r/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/
 local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/lo
 cal/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/loca
 l/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/
-texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/tex
-live/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texl
-ive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texli
-ve/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive
-/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2
-024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/20
-24/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb>
-Output written on thesis.pdf (50 pages, 4698913 bytes).
+texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/tex
+live/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texliv
+e/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2
+024/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/20
+24/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/202
+4/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2024/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2024/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
+Output written on thesis.pdf (54 pages, 4718885 bytes).
 PDF statistics:
- 277 PDF objects out of 1000 (max. 8388607)
- 166 compressed objects within 2 object streams
+ 293 PDF objects out of 1000 (max. 8388607)
+ 176 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  66 words of extra memory for PDF output out of 10000 (max. 10000000)
 

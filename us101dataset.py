@@ -68,35 +68,10 @@ class US101Dataset(Dataset):
         time_series = np.stack(mat3d)
         print(f"Timewise stacking: {num_timewindows} Apppended. Shape: ", time_series.shape)
     
-        """
-        vel_stack = np.empty(shape=(num_lanes, num_section+1, num_timewindows))
-        dens_stack = np.empty(shape=(num_lanes, num_section+1, num_timewindows))
-        acc_stack = np.empty(shape=(num_lanes, num_section+1, num_timewindows))
-        time_series = []
-
-        for i in range(num_timewindows):
-            timewindow_df = df.filter(F.col("TimeWindow") == i)
-            # timewindow_pivot_np(timewindow_df, i)
-            #timewindow_df = add_timewindow_col(df, start, end, timewindow)
-            #vel_stack[:, :, i], dens_stack[:, :, i], acc_stack[:, :, i] = timewindow_pivot(timewindow_df, i)
-            vel_stack[:, :, i], dens_stack[:, :, i], acc_stack[:, :, i] = create_np_matrices(timewindow_df, num_section)
-            time_series.append([vel_stack[:, :, i], dens_stack[:, :, i], acc_stack[:, :, i]])
-            print(f"Timewise stacking: {i} TimeWindows appended")
-        """
         history_data = []
         predict_data = []
 
         # slide history and predict window by one timewindow
-        """
-        for end_idx in range(history_len + predict_len, num_timewindows): # 20 is the number of timewindows to skip
-            predict_frames = time_series[end_idx-predict_len:end_idx][:][:][:]
-            history_frames = time_series[end_idx-history_len-predict_len:end_idx-predict_len][:][:][:]
-            history_data.append(history_frames)
-            predict_data.append(predict_frames)
-
-            if num_timewindows - end_idx == 1:
-                print(f"{end_idx-predict_len-history_len+1} History and Predict sample data created") 
-        """
         for end_idx in range(history_len + num_skip + predict_len, num_timewindows): # num_skip is the number of timewindows to skip
             predict_frames = time_series[end_idx-predict_len:end_idx][:][:][:]
             history_frames = time_series[end_idx-history_len-num_skip-predict_len:end_idx-num_skip-predict_len][:][:][:]

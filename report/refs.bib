@@ -114,13 +114,13 @@
   author = {The Apache Software Foundation}
 }
 
-@inproceedings{Sigurdsson2018RoadTC,
+@phdthesis{Sigurdsson2018RoadTC,
   author = {Thorsteinn Thorri Sigurdsson},
   title = {Road traffic congestion detection and tracking with Spark Streaming analytics},
   url = {https://api.semanticscholar.org/CorpusID:199016126},
-  keywords = {streaming, graph processing, congestion,
-community detection, connected components},
-  year = {2018}
+  keywords = {streaming, graph processing, congestion, community detection, connected components},
+  year = {2018},
+  school = {KTH Royal Institute of Technology}
 }
 
 @article{yu2020dissecting,
@@ -161,7 +161,7 @@ community detection, connected components},
   pages             = {1124 - 1144},
   doi               = {10.1111/tgis.13061},
   url               = {https://www.scopus.com/inward/record.uri?eid=2-s2.0-85158139961&doi=10.1111%2ftgis.13061&partnerID=40&md5=4b3b85c991c4f5286d537388e4bb0fe3},
-  abstract          = {With the increasing availability of location-aware devices, passively collected big GPS trajectory data offer new opportunities for analyzing human mobility. Processing big GPS trajectory data, especially extracting information from billions of trajectory points and assigning information to corresponding road segments in road networks, is a challenging but necessary task for researchers to take full advantage of big data. In this research, we propose an Apache Spark and Sedona-based computing framework that is capable of estimating traffic speeds for statewide road networks from GPS trajectory data. Taking advantage of spatial resilient distributed datasets supported by Sedona, the framework provides high computing efficiency while using affordable computing resources for map matching and waypoint gap filling. Using a mobility dataset of 126 million trajectory points collected in California, and a road network inclusive of all road types, we computed hourly speed estimates for approximately 600,000 segments across the state. Comparing speed estimates for freeway segments with speed limits, our speed estimates showed that speeding on freeways occurred mostly during the nighttime, while analysis of travel on residential roads showed that speeds were relatively stable over the 24-h period. © 2023 John Wiley & Sons Ltd.},
+  abstract          = {With the increasing availability of location-aware devices, passively collected big GPS trajectory data offer new opportunities for analyzing human mobility. Processing big GPS trajectory data, especially extracting information from billions of trajectory points and assigning information to corresponding road segments in road networks, is a challenging but necessary task for researchers to take full advantage of big data. In this research, we propose an Apache Spark and Sedona-based computing framework that is capable of estimating traffic speeds for statewide road networks from GPS trajectory data. Taking advantage of spatial resilient distributed datasets supported by Sedona, the framework provides high computing efficiency while using affordable computing resources for map matching and waypoint gap filling. Using a mobility dataset of 126 million trajectory points collected in California, and a road network inclusive of all road types, we computed hourly speed estimates for approximately 600,000 segments across the state. Comparing speed estimates for freeway segments with speed limits, our speed estimates showed that speeding on freeways occurred mostly during the nighttime, while analysis of travel on residential roads showed that speeds were relatively stable over the 24-h period. © 2023 John Wiley \& Sons Ltd.},
   keywords          = {California, United States, Distributed computer systems, Motor transportation, Roads and streets, Distributed computing frameworks, Extracting information, Human mobility, Location-aware, Mobility datum, Road network, Road segments, Traffic speed, Trajectories datum, Trajectory points, estimation method, GPS, mobility, road transport, trajectory, travel time, Trajectories},
   type              = {Article},
   publication_stage = {Final},
@@ -283,12 +283,11 @@ series = {SIGSPATIAL '20}
 }
 
 @inproceedings{STARK,
-  author = {Hagedorn, Stefan and Götze, Philipp and Sattler, Kai-Uwe},
-  year = {2017},
-  month = {01},
-  pages = {},
-  title = {The STARK Framework for Spatio-Temporal Data Analytics on Spark},
-  abstract={Big Data sets can contain all types of information: from server log files to tracking information of mobile users with their location at a point in time. Apache Spark has been widely accepted for Big Data analytics because of its very fast processing model. However, Spark has no native support for spatial or spatio-temporal data. Spatial filters or joins using, e.g., a contains predicate are not supported and would have to be implemented inefficiently by the users. Also, Spark cannot make use of, e.g., spatial distribution for optimal partitioning. Here we present our STARK framework that adds spatio-temporal support to Spark. It includes spatial partitioners, different modes for indexing, as well as filter, join, and clustering operators. In contrast to existing solutions, STARK integrates seamlessly into any (Scala) Spark program and provides more flexible and comprehensive operators. Furthermore, our experimental evaluation shows that our implementation outperforms existing solutions.}
+  title={The STARK Framework for Spatio-Temporal Data Analytics on Spark},
+  author={Stefan Hagedorn and Philipp G{\"o}tze and Kai-Uwe Sattler},
+  booktitle={Datenbanksysteme f{\"u}r Business, Technologie und Web},
+  year={2017},
+  url={https://api.semanticscholar.org/CorpusID:4852155}
 }
 
 @article{PradeepReddy_2022,
@@ -335,11 +334,8 @@ series = {SIGSPATIAL '20}
 }
 
 @inproceedings{10.1007/978-981-16-4126-8_24,
-  author={Alba Valencia, Ver{\'o}nica
-  and Proa{\~{n}}o Orellana, Julio},
-  editor={Rocha, {\'A}lvaro
-  and L{\'o}pez-L{\'o}pez, Paulo Carlos
-  and Salgado-Guerrero, Juan Pablo},
+  author={Alba Valencia, Ver{\'o}nica and Proa{\~{n}}o Orellana, Julio},
+  editor={Rocha, {\'A}lvaro and L{\'o}pez-L{\'o}pez, Paulo Carlos and Salgado-Guerrero, Juan Pablo},
   title={Design and Evaluation of a Distributed Architecture for GeoSparkSim},
   booktitle={Communication, Smart Technologies and Innovation for Society},
   year={2022},
@@ -434,7 +430,7 @@ doi = {10.1162/neco.1997.9.8.1735}
   keywords={Feature extraction;Convolutional neural networks;Task analysis;Hyperspectral imaging;Convolution;Three-dimensional displays;Redundancy;Change detection (CD);efficient channel attention (ECA);hyperspectral images (HSIs);long short-term memory (LSTM);multipath convolutional long short-term memory neural network (MP-ConvLSTM);Siamese convolutional neural network (CNN)},
   doi={10.1109/TGRS.2022.3176642}}
 
-@inproceedings{Kreps2011KafkaA,
+@misc{Kreps2011KafkaA,
   title={Kafka: a Distributed Messaging System for Log Processing},
   author={Jay Kreps, Neha Narkhede, Jun Rao},
   year={2011},
@@ -526,7 +522,7 @@ doi = {10.21078/JSSI-2021-095-10}
 
 @article{WANG2023107044,
 title = {Wide-area vehicle trajectory data based on advanced tracking and trajectory splicing technologies: Potentials in transportation research},
-journal = {Accident Analysis & Prevention},
+journal = {Accident Analysis \& Prevention},
 volume = {186},
 pages = {107044},
 year = {2023},
@@ -611,19 +607,19 @@ doi = {10.3141/1776-25}
 }
 
 @article{starima,
-title = {Space-time modeling of traffic flow},
-journal = {Computers & Geosciences},
-volume = {31},
-number = {2},
-pages = {119-133},
-year = {2005},
-note = {Geospatial Research in Europe: AGILE 2003},
-issn = {0098-3004},
-doi = {https://doi.org/10.1016/j.cageo.2004.05.012},
-url = {https://www.sciencedirect.com/science/article/pii/S0098300404001888},
-author = {Yiannis Kamarianakis and Poulicos Prastacos},
-keywords = {ARIMA, Time series, Network},
-abstract = {This paper discusses the application of space-time autoregressive integrated moving average (STARIMA) methodology for representing traffic flow patterns. Traffic flow data are in the form of spatial time series and are collected at specific locations at constant intervals of time. Important spatial characteristics of the space–time process are incorporated in the STARIMA model through the use of weighting matrices estimated on the basis of the distances among the various locations where data are collected. These matrices distinguish the space–time approach from the vector autoregressive moving average (VARMA) methodology and enable the model builders to control the number of the parameters that have to be estimated. The proposed models can be used for short-term forecasting of space–time stationary traffic-flow processes and for assessing the impact of traffic-flow changes on other parts of the network. The three-stage iterative space–time model building procedure is illustrated using 7.5min average traffic flow data for a set of 25 loop-detectors located at roads that direct to the centre of the city of Athens, Greece. Data for two months with different traffic-flow characteristics are modelled in order to determine the stability of the parameter estimation.}
+  title = {Space-time modeling of traffic flow},
+  journal = {Computers \& Geosciences},
+  volume = {31},
+  number = {2},
+  pages = {119-133},
+  year = {2005},
+  note = {Geospatial Research in Europe: AGILE 2003},
+  issn = {0098-3004},
+  doi = {https://doi.org/10.1016/j.cageo.2004.05.012},
+  url = {https://www.sciencedirect.com/science/article/pii/S0098300404001888},
+  author = {Yiannis Kamarianakis and Poulicos Prastacos},
+  keywords = {ARIMA, Time series, Network},
+  abstract = {This paper discusses the application of space-time autoregressive integrated moving average (STARIMA) methodology for representing traffic flow patterns. Traffic flow data are in the form of spatial time series and are collected at specific locations at constant intervals of time. Important spatial characteristics of the space–time process are incorporated in the STARIMA model through the use of weighting matrices estimated on the basis of the distances among the various locations where data are collected. These matrices distinguish the space–time approach from the vector autoregressive moving average (VARMA) methodology and enable the model builders to control the number of the parameters that have to be estimated. The proposed models can be used for short-term forecasting of space–time stationary traffic-flow processes and for assessing the impact of traffic-flow changes on other parts of the network. The three-stage iterative space–time model building procedure is illustrated using 7.5min average traffic flow data for a set of 25 loop-detectors located at roads that direct to the centre of the city of Athens, Greece. Data for two months with different traffic-flow characteristics are modelled in order to determine the stability of the parameter estimation.}
 }
 
 @article{kalman,
@@ -709,7 +705,7 @@ keywords = {Neural networks, Long short-term neural network, Traffic speed predi
 abstract = {Neural networks have been extensively applied to short-term traffic prediction in the past years. This study proposes a novel architecture of neural networks, Long Short-Term Neural Network (LSTM NN), to capture nonlinear traffic dynamic in an effective manner. The LSTM NN can overcome the issue of back-propagated error decay through memory blocks, and thus exhibits the superior capability for time series prediction with long temporal dependency. In addition, the LSTM NN can automatically determine the optimal time lags. To validate the effectiveness of LSTM NN, travel speed data from traffic microwave detectors in Beijing are used for model training and testing. A comparison with different topologies of dynamic neural networks as well as other prevailing parametric and nonparametric algorithms suggests that LSTM NN can achieve the best prediction performance in terms of both accuracy and stability.}
 }
 
-@INPROCEEDINGS{ruigru,
+@INPROCEEDINGS{rui2017gru,
   author={Fu, Rui and Zhang, Zuo and Li, Li},
   booktitle={2016 31st Youth Academic Annual Conference of Chinese Association of Automation (YAC)}, 
   title={Using LSTM and GRU neural network methods for traffic flow prediction}, 
@@ -755,7 +751,7 @@ abstract = {Neural networks have been extensively applied to short-term traffic 
 
 @INPROCEEDINGS{gcn1,
   author={Wang, Lingyun and Shen, Guojiang and Yu, Kaifeng and Ji, Zhanhao and Kong, Xiangjie},
-  booktitle={2021 IEEE 23rd Int Conf on High Performance Computing & Communications; 7th Int Conf on Data Science & Systems; 19th Int Conf on Smart City; 7th Int Conf on Dependability in Sensor, Cloud & Big Data Systems & Application (HPCC/DSS/SmartCity/DependSys)}, 
+  booktitle={2021 IEEE 23rd Int Conf on High Performance Computing \& Communications; 7th Int Conf on Data Science \& Systems; 19th Int Conf on Smart City; 7th Int Conf on Dependability in Sensor, Cloud \& Big Data Systems \& Application (HPCC/DSS/SmartCity/DependSys)}, 
   title={Lane-Level Traffic Flow Prediction Based on Dynamic Graph Generation}, 
   year={2021},
   volume={},

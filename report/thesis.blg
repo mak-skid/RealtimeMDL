@@ -1,50 +1,46 @@
 This is BibTeX, Version 0.99d (TeX Live 2024)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: thesis.aux
-The style file: acm.bst
+The style file: unsrt.bst
 Database file #1: refs.bib
-Warning--empty booktitle in STARK
-Warning--empty booktitle in Kreps2011KafkaA
-Warning--empty booktitle in Sigurdsson2018RoadTC
-You've used 30 entries,
-            2253 wiz_defined-function locations,
-            722 strings with 10968 characters,
-and the built_in function-call counts, 11708 in all, are:
-= -- 1050
-> -- 718
-< -- 0
-+ -- 294
-- -- 260
-* -- 1000
-:= -- 1923
-add.period$ -- 87
-call.type$ -- 30
-change.case$ -- 215
+You've used 54 entries,
+            1791 wiz_defined-function locations,
+            782 strings with 15744 characters,
+and the built_in function-call counts, 14208 in all, are:
+= -- 1165
+> -- 784
+< -- 10
++ -- 280
+- -- 226
+* -- 1065
+:= -- 2265
+add.period$ -- 165
+call.type$ -- 54
+change.case$ -- 53
 chr.to.int$ -- 0
-cite$ -- 33
-duplicate$ -- 386
-empty$ -- 855
-format.name$ -- 260
-if$ -- 2404
+cite$ -- 54
+duplicate$ -- 582
+empty$ -- 1342
+format.name$ -- 226
+if$ -- 3196
 int.to.chr$ -- 0
-int.to.str$ -- 30
-missing$ -- 28
-newline$ -- 150
-num.names$ -- 64
-pop$ -- 229
+int.to.str$ -- 54
+missing$ -- 48
+newline$ -- 271
+num.names$ -- 58
+pop$ -- 141
 preamble$ -- 1
-purify$ -- 185
+purify$ -- 0
 quote$ -- 0
-skip$ -- 242
+skip$ -- 286
 stack$ -- 0
-substring$ -- 615
-swap$ -- 105
-text.length$ -- 0
+substring$ -- 966
+swap$ -- 145
+text.length$ -- 10
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 120
-warning$ -- 3
-while$ -- 90
-width$ -- 32
-write$ -- 299
-(There were 3 warnings)
+type$ -- 0
+warning$ -- 0
+while$ -- 110
+width$ -- 56
+write$ -- 595

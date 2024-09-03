@@ -1,198 +1,363 @@
 \begin{thebibliography}{10}
 
-\bibitem{10.1007/978-981-16-4126-8_24}
-{\sc Alba~Valencia, V., and Proa{\~{n}}o~Orellana, J.}
-\newblock Design and evaluation of a distributed architecture for geosparksim.
-\newblock In {\em Communication, Smart Technologies and Innovation for
-  Society\/} (Singapore, 2022), {\'A}.~Rocha, P.~C. L{\'o}pez-L{\'o}pez, and
-  J.~P. Salgado-Guerrero, Eds., Springer Singapore, pp.~253--263.
+\bibitem{GU20191}
+Yuanli Gu, Wenqi Lu, Lingqiao Qin, Meng Li, and Zhuangzhuang Shao.
+\newblock Short-term prediction of lane-level traffic speeds: A fusion deep
+  learning model.
+\newblock {\em Transportation Research Part C: Emerging Technologies},
+  106:1--16, 2019.
+
+\bibitem{li2024unifyinglaneleveltrafficprediction}
+Shuhao Li, Yue Cui, Jingyi Xu, Libin Li, Lingkai Meng, Weidong Yang, Fan Zhang,
+  and Xiaofang Zhou.
+\newblock Unifying lane-level traffic prediction from a graph structural
+  perspective: Benchmark and baseline, 2024.
 
 \bibitem{9077707}
-{\sc Anveshrithaa, S., and Lavanya, K.}
+S~Anveshrithaa and K~Lavanya.
 \newblock Real-time vehicle traffic analysis using long short term memory
   networks in apache spark.
 \newblock In {\em 2020 International Conference on Emerging Trends in
-  Information Technology and Engineering (ic-ETITE)\/} (2020), pp.~1--5.
+  Information Technology and Engineering (ic-ETITE)}, pages 1--5, 2020.
 
-\bibitem{10.1145/3183713.3190664}
-{\sc Armbrust, M., Das, T., Torres, J., Yavuz, B., Zhu, S., Xin, R., Ghodsi,
-  A., Stoica, I., and Zaharia, M.}
-\newblock Structured streaming: A declarative api for real-time applications in
-  apache spark.
-\newblock In {\em Proceedings of the 2018 International Conference on
-  Management of Data\/} (New York, NY, USA, 2018), SIGMOD '18, Association for
-  Computing Machinery, p.~601–613.
+\bibitem{Sigurdsson2018RoadTC}
+Thorsteinn~Thorri Sigurdsson.
+\newblock {\em Road traffic congestion detection and tracking with Spark
+  Streaming analytics}.
+\newblock PhD thesis, KTH Royal Institute of Technology, 2018.
 
-\bibitem{10.1145/3397536.3422274}
-{\sc Chen, H., Yang, K., Rizzo, S.~G., Vantini, G., Taylor, P., Ma, X., and
-  Chawla, S.}
-\newblock Qarsumo: A parallel, congestion-optimized traffic simulator.
-\newblock In {\em Proceedings of the 28th International Conference on Advances
-  in Geographic Information Systems\/} (New York, NY, USA, 2020), SIGSPATIAL
-  '20, Association for Computing Machinery, pp.~578--588.
+\bibitem{9284587}
+Wenqi Lu, Yikang Rui, and Bin Ran.
+\newblock Lane-level traffic speed forecasting: A novel mixed deep learning
+  model.
+\newblock {\em IEEE Transactions on Intelligent Transportation Systems},
+  23(4):3601--3612, 2022.
 
-\bibitem{COIFMAN2017362}
-{\sc Coifman, B., and Li, L.}
-\newblock A critical evaluation of the next generation simulation (ngsim)
-  vehicle trajectory dataset.
-\newblock {\em Transportation Research Part B: Methodological 105\/} (2017),
-  362--377.
+\bibitem{seo2020evaluation}
+Toru Seo, Yusuke Tago, Norihito Shinkai, Masakazu Nakanishi, Jun Tanabe,
+  Daisuke Ushirogochi, Shota Kanamori, Atsushi Abe, Takashi Kodama, Satoshi
+  Yoshimura, et~al.
+\newblock Evaluation of large-scale complete vehicle trajectories dataset on
+  two kilometers highway segment for one hour duration: Zen traffic data.
+\newblock In {\em 2020 International Symposium on Transportation Data and
+  Modelling}, 2020.
+
+\bibitem{rossi2021vehicle}
+Luca Rossi, Andrea Ajmar, Marina Paolanti, and Roberto Pierdicca.
+\newblock Vehicle trajectory prediction and generation using lstm models and
+  gans.
+\newblock {\em PLOS ONE}, 16(7):1--28, 07 2021.
 
 \bibitem{DAHIYA2022100066}
-{\sc Dahiya, G., Asakura, Y., and Nakanishi, W.}
+Garima Dahiya, Yasuo Asakura, and Wataru Nakanishi.
 \newblock Analysis of the single-regime speed-density fundamental relationships
   for varying spatiotemporal resolution using zen traffic data.
-\newblock {\em Asian Transport Studies 8\/} (2022), 100066.
+\newblock {\em Asian Transport Studies}, 8:100066, 2022.
 
-\bibitem{FAN2019298}
-{\sc Fan, J., Fu, C., Stewart, K., and Zhang, L.}
-\newblock Using big gps trajectory data analytics for vehicle miles traveled
-  estimation.
-\newblock {\em Transportation Research Part C: Emerging Technologies 103\/}
-  (2019), 298--307.
+\bibitem{10.1145/2820783.2820860}
+Jia Yu, Jinxuan Wu, and Mohamed Sarwat.
+\newblock Geospark: a cluster computing framework for processing large-scale
+  spatial data.
+\newblock In {\em Proceedings of the 23rd SIGSPATIAL International Conference
+  on Advances in Geographic Information Systems}, SIGSPATIAL '15, New York, NY,
+  USA, 2015. Association for Computing Machinery.
 
-\bibitem{sedona}
-{\sc Foundation, T. A.~S.}
-\newblock Overview - apache sedona™.
+\bibitem{yu2020dissecting}
+Jia Yu, Zishan Fu, and Mohamed Sarwat.
+\newblock Dissecting geosparksim: a scalable microscopic road network traffic
+  simulator in apache spark.
+\newblock {\em Distributed and Parallel Databases}, 38(4):963--994, 2020.
+
+\bibitem{10.1007/978-981-16-4126-8_24}
+Ver{\'o}nica Alba~Valencia and Julio Proa{\~{n}}o~Orellana.
+\newblock Design and evaluation of a distributed architecture for geosparksim.
+\newblock In {\'A}lvaro Rocha, Paulo~Carlos L{\'o}pez-L{\'o}pez, and Juan~Pablo
+  Salgado-Guerrero, editors, {\em Communication, Smart Technologies and
+  Innovation for Society}, pages 253--263, Singapore, 2022. Springer Singapore.
+
+\bibitem{9075295}
+Yu~Huang, Yan Li, Zhaofeng Zhang, and Ryan~Wen Liu.
+\newblock Gpu-accelerated compression and visualization of large-scale vessel
+  trajectories in maritime iot industries.
+\newblock {\em IEEE Internet of Things Journal}, 7(11):10794--10812, 11 2020.
+
+\bibitem{8569938}
+Pablo~Alvarez Lopez, Michael Behrisch, Laura Bieker-Walz, Jakob Erdmann,
+  Yun-Pang Flötteröd, Robert Hilbrich, Leonhard Lücken, Johannes Rummel,
+  Peter Wagner, and Evamarie Wiessner.
+\newblock Microscopic traffic simulation using sumo.
+\newblock In {\em 2018 21st International Conference on Intelligent
+  Transportation Systems (ITSC)}, pages 2575--2582, 11 2018.
+
+\bibitem{10.1145/3397536.3422274}
+Hao Chen, Ke~Yang, Stefano~Giovanni Rizzo, Giovanna Vantini, Phillip Taylor,
+  Xiaosong Ma, and Sanjay Chawla.
+\newblock Qarsumo: A parallel, congestion-optimized traffic simulator.
+\newblock In {\em Proceedings of the 28th International Conference on Advances
+  in Geographic Information Systems}, SIGSPATIAL '20, pages 578--588, New York,
+  NY, USA, 2020. Association for Computing Machinery.
 
 \bibitem{gora2020microscopic}
-{\sc Gora, P., Katrakazas, C., Drabicki, A., Islam, F., and Ostaszewski, P.}
+Paweł Gora, Christos Katrakazas, Arkadiusz Drabicki, Faqhrul Islam, and Piotr
+  Ostaszewski.
 \newblock Microscopic traffic simulation models for connected and automated
   vehicles (cavs) - state-of-the-art.
-\newblock {\em Procedia Computer Science 170\/} (2020), 474--481.
+\newblock {\em Procedia Computer Science}, 170:474--481, 2020.
 \newblock The 11th International Conference on Ambient Systems, Networks and
   Technologies (ANT) / The 3rd International Conference on Emerging Data and
   Industry 4.0 (EDI40) / Affiliated Workshops.
 
-\bibitem{GU20191}
-{\sc Gu, Y., Lu, W., Qin, L., Li, M., and Shao, Z.}
-\newblock Short-term prediction of lane-level traffic speeds: A fusion deep
-  learning model.
-\newblock {\em Transportation Research Part C: Emerging Technologies 106\/}
-  (2019), 1--16.
+\bibitem{Yang2019}
+Qing Yang, Zhongwei Yue, Ru~Chen, Jingwei Zhang, Xiaoli Hu, and Ya~Zhou.
+\newblock Real-time detection of traffic congestion based on trajectory data.
+\newblock {\em The Journal of Engineering}, 2019, 09 2019.
+
+\bibitem{FAN2019298}
+Junchuan Fan, Cheng Fu, Kathleen Stewart, and Lei Zhang.
+\newblock Using big gps trajectory data analytics for vehicle miles traveled
+  estimation.
+\newblock {\em Transportation Research Part C: Emerging Technologies},
+  103:298--307, 2019.
+
+\bibitem{Zhang20231124}
+Peiqi Zhang, Kathleen Stewart, and Yao Li.
+\newblock Estimating traffic speed and speeding using passively collected big
+  mobility data and a distributed computing framework.
+\newblock {\em Transactions in GIS}, 27(4):1124 -- 1144, 2023.
+\newblock Cited by: 1.
 
 \bibitem{STARK}
-{\sc Hagedorn, S., Götze, P., and Sattler, K.-U.}
+Stefan Hagedorn, Philipp G{\"o}tze, and Kai-Uwe Sattler.
 \newblock The stark framework for spatio-temporal data analytics on spark.
-
-\bibitem{lstm}
-{\sc Hochreiter, S., and Schmidhuber, J.}
-\newblock Long short-term memory.
-\newblock {\em Neural computation 9\/} (12 1997), 1735--80.
-
-\bibitem{9075295}
-{\sc Huang, Y., Li, Y., Zhang, Z., and Liu, R.~W.}
-\newblock Gpu-accelerated compression and visualization of large-scale vessel
-  trajectories in maritime iot industries.
-\newblock {\em IEEE Internet of Things Journal 7}, 11 (11 2020), 10794--10812.
-
-\bibitem{Kreps2011KafkaA}
-{\sc Jay~Kreps, Neha~Narkhede, J.~R.}
-\newblock Kafka: a distributed messaging system for log processing.
-
-\bibitem{KIM2016669}
-{\sc Kim, S., and Kim, H.}
-\newblock A new metric of absolute percentage error for intermittent demand
-  forecasts.
-\newblock {\em International Journal of Forecasting 32}, 3 (2016), 669--679.
-
-\bibitem{LI2020225}
-{\sc Li, L., Jiang, R., He, Z., Chen, X.~M., and Zhou, X.}
-\newblock Trajectory data-based traffic flow studies: A revisit.
-\newblock {\em Transportation Research Part C: Emerging Technologies 114\/}
-  (2020), 225--240.
-
-\bibitem{li2024unifyinglaneleveltrafficprediction}
-{\sc Li, S., Cui, Y., Xu, J., Li, L., Meng, L., Yang, W., Zhang, F., and Zhou,
-  X.}
-\newblock Unifying lane-level traffic prediction from a graph structural
-  perspective: Benchmark and baseline, 2024.
+\newblock In {\em Datenbanksysteme f{\"u}r Business, Technologie und Web},
+  2017.
 
 \bibitem{10356753}
-{\sc Liang, H., Zhang, Z., Hu, C., Gong, Y., and Cheng, D.}
+Huanghuang Liang, Zheng Zhang, Chuang Hu, Yili Gong, and Dazhao Cheng.
 \newblock A survey on spatio-temporal big data analytics ecosystem: Resource
   management, processing platform, and applications.
-\newblock {\em IEEE Transactions on Big Data 10}, 2 (4 2024), 174--193.
+\newblock {\em IEEE Transactions on Big Data}, 10(2):174--193, 4 2024.
 
-\bibitem{8569938}
-{\sc Lopez, P.~A., Behrisch, M., Bieker-Walz, L., Erdmann, J., Flötteröd,
-  Y.-P., Hilbrich, R., Lücken, L., Rummel, J., Wagner, P., and Wiessner, E.}
-\newblock Microscopic traffic simulation using sumo.
+\bibitem{LI2020225}
+Li~Li, Rui Jiang, Zhengbing He, Xiqun~(Michael) Chen, and Xuesong Zhou.
+\newblock Trajectory data-based traffic flow studies: A revisit.
+\newblock {\em Transportation Research Part C: Emerging Technologies},
+  114:225--240, 2020.
+
+\bibitem{highDdataset}
+Robert Krajewski, Julian Bock, Laurent Kloeker, and Lutz Eckstein.
+\newblock The highd dataset: A drone dataset of naturalistic vehicle
+  trajectories on german highways for validation of highly automated driving
+  systems.
 \newblock In {\em 2018 21st International Conference on Intelligent
-  Transportation Systems (ITSC)\/} (11 2018), pp.~2575--2582.
+  Transportation Systems (ITSC)}, pages 2118--2125, 2018.
 
-\bibitem{9284587}
-{\sc Lu, W., Rui, Y., and Ran, B.}
-\newblock Lane-level traffic speed forecasting: A novel mixed deep learning
+\bibitem{zen}
+Hanshin Exp.~Co. Ltd.
+\newblock Zen traffic data, 2018.
+
+\bibitem{sttrafficnet}
+Huakang Lu, Dongmin Huang, Youyi Song, Dazhi Jiang, Teng Zhou, and Jing Qin.
+\newblock St-trafficnet: A spatial-temporal deep learning network for traffic
+  forecasting.
+\newblock {\em Electronics}, 09 2020.
+
+\bibitem{kalman}
+Yuanchang Xie, Yunlong Zhang, and Ye~Zhirui.
+\newblock Short-term traffic volume forecasting using kalman filter with
+  discrete wavelet decomposition.
+\newblock {\em Comp.-Aided Civil and Infrastruct. Engineering}, 22:326--334, 07
+  2007.
+
+\bibitem{traffictheory}
+Li~Li, Xiqun Chen, Zhiheng Li, and Lei Zhang.
+\newblock Freeway travel-time estimation based on temporal-spatial queueing
   model.
-\newblock {\em IEEE Transactions on Intelligent Transportation Systems 23}, 4
-  (2022), 3601--3612.
+\newblock {\em IEEE Transactions on Intelligent Transportation Systems},
+  14(3):1536--1541, 2013.
 
-\bibitem{rossi2021vehicle}
-{\sc Rossi, L., Ajmar, A., Paolanti, M., and Pierdicca, R.}
-\newblock Vehicle trajectory prediction and generation using lstm models and
-  gans.
-\newblock {\em PLOS ONE 16}, 7 (07 2021), 1--28.
+\bibitem{karima}
+{Mascha C.} {van der Voort}, Mark Dougherty, M.S. Dougherty, and Susan Watson.
+\newblock Combining kohonen maps with arima time series models to forecast
+  traffic flow.
+\newblock {\em Transportation research. Part C: Emerging technologies},
+  4(5):307--318, 1996.
 
-\bibitem{seo2020evaluation}
-{\sc Seo, T., Tago, Y., Shinkai, N., Nakanishi, M., Tanabe, J., Ushirogochi,
-  D., Kanamori, S., Abe, A., Kodama, T., Yoshimura, S., et~al.}
-\newblock Evaluation of large-scale complete vehicle trajectories dataset on
-  two kilometers highway segment for one hour duration: Zen traffic data.
-\newblock In {\em 2020 International Symposium on Transportation Data and
-  Modelling\/} (2020).
+\bibitem{arimax}
+Billy Williams.
+\newblock Multivariate vehicular traffic flow prediction: Evaluation of arimax
+  modeling.
+\newblock {\em Transportation Research Record}, 1776:194--200, 01 2001.
+
+\bibitem{starima}
+Yiannis Kamarianakis and Poulicos Prastacos.
+\newblock Space-time modeling of traffic flow.
+\newblock {\em Computers \& Geosciences}, 31(2):119--133, 2005.
+\newblock Geospatial Research in Europe: AGILE 2003.
+
+\bibitem{gdl}
+Yang Zhang, T.~Cheng, and Yibin Ren.
+\newblock A graph deep learning method for short-term traffic forecasting on
+  large road networks.
+\newblock {\em Computer-Aided Civil and Infrastructure Engineering},
+  34:877--896, 05 2019.
+
+\bibitem{svr}
+Chun-Hsin Wu, Jan-Ming Ho, and D.T. Lee.
+\newblock Travel-time prediction with support vector regression.
+\newblock {\em IEEE Transactions on Intelligent Transportation Systems},
+  5(4):276--281, 2004.
+
+\bibitem{xgboost}
+Wenqi Lu, Yikang Rui, Ziwei Yi, Bin Ran, and Yuanli Gu.
+\newblock A hybrid model for lane-level traffic flow forecasting based on
+  complete ensemble empirical mode decomposition and extreme gradient boosting.
+\newblock {\em IEEE Access}, 8:42042--42054, 2020.
+
+\bibitem{knn}
+Shifen Cheng, Feng Lu, Peng Peng, and Sheng Wu.
+\newblock Short-term traffic forecasting: An adaptive st-knn model that
+  considers spatial heterogeneity.
+\newblock {\em Computers, Environment and Urban Systems}, 71:186--198, 2018.
+
+\bibitem{ma2015lstm}
+Xiaolei Ma, Zhimin Tao, Yinhai Wang, Haiyang Yu, and Yunpeng Wang.
+\newblock Long short-term memory neural network for traffic speed prediction
+  using remote microwave sensor data.
+\newblock {\em Transportation Research Part C: Emerging Technologies},
+  54:187--197, 2015.
+
+\bibitem{rui2017gru}
+Rui Fu, Zuo Zhang, and Li~Li.
+\newblock Using lstm and gru neural network methods for traffic flow
+  prediction.
+\newblock In {\em 2016 31st Youth Academic Annual Conference of Chinese
+  Association of Automation (YAC)}, pages 324--328, 2016.
+
+\bibitem{macnnimage}
+Xiaolei Ma, Zhuang Dai, Zhengbing He, Jihui Na, Yong Wang, and Yunpeng Wang.
+\newblock Learning traffic as images: A deep convolutional neural network for
+  large-scale transportation network speed prediction, 2017.
+
+\bibitem{cnnzhang}
+Junbo Zhang, Yu~Zheng, Junkai Sun, and Dekang Qi.
+\newblock Flow prediction in spatio-temporal networks based on multitask deep
+  learning.
+\newblock {\em IEEE Transactions on Knowledge and Data Engineering},
+  32(3):468--478, 2020.
+
+\bibitem{convlstm}
+Xingjian SHI, Zhourong Chen, Hao Wang, Dit-Yan Yeung, Wai-kin Wong, and
+  Wang-chun WOO.
+\newblock Convolutional lstm network: A machine learning approach for
+  precipitation nowcasting.
+\newblock In C.~Cortes, N.~Lawrence, D.~Lee, M.~Sugiyama, and R.~Garnett,
+  editors, {\em Advances in Neural Information Processing Systems}, volume~28.
+  Curran Associates, Inc., 2015.
+
+\bibitem{FCL}
+Jintao Ke, Hongyu Zheng, Hai Yang, and Xiqun~(Michael) Chen.
+\newblock Short-term forecasting of passenger demand under on-demand ride
+  services: A spatio-temporal deep learning approach.
+\newblock {\em Transportation Research Part C: Emerging Technologies},
+  85:591--608, 2017.
+
+\bibitem{gcn1}
+Lingyun Wang, Guojiang Shen, Kaifeng Yu, Zhanhao Ji, and Xiangjie Kong.
+\newblock Lane-level traffic flow prediction based on dynamic graph generation.
+\newblock In {\em 2021 IEEE 23rd Int Conf on High Performance Computing \&
+  Communications; 7th Int Conf on Data Science \& Systems; 19th Int Conf on
+  Smart City; 7th Int Conf on Dependability in Sensor, Cloud \& Big Data
+  Systems \& Application (HPCC/DSS/SmartCity/DependSys)}, pages 1802--1809,
+  2021.
+
+\bibitem{gcn2}
+Bao Li, Quan Yang, Jianjiang Chen, Dongjin Yu, Dongjing Wang, and Feng Wan.
+\newblock A dynamic spatio-temporal deep learning model for lane-level traffic
+  prediction.
+\newblock {\em Journal of Advanced Transportation}, 2023:1--14, 03 2023.
+
+\bibitem{agafonov}
+Anton Agafonov.
+\newblock Traffic flow prediction using graph convolution neural networks.
+\newblock In {\em 2020 10th International Conference on Information Science and
+  Technology (ICIST)}, pages 91--95, 2020.
+
+\bibitem{ngsim}
+U.S.~Department of~Transportation Federal Highway~Administration.
+\newblock Next generation simulation (ngsim) vehicle trajectories and
+  supporting data, 2016.
+
+\bibitem{Kreps2011KafkaA}
+Jun~Rao Jay~Kreps, Neha~Narkhede.
+\newblock Kafka: a distributed messaging system for log processing, 2011.
+
+\bibitem{10.1145/3183713.3190664}
+Michael Armbrust, Tathagata Das, Joseph Torres, Burak Yavuz, Shixiong Zhu,
+  Reynold Xin, Ali Ghodsi, Ion Stoica, and Matei Zaharia.
+\newblock Structured streaming: A declarative api for real-time applications in
+  apache spark.
+\newblock In {\em Proceedings of the 2018 International Conference on
+  Management of Data}, SIGMOD '18, pages 601--613, New York, NY, USA, 2018.
+  Association for Computing Machinery.
+
+\bibitem{COIFMAN2017362}
+Benjamin Coifman and Lizhe Li.
+\newblock A critical evaluation of the next generation simulation (ngsim)
+  vehicle trajectory dataset.
+\newblock {\em Transportation Research Part B: Methodological}, 105:362--377,
+  2017.
+
+\bibitem{Thiemann_2008}
+Christian Thiemann, Martin Treiber, and Arne Kesting.
+\newblock Estimating acceleration and lane-changing dynamics from next
+  generation simulation trajectory data.
+\newblock {\em Transportation Research Record: Journal of the Transportation
+  Research Board}, 2088(1):90–101, January 2008.
+
+\bibitem{MONTANINO201582}
+Marcello Montanino and Vincenzo Punzo.
+\newblock Trajectory data reconstruction and simulation-based validation
+  against macroscopic traffic patterns.
+\newblock {\em Transportation Research Part B: Methodological}, 80:82--106,
+  2015.
+
+\bibitem{lstm}
+Sepp Hochreiter and Jürgen Schmidhuber.
+\newblock Long short-term memory.
+\newblock {\em Neural computation}, 9:1735--80, 12 1997.
 
 \bibitem{9779153}
-{\sc Shi, C., Zhang, Z., Zhang, W., Zhang, C., and Xu, Q.}
+Changjiang Shi, Zhijie Zhang, Wanchang Zhang, Chuanrong Zhang, and Qiang Xu.
 \newblock Learning multiscale temporal-spatial-spectral features via a
   multipath convolutional lstm neural network for change detection with
   hyperspectral images.
-\newblock {\em IEEE Transactions on Geoscience and Remote Sensing 60\/} (2022),
-  1--16.
+\newblock {\em IEEE Transactions on Geoscience and Remote Sensing}, 60:1--16,
+  2022.
 
-\bibitem{NIPS2015_07563a3f}
-{\sc SHI, X., Chen, Z., Wang, H., Yeung, D.-Y., Wong, W.-k., and WOO, W.-c.}
-\newblock Convolutional lstm network: A machine learning approach for
-  precipitation nowcasting.
-\newblock In {\em Advances in Neural Information Processing Systems\/} (2015),
-  C.~Cortes, N.~Lawrence, D.~Lee, M.~Sugiyama, and R.~Garnett, Eds., vol.~28,
-  Curran Associates, Inc.
+\bibitem{KIM2016669}
+Sungil Kim and Heeyoung Kim.
+\newblock A new metric of absolute percentage error for intermittent demand
+  forecasts.
+\newblock {\em International Journal of Forecasting}, 32(3):669--679, 2016.
 
-\bibitem{Sigurdsson2018RoadTC}
-{\sc Sigurdsson, T.~T.}
-\newblock Road traffic congestion detection and tracking with spark streaming
-  analytics.
+\bibitem{mic}
+David~N. Reshef, Yakir~A. Reshef, Hilary~K. Finucane, Sharon~R. Grossman,
+  Gilean McVean, Peter~J. Turnbaugh, Eric~S. Lander, Michael Mitzenmacher, and
+  Pardis~C. Sabeti.
+\newblock Detecting novel associations in large data sets.
+\newblock {\em Science}, 334(6062):1518--1524, 2011.
 
-\bibitem{Yang2019}
-{\sc Yang, Q., Yue, Z., Chen, R., Zhang, J., Hu, X., and Zhou, Y.}
-\newblock Real-time detection of traffic congestion based on trajectory data.
-\newblock {\em The Journal of Engineering 2019\/} (09 2019).
+\bibitem{miccomplexity}
+Fubo Shao and Hui Liu.
+\newblock The theoretical and experimental analysis of the maximal information
+  coefficient approximate algorithm.
+\newblock {\em Journal of Systems Science and Information}, 9:95--104, 03 2021.
 
-\bibitem{yu2020dissecting}
-{\sc Yu, J., Fu, Z., and Sarwat, M.}
-\newblock Dissecting geosparksim: a scalable microscopic road network traffic
-  simulator in apache spark.
-\newblock {\em Distributed and Parallel Databases 38}, 4 (2020), 963--994.
-
-\bibitem{10.1145/2820783.2820860}
-{\sc Yu, J., Wu, J., and Sarwat, M.}
-\newblock Geospark: a cluster computing framework for processing large-scale
-  spatial data.
-\newblock In {\em Proceedings of the 23rd SIGSPATIAL International Conference
-  on Advances in Geographic Information Systems\/} (New York, NY, USA, 2015),
-  SIGSPATIAL '15, Association for Computing Machinery.
-
-\bibitem{Zhang20231124}
-{\sc Zhang, P., Stewart, K., and Li, Y.}
-\newblock Estimating traffic speed and speeding using passively collected big
-  mobility data and a distributed computing framework.
-\newblock {\em Transactions in GIS 27}, 4 (2023), 1124 -- 1144.
-\newblock Cited by: 1.
-
-\bibitem{zheng2015trajectory}
-{\sc Zheng, Y.}
-\newblock Trajectory data mining: an overview.
-\newblock {\em ACM Transactions on Intelligent Systems and Technology (TIST)
-  6}, 3 (2015), 1--41.
+\bibitem{WANG2023107044}
+Junhua Wang, Ting Fu, and Qiangqiang Shangguan.
+\newblock Wide-area vehicle trajectory data based on advanced tracking and
+  trajectory splicing technologies: Potentials in transportation research.
+\newblock {\em Accident Analysis \& Prevention}, 186:107044, 2023.
 
 \end{thebibliography}

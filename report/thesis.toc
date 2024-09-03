@@ -1,14 +1,12 @@
 \contentsline {chapter}{\numberline {1}Introduction}{1}{}%
 \contentsline {section}{\numberline {1.1}Introduction and Motivation}{1}{}%
-\contentsline {section}{\numberline {1.2}Aims and Objectives}{2}{}%
-\contentsline {chapter}{\numberline {2}Literature Review}{3}{}%
-\contentsline {section}{\numberline {2.1}Research Field Challenges}{3}{}%
-\contentsline {section}{\numberline {2.2}Classification of Literature and Organisation}{4}{}%
-\contentsline {section}{\numberline {2.3}Paper Summaries}{4}{}%
-\contentsline {subsection}{\numberline {2.3.1}Suitable Datasets for lane-level traffic prediction}{5}{}%
-\contentsline {subsection}{\numberline {2.3.2}Statistical and Machine Learning Approach}{6}{}%
-\contentsline {subsection}{\numberline {2.3.3}Deep Learning Approaches}{7}{}%
-\contentsline {subsection}{\numberline {2.3.4}Reak-time traffic data processing}{8}{}%
+\contentsline {section}{\numberline {1.2}Aims and Objectives}{3}{}%
+\contentsline {chapter}{\numberline {2}Literature Review}{4}{}%
+\contentsline {section}{\numberline {2.1}Research Field Challenges}{4}{}%
+\contentsline {section}{\numberline {2.2}Suitable Datasets for lane-level traffic prediction}{5}{}%
+\contentsline {section}{\numberline {2.3}Statistical and Machine Learning Approach}{6}{}%
+\contentsline {section}{\numberline {2.4}Deep Learning Approaches}{7}{}%
+\contentsline {section}{\numberline {2.5}Real-time traffic data processing}{8}{}%
 \contentsline {chapter}{\numberline {3}Methodology}{10}{}%
 \contentsline {section}{\numberline {3.1}Dataset details}{10}{}%
 \contentsline {section}{\numberline {3.2}Underlying Data Processing Technologies}{13}{}%
@@ -28,6 +26,6 @@
 \contentsline {section}{\numberline {5.2}Further model optimisation}{36}{}%
 \contentsline {section}{\numberline {5.3}Further architectural optimisation and scalability testing}{37}{}%
 \contentsline {chapter}{\numberline {6}Conclusion}{39}{}%
-\contentsline {chapter}{References}{40}{}%
-\contentsline {chapter}{Appendix \numberline {A}Supplementary Materials I}{44}{}%
-\contentsline {chapter}{Appendix \numberline {B}Supplementary Materials II}{45}{}%
+\contentsline {chapter}{References}{41}{}%
+\contentsline {chapter}{Appendix \numberline {A}Supplementary Materials I}{48}{}%
+\contentsline {chapter}{Appendix \numberline {B}Supplementary Materials II}{50}{}%
