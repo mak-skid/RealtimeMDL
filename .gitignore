@@ -27,4 +27,11 @@ jpyshp
 dataset_docs
 checkpoints
 __pycache__
+training/log
 *.log
+report
+lstms
+dataset
+bata_files
+us101viz
+*.json

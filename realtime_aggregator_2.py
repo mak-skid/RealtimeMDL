@@ -1,7 +1,6 @@
 from sedona.spark import *
 from pyspark.sql.types import StructType, StructField, IntegerType, TimestampType, ArrayType
 from realtime_predictor import RealTimePredictor
-from utils.datapreprocessing_utils import *
 from pyspark.sql import functions as F
 from pyspark.sql import DataFrame
 
