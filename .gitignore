@@ -1,6 +1,7 @@
 # Byte-compiled
 __pycache__
 models
+.DS_Store
 
 # Datasets and logs
 *.json
