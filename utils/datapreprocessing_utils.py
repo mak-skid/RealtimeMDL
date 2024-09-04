@@ -1,12 +1,17 @@
-from pyspark import RDD
+"""
+This file contains a bunch of utility functions that are used to preprocess the US101 dataset.
+
+Author: Makoto Ono
+"""
 import pyspark
 from sedona.sql.st_functions import ST_Transform, ST_Y, ST_X
 from sedona.sql.st_constructors import ST_Point
 from pyspark.sql import functions as F
-from pyspark.sql import SparkSession, DataFrame
+from pyspark.sql import DataFrame
 import numpy as np
 import torch
 from pyspark.sql.types import StructType, StructField, IntegerType, LongType, DoubleType, StringType, ArrayType
+
 
 def get_original_schema() -> pyspark.sql.types.StructType:
     return StructType([
@@ -111,6 +116,14 @@ def add_distance_and_time_cols(df: DataFrame) -> DataFrame:
         })
 
 def us101_filter(df: DataFrame) -> DataFrame:
+    """
+    df: pyspark dataframe of the NGSIM dataset
+
+    Returns
+    -------
+    df: pyspark dataframe containing the US101 dataset and combine lanes 7 and 8 into 6
+    """
+
     return df \
         .filter(F.col("Location") == "us-101") \
         .withColumn("Lane_ID", 
@@ -120,6 +133,15 @@ def us101_filter(df: DataFrame) -> DataFrame:
                         )
 
 def hour_filter(df: DataFrame, location: str, hour: list) -> DataFrame:
+    """
+    df: pyspark dataframe containing the US101 dataset
+    location: str, location for adjusting the timestamp
+    hour: list, list of hours to filter the dataframe
+
+    Returns
+    -------
+    df: pyspark dataframe containing the data of Location, ElapsedTime, hour, Distance, Vehicle_ID, Lane_ID, v_Vel, v_Acc, lat, lon, sorted by ElapsedTime
+    """
     if location == "us-101":
         deduction = 5413844400 # subtract the first timestamp of the us-101 dataset
 
@@ -311,6 +333,16 @@ def timewindow_agg(df: DataFrame, start: int, end: int, timewindow: int) -> Data
     return df
 
 def add_timewindow_col(df: DataFrame, start: int, end: int, timewindow: int) -> DataFrame:
+    """
+    df: pyspark dataframe containing the US101 dataset
+    start: int, start time in seconds
+    end: int, end time in seconds
+    timewindow: int, time window in seconds
+
+    Returns
+    -------
+    df: pyspark dataframe containing the TimeWindow column
+    """
     return df \
         .filter((F.col("ElapsedTime") >= start * 1000) & (F.col("ElapsedTime") < end * 1000)) \
         .withColumn("TimeWindow", 

@@ -1,13 +1,6 @@
-import os
-import pickle
 from sedona.spark import *
-from pyspark.sql.types import StructType, StructField, IntegerType, LongType, DoubleType, StringType
-from pyspark.ml.torch.distributor import TorchDistributor
-from mdl.mdl_train import createMDLModelAndTrain
 from utils.datapreprocessing_utils import *
 from pyspark.sql import functions as F
-from pyspark.sql import DataFrame
-from us101dataset import US101Dataset
 
 
 config = SedonaContext.builder() \

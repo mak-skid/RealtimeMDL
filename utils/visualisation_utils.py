@@ -1,3 +1,9 @@
+"""
+Functions to visualise the US101 dataset
+
+Author: Makoto Ono
+"""
+
 from matplotlib.colors import Normalize
 import numpy as np
 import matplotlib.pyplot as plt
@@ -18,7 +24,6 @@ def us101_section_vis(df: DataFrame, num_section_split: int, timestamp: str, wit
     im2 = ax2.imshow(dens_matrix, cmap='turbo', norm=Normalize(vmin=0, vmax=150))
     #im3 = ax3.imshow(acc_matrix, cmap='turbo_r', norm=Normalize(vmin=-3, vmax=3))
 
-    # Show all ticks and label them with the respective list entries
     ax1.set_yticks(np.arange(len(lanes)), labels=lanes)
     ax1.set_xticks(np.arange(len(sections)), labels=sections)
 
@@ -28,14 +33,12 @@ def us101_section_vis(df: DataFrame, num_section_split: int, timestamp: str, wit
     #ax3.set_yticks(np.arange(len(lanes)), labels=lanes)
     #ax3.set_xticks(np.arange(len(sections)), labels=sections)
 
-    # Rotate the tick labels and set their alignment.
     plt.setp(ax1.get_yticklabels(), rotation=45, ha="right",
             rotation_mode="anchor")
     plt.setp(ax2.get_yticklabels(), rotation=45, ha="right",
             rotation_mode="anchor")        
     #plt.setp(ax3.get_yticklabels(), rotation=45, ha="right", rotation_mode="anchor") 
 
-    # Loop over data dimensions and create text annotations.
     for i in range(len(lanes)): # y axis
         for j in range(len(sections)): # x axis
             text = ax1.text(j, i, vel_matrix[i][j],

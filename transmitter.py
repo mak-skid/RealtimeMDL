@@ -1,15 +1,14 @@
-import json
+"""
+Function to send test data to Kafka.
+
+Author: Makoto Ono
+"""
 import time
 import pandas
 from kafka import KafkaProducer
 
+
 def transmitter():
-    """
-    Function to send test data to Kafka.
-
-    Author: Makoto Ono
-    """
-
     producer = KafkaProducer(bootstrap_servers='localhost:9092')
 
     pdf = pandas.read_csv('dataset/test_data.csv', header=0)

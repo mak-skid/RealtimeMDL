@@ -1,4 +1,8 @@
+"""
+Static prediction using the MDL model and visualise the output
 
+Author: Makoto Ono (Based on Lu. et al (2022))
+"""
 import csv
 from matplotlib import pyplot as plt
 from matplotlib.colors import Normalize
@@ -49,7 +53,6 @@ def visualise_mdl_output(pred, real, timestamp: int, model_name: str, feature_na
     #im2 = ax2.imshow(dens_matrix, cmap='turbo', norm=Normalize(vmin=100, vmax=300))
     #im3 = ax3.imshow(acc_matrix, cmap='turbo_r', norm=Normalize(vmin=-3, vmax=3))
 
-    # Show all ticks and label them with the respective list entries
     ax1.set_yticks(np.arange(len(lanes)), labels=lanes)
     ax1.set_xticks(np.arange(len(sections)), labels=sections)
 
@@ -59,12 +62,10 @@ def visualise_mdl_output(pred, real, timestamp: int, model_name: str, feature_na
     #ax3.set_yticks(np.arange(len(lanes)), labels=lanes)
     #ax3.set_xticks(np.arange(len(sections)), labels=sections)
 
-    # Rotate the tick labels and set their alignment.
     plt.setp(ax1.get_yticklabels(), rotation=45, ha="right", rotation_mode="anchor")
     plt.setp(ax2.get_yticklabels(), rotation=45, ha="right", rotation_mode="anchor")        
     #plt.setp(ax3.get_yticklabels(), rotation=45, ha="right", rotation_mode="anchor") 
 
-    # Loop over data dimensions and create text annotations.
     for i in range(len(lanes)): # y axis
         for j in range(len(sections)): # x axis
             text = ax1.text(j, i, round(pred[i][j], 2), ha="center", va="center", color="w")

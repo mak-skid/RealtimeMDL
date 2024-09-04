@@ -1,3 +1,9 @@
+"""
+First Watermark Aggregator in Spark Strcutured Streaming Component
+
+Author: Makoto Ono
+"""
+
 from sedona.spark import *
 from pyspark.sql.types import IntegerType, ArrayType
 from realtime_predictor import RealTimePredictor
@@ -11,6 +17,13 @@ class FirstWatermarkAggregator(RealTimePredictor):
         super().__init__()
 
     def parse_df(self, df: DataFrame) -> DataFrame:
+        """
+        Parse the dataframe containing a json object
+
+        Returns
+        --------
+        df: pyspark dataframe containing the parsed values of the json object in each column
+        """
         return df \
             .select(
                 F.from_json(F.col("value").cast("string"), schema=get_test_schema()).alias("parsed_value")
@@ -18,6 +31,13 @@ class FirstWatermarkAggregator(RealTimePredictor):
             .select('*', F.inline("parsed_value")).drop("parsed_value", "v_Acc") 
 
     def add_dist(self, df: DataFrame) -> DataFrame:
+        """
+        Add a new column Distance to the dataframe and drop Local_X and Local_Y columns
+
+        Returns
+        --------
+        df: pyspark dataframe containing the additional Distance column.
+        """
         return df.withColumns({
             "Distance": F.sqrt(F.pow(F.col("Local_X"), 2) + F.pow(F.col("Local_Y"), 2))
             }) \
@@ -25,14 +45,12 @@ class FirstWatermarkAggregator(RealTimePredictor):
 
     def section_agg(self, df: DataFrame) -> DataFrame:
         """
-        df: pyspark dataframe containing the US101 dataset
+        Aggregate the dataframe by timestamp, Section_ID, and Lane_ID
 
         Returns
         --------
-        df: pyspark dataframe containing the aggregated values of avg(v_Vel), avg(v_Acc), and count, 
-            grouped by timestmap, Section_ID, and Lane_ID
-        max_dist: int, maximum distance in the dataset
-        num_section_splits: int, number of splits to perform on road section of the dataset
+        df: pyspark dataframe containing the aggregated values of avg(v_Vel)
+            grouped by timestamp, Section_ID, and Lane_ID
         """
         df = df \
             .withColumn("Section_ID", 
@@ -48,6 +66,15 @@ class FirstWatermarkAggregator(RealTimePredictor):
         return df
     
     def timewindow_agg(self, df: DataFrame) -> DataFrame:
+        """
+        Aggregate the dataframe by timewindow using a watermark
+
+        Returns
+        --------
+        df: pyspark dataframe containing the aggregated values of avg(v_Vel)
+            grouped by timewindow, Section_ID, and Lane_ID
+        """
+
         return convert_timestamp(df) \
             .withWatermark("datetime", f"{self.timewindow} second") \
             .groupBy(
@@ -63,6 +90,14 @@ class FirstWatermarkAggregator(RealTimePredictor):
             ) \
     
     def rows_to_np_df(self, df: DataFrame) -> DataFrame:
+        """
+        Convert the aggregated rows to a 3D array and store it in a dataframe column
+
+        Returns
+        --------
+        df: pyspark dataframe containing the 3D numpy array column
+        """
+
         def to_3d_np(rows):
             vel_matrix = np.full((self.num_lanes, self.num_section_splits + 1), 60)
             for row in rows:

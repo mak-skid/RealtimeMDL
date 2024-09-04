@@ -1,3 +1,9 @@
+"""
+Static Training of the MDL model
+
+Author: Makoto Ono (Based on Lu. et al (2022))
+"""
+
 import time
 import keras
 from keras.layers import Conv2D, ConvLSTM2D, Dense, Flatten, BatchNormalization, Input
@@ -5,7 +11,6 @@ from keras.models import Model
 from matplotlib import pyplot as plt
 from matplotlib.colors import Normalize
 import numpy as np
-from sklearn.metrics import mean_squared_error
 from training.mdl_predict import mdl_predict
 from us101dataset import US101Dataset
 from training.mdl_model import get_MDL_model

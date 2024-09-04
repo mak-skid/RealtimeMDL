@@ -1,6 +1,12 @@
+"""
+US101 Dataset class
+
+Author: Makoto Ono
+"""
+
 import numpy as np
 import torch
-from torch.utils.data import Dataset, random_split
+from torch.utils.data import Dataset
 from pyspark.sql import functions as F
 from pyspark.sql import DataFrame
 

@@ -1,12 +1,14 @@
-import time
+"""
+
+This script contains the MDL model architecture.
+
+Author: Makoto Ono (Based on Lu. et al (2022))
+
+"""
+
 import keras
 from keras.layers import Conv2D, ConvLSTM2D, Dense, Flatten, BatchNormalization, Input
 from keras.models import Model
-from matplotlib import pyplot as plt
-from matplotlib.colors import Normalize
-import numpy as np
-from sklearn.metrics import mean_squared_error
-from us101dataset import US101Dataset
 
 
 def get_MDL_model(history_len, num_lanes, num_sections):

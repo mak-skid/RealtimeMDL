@@ -1,3 +1,9 @@
+"""
+Parent class of the two aggregators, FirstWatermarkAggregator and SecondWatermarkAggregator.
+
+Author: Makoto Ono
+"""
+
 from training.mdl_model import get_MDL_model
 
 

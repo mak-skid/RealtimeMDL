@@ -1,8 +1,15 @@
+"""
+Second Watermark Aggregator in Spark Strcutured Streaming Component
+
+Author: Makoto Ono
+"""
+
 from sedona.spark import *
 from pyspark.sql.types import StructType, StructField, IntegerType, TimestampType, ArrayType
 from realtime_predictor import RealTimePredictor
 from pyspark.sql import functions as F
 from pyspark.sql import DataFrame
+import numpy as np
 
 
 class SecondWatermarkAggregator(RealTimePredictor):
@@ -10,6 +17,13 @@ class SecondWatermarkAggregator(RealTimePredictor):
         super().__init__()
     
     def parse_df(self, df: DataFrame) -> DataFrame:
+        """
+        Parse the dataframe containing a json object
+
+        Returns
+        --------
+        df: pyspark dataframe containing the parsed values of the json object in each column
+        """
         key_schema = StructType([
             StructField("timewindow", 
                 StructType([
@@ -29,7 +43,15 @@ class SecondWatermarkAggregator(RealTimePredictor):
             }) \
             .drop("parsed_key")
 
-    def to_4d_np(self, df: DataFrame) -> DataFrame:  
+    def to_4d_np(self, df: DataFrame) -> DataFrame:
+        """
+        Aggregate the dataframe containing 3D array by timewindow 
+        using a watermark and create a dataframe containing sorted 4D numpy
+        
+        Returns
+        --------
+        df: pyspark dataframe containing the 4D numpy array
+        """
         return df \
             .withColumn("datetime", F.col("timewindow.start")) \
             .withWatermark("datetime", f"{self.timewindow*self.history_len} second") \
@@ -54,6 +76,14 @@ class SecondWatermarkAggregator(RealTimePredictor):
             )
     
     def real_time_prediction(self, df: DataFrame) -> DataFrame:
+        """
+        Predict the traffic flow in real-time using the MDL model within UDF 
+
+        Returns
+        --------
+        df: pyspark dataframe containing the predicted traffic flow
+        """
+
         def prediction(input):
             model_name = f'mdl_model_{self.with_ramp_sign}_{self.timewindow}_{self.num_sections}_{self.history_len}_{self.num_features}_{self.num_skip}'
             #model = keras.saving.load_model(f"mdl/models/{model_name}.keras")

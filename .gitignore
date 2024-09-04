@@ -10,15 +10,11 @@
 
 # Logs and databases #
 ######################
-*.csv
 .DS_Store
 
 geotorchai
-models
-preprocessed_data
 us101_7am_section_agg
 
-*.pdf
 *.png
 *.pkl
 
@@ -34,4 +30,19 @@ lstms
 dataset
 bata_files
 us101viz
+
+# Byte-compiled
+__pycache__/
+models
+
+# Datasets
 *.json
+*.csv
+preprocessed_data
+predict_output_figs
+log
+
+realtime_evaluator.py
+json_concatnetor.py
+actual_val_listener.py
+actual_val_producer.py
