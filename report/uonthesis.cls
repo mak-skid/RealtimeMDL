@@ -299,6 +299,8 @@ University of Nottingham Thesis Class]
     \null\vfil
     \vskip 60pt                   % To adjust centering.
   \begin{center}
+    {\includegraphics[width=0.5\columnwidth]{images/nottingham-logo.png}}
+    \vskip 3em
     {\huge {\@title} \par}
     \vskip 3em                  % Vertical space after title.
     {\Large

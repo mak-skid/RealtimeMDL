@@ -27,3 +27,4 @@ jpyshp
 dataset_docs
 checkpoints
 __pycache__
+*.log
